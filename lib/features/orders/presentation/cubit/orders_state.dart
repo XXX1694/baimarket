@@ -8,3 +8,12 @@ abstract class OrdersState extends Equatable {
 }
 
 class OrdersInitial extends OrdersState {}
+
+class OrdersGetting extends OrdersState {}
+
+class OrdersGot extends OrdersState {
+  final List<OrderModel> orders;
+  const OrdersGot({required this.orders});
+}
+
+class OrdersGetError extends OrdersState {}

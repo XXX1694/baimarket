@@ -8,3 +8,12 @@ abstract class MainState extends Equatable {
 }
 
 class MainInitial extends MainState {}
+
+class BannerGetting extends MainState {}
+
+class BannerGot extends MainState {
+  final List<BannerModel> banners;
+  const BannerGot({required this.banners});
+}
+
+class BannerGetError extends MainState {}

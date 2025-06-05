@@ -1,0 +1,26 @@
+<svg width="86" height="107" viewBox="0 0 86 107" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.8457 57.5259L22.222 93.1267L82.9926 96.256L82.6163 60.6519L21.8457 57.5259Z" fill="#0A5E16"/>
+<path d="M64.1536 106.66L82.9922 96.2557L82.6159 60.6516L63.7773 71.1388L64.1536 106.66Z" fill="#198128"/>
+<path d="M3.38314 103.614L22.2217 93.2092L21.8454 57.5259L3.00684 68.013L3.38314 103.614Z" fill="#0D681A"/>
+<path d="M3.00684 68.0129L3.38314 103.614L64.1537 106.74L63.7774 71.1389L3.00684 68.0129Z" fill="#2B933A"/>
+<path d="M13.3389 26.7641L29.233 37.1126L72.4194 22.5587L57.0534 12.5601L13.3389 26.7641Z" fill="#075612"/>
+<path d="M30.2534 48.9895L85.9999 31.0158L84.5838 18.459L29.2334 37.1127L30.2534 48.9895Z" fill="#0A5E16"/>
+<path d="M0 18.0793L1.41611 30.6395L30.2533 48.9895L29.2333 37.1127L0 18.0793Z" fill="#0D681A"/>
+<path d="M57.0544 12.5601L86.0005 31.3954L84.5844 18.8353L55.6416 0L57.0544 12.5601Z" fill="#198128"/>
+<path d="M0 18.0793L1.41611 30.6395L57.0537 12.5601L55.6409 0L0 18.0793Z" fill="#2B933A"/>
+<path style="mix-blend-mode:multiply" d="M1.05579 103.634C1.02278 104.37 7.6775 105.281 15.9233 105.664C24.1691 106.047 30.8799 105.763 30.9162 105.027C30.9492 104.291 24.2945 103.379 16.0487 102.997C7.80294 102.614 1.0921 102.898 1.05579 103.634Z" fill="url(#paint0_radial_9_4197)"/>
+<path style="mix-blend-mode:multiply" d="M63.9491 106.72C64.1702 107.133 68.7025 105.129 74.0665 102.241C79.4306 99.3523 83.5997 96.6752 83.3752 96.2626C83.1508 95.85 78.6218 97.8536 73.2578 100.742C67.8937 103.63 63.7246 106.307 63.9491 106.72Z" fill="url(#paint1_radial_9_4197)"/>
+<defs>
+<radialGradient id="paint0_radial_9_4197" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.2132 86.2733) rotate(-177.33) scale(15.0227 1.46563)">
+<stop stop-color="#BABABA"/>
+<stop offset="0.07" stop-color="#C0C0C0"/>
+<stop offset="0.46" stop-color="#E2E2E2"/>
+<stop offset="0.79" stop-color="#F7F7F7"/>
+<stop offset="1" stop-color="white"/>
+</radialGradient>
+<radialGradient id="paint1_radial_9_4197" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(103.476 149.435) rotate(151.71) scale(11.0011 0.733406)">
+<stop stop-color="#A3A3A3"/>
+<stop offset="1" stop-color="white"/>
+</radialGradient>
+</defs>
+</svg>

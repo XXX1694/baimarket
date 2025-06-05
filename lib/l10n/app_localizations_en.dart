@@ -1,0 +1,453 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for English (`en`).
+class AppLocalizationsEn extends AppLocalizations {
+  AppLocalizationsEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get appName => 'Bai Market';
+
+  @override
+  String get welcome => 'Welcome';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account?';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get surname => 'Surname';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get enterName => 'Enter your name';
+
+  @override
+  String get enterSurname => 'Enter your surname';
+
+  @override
+  String get enterPhone => 'Enter your phone number';
+
+  @override
+  String get enterEmail => 'Enter your email';
+
+  @override
+  String get enterPassword => 'Enter your password';
+
+  @override
+  String get enterConfirmPassword => 'Confirm your password';
+
+  @override
+  String get cart => 'Cart';
+
+  @override
+  String get favorites => 'Favorites';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get catalog => 'Catalog';
+
+  @override
+  String get freeDelivery => 'Free delivery';
+
+  @override
+  String get deliveryAddress => 'Delivery Address:';
+
+  @override
+  String get addressExample => 'Example: Auezova 34';
+
+  @override
+  String get postalCode => 'Postal Code';
+
+  @override
+  String get cardNumber => 'Card number';
+
+  @override
+  String get enterCardNumber => 'Enter card number';
+
+  @override
+  String get cvv => 'CVV';
+
+  @override
+  String get whoWillMeet => 'Who will meet the courier?';
+
+  @override
+  String get nameExample => 'Example: Abzal';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get emptyCityList => 'City list is empty';
+
+  @override
+  String get productName => 'Product name';
+
+  @override
+  String get productDescription => 'Product description';
+
+  @override
+  String get homeAddress => 'Home Address';
+
+  @override
+  String postalIndex(String index) {
+    return 'Postal index: $index';
+  }
+
+  @override
+  String get myAddresses => 'My Addresses';
+
+  @override
+  String get orderHistory => 'Order History';
+
+  @override
+  String get support => 'Support';
+
+  @override
+  String get supportTitle => 'Support';
+
+  @override
+  String get supportWorkingHours => 'We are ready to help you\nevery day from 9:00 - 22:00';
+
+  @override
+  String get whatsapp => 'WhatsApp';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get faq => 'Frequently Asked Questions';
+
+  @override
+  String failedToOpen(String url) {
+    return 'Failed to open $url';
+  }
+
+  @override
+  String get exitApp => 'Exit Application';
+
+  @override
+  String get exitConfirmation => 'Are you sure you want to exit the application?';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get notInStock => 'Out of stock';
+
+  @override
+  String get youWon => 'You won!';
+
+  @override
+  String get weWillContactYou => 'We will contact you soon';
+
+  @override
+  String index(String index) {
+    return 'Index: $index';
+  }
+
+  @override
+  String price(String price) {
+    return '$price ₸';
+  }
+
+  @override
+  String oldPrice(String price) {
+    return '$price ₸';
+  }
+
+  @override
+  String get productDescriptionShort => 'Provides ease and comfort in makeup all...';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get products => 'products';
+
+  @override
+  String get more => 'More';
+
+  @override
+  String get in_sale => 'In Sale';
+
+  @override
+  String get not_in_sale => 'Not in sale';
+
+  @override
+  String get purchases => 'Purchases';
+
+  @override
+  String get orderAgain => 'Order again';
+
+  @override
+  String get myPrizes => 'My prizes';
+
+  @override
+  String get noPrizes => 'No prizes';
+
+  @override
+  String get cartEmpty => 'Cart is empty';
+
+  @override
+  String get addedItemsWillAppearHere => 'Added items will appear here';
+
+  @override
+  String get goToShopping => 'Go shopping';
+
+  @override
+  String get proceedToCheckout => 'Proceed to checkout';
+
+  @override
+  String pricePerItem(String price) {
+    return '$price ₸/item';
+  }
+
+  @override
+  String get cannotAddMore => 'Cannot add more. This is the maximum.';
+
+  @override
+  String get prize_goods => 'Prize goods';
+
+  @override
+  String get number_of_tickets => 'Number for participation';
+
+  @override
+  String get tickets => 'tickets';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get addToCart => 'Add to Cart';
+
+  @override
+  String get productOutOfStock => 'Product is out of stock!';
+
+  @override
+  String get productAddedToCart => 'Product successfully added to cart!';
+
+  @override
+  String get goToCart => 'Go to Cart';
+
+  @override
+  String get showFirst => 'Show first';
+
+  @override
+  String get sortPopular => 'Popular';
+
+  @override
+  String get sortCheap => 'Cheapest first';
+
+  @override
+  String get sortExpensive => 'Most expensive first';
+
+  @override
+  String get myData => 'My Data';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get fillAllFields => 'Please fill in all fields';
+
+  @override
+  String profileUpdateError(String message) {
+    return 'Error updating profile: $message';
+  }
+
+  @override
+  String error(String message) {
+    return 'Error: $message';
+  }
+
+  @override
+  String get faqTicketAfterPayment => 'How is the ticket issued after payment?';
+
+  @override
+  String get faqTicketAfterPaymentAnswer => 'The ticket is issued automatically after payment. You can see it in the My Profile section.';
+
+  @override
+  String get faqDeliveryMethod => 'How is delivery carried out?';
+
+  @override
+  String get faqDeliveryMethodAnswer => 'Delivery is carried out through KazPost. You will receive a notification when your order is shipped.';
+
+  @override
+  String get faqDeliveryTime => 'How long does delivery take?';
+
+  @override
+  String get faqDeliveryTimeAnswer => 'Delivery usually takes 3 to 7 business days, depending on your region.';
+
+  @override
+  String get faqCancelOrder => 'Can I cancel my order after payment?';
+
+  @override
+  String get faqCancelOrderAnswer => 'Yes, you can cancel your order before it is shipped. To do this, contact our support team.';
+
+  @override
+  String get faqTrackOrder => 'How can I track my order?';
+
+  @override
+  String get faqTrackOrderAnswer => 'After shipping, you will receive a tracking number. You can track your package on the KazPost website or in the My Orders section.';
+
+  @override
+  String get errorTitle => 'Error';
+
+  @override
+  String get success => 'Success!';
+
+  @override
+  String get orderDetails => 'Order Details';
+
+  @override
+  String get noData => 'No data';
+
+  @override
+  String get recipient => 'Recipient:';
+
+  @override
+  String get noName => 'No name';
+
+  @override
+  String get noPhone => 'No phone number';
+
+  @override
+  String get deliveryDate => 'Delivery Date:';
+
+  @override
+  String orderId(String id) {
+    return 'Order ID: $id';
+  }
+
+  @override
+  String get orderStatusPaymentPending => 'Pending Payment';
+
+  @override
+  String get orderStatusProcessing => 'Processing';
+
+  @override
+  String get orderStatusWay => 'On the Way';
+
+  @override
+  String get orderStatusPickup => 'Ready for Pickup';
+
+  @override
+  String get orderStatusDelivered => 'Delivered';
+
+  @override
+  String get orderStatusCanceled => 'Canceled';
+
+  @override
+  String get orderStatusAssembling => 'Assembling';
+
+  @override
+  String get orderStatusAbandoned => 'Abandoned';
+
+  @override
+  String get orderStatusPaymentFailed => 'Payment Failed';
+
+  @override
+  String get orderProcessingMessage => 'Your items are reserved, order is being processed. You will receive a notification when the order is sent for assembly';
+
+  @override
+  String get ticketsWillBeAwarded => 'Tickets will be awarded';
+
+  @override
+  String get totalAmount => 'Total Amount';
+
+  @override
+  String get items => 'Items';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
+  String get promotionalNumbers => 'Promotional Numbers';
+
+  @override
+  String get delivery => 'Delivery';
+
+  @override
+  String get free => 'Free';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get paid => 'Paid';
+
+  @override
+  String get unpaid => 'Unpaid';
+
+  @override
+  String get enterPhoneNumber => 'Enter your\nphone number';
+
+  @override
+  String get weWillSendSms => 'We will send an SMS with a verification code';
+
+  @override
+  String get getCode => 'Get Code';
+
+  @override
+  String get termsAndPrivacy => 'By clicking the \"Get Code\" button, you accept the terms of use and privacy policy';
+
+  @override
+  String get enterCode => 'Enter Code';
+
+  @override
+  String sentToNumber(String phoneNumber) {
+    return 'We sent it to the number\n+7 $phoneNumber';
+  }
+
+  @override
+  String get signIn => 'Sign In';
+}

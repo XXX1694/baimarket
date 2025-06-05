@@ -8,3 +8,12 @@ abstract class NotificationState extends Equatable {
 }
 
 class NotificationInitial extends NotificationState {}
+
+class NotificationGetting extends NotificationState {}
+
+class NotificationGot extends NotificationState {
+  final List<NotificationModel> notifications;
+  const NotificationGot({required this.notifications});
+}
+
+class NotificationGetError extends NotificationState {}

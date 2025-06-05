@@ -8,3 +8,12 @@ abstract class ProfileState extends Equatable {
 }
 
 class ProfileInitial extends ProfileState {}
+
+class ProfileGetting extends ProfileState {}
+
+class ProfileGot extends ProfileState {
+  final ProfileModel profile;
+  const ProfileGot({required this.profile});
+}
+
+class ProfileGetError extends ProfileState {}
