@@ -8,3 +8,12 @@ abstract class ProductState extends Equatable {
 }
 
 class ProductInitial extends ProductState {}
+
+class ProductGetting extends ProductState {}
+
+class ProductGot extends ProductState {
+  final ProductModel productModel;
+  const ProductGot({required this.productModel});
+}
+
+class ProductGetError extends ProductState {}

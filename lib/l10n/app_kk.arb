@@ -1,0 +1,438 @@
+{
+    "@@locale": "kk",
+    "appName": "Bai Market",
+    "welcome": "Қош келдіңіз",
+    "login": "Кіру",
+    "register": "Тіркелу",
+    "email": "Электрондық пошта",
+    "password": "Құпия сөз",
+    "confirmPassword": "Құпия сөзді растау",
+    "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+    "dontHaveAccount": "Тіркелгіңіз жоқ па?",
+    "alreadyHaveAccount": "Тіркелгіңіз бар ма?",
+    "phone": "Телефон",
+    "name": "Аты",
+    "surname": "Тегі",
+    "cart": "Себет",
+    "favorites": "Таңдаулылар",
+    "profile": "Профиль",
+    "settings": "Баптаулар",
+    "language": "Тіл",
+    "notifications": "Хабарландырулар",
+    "logout": "Шығу",
+    "catalog": "Каталог",
+    "freeDelivery": "Тегін жеткізу",
+    "enterName": "Атыңызды енгізіңіз",
+    "enterSurname": "Тегіңізді енгізіңіз",
+    "phoneNumber": "Телефон нөірі",
+    "enterPhone": "Телефон нөміріңізді енгізіңіз",
+    "enterEmail": "Email-діңізді енгізіңіз",
+    "enterPassword": "Құпия сөзіңізді енгізіңіз",
+    "enterConfirmPassword": "Құпия сөзіңізді растаңыз",
+    "deliveryAddress": "Жеткізу мекенжайы",
+    "addressExample": "Мысалы: Әуезов 34",
+    "postalCode": "Пошта индексі",
+    "cardNumber": "Карта нөмірі",
+    "enterCardNumber": "Карта нөмірін енгізіңіз",
+    "cvv": "CVV",
+    "whoWillMeet": "Кім қарсы алады (Толық аты-жөні)?",
+    "nameExample": "Мысалы: Даниял Асылбеков",
+    "tryAgain": "Қайталап көріңіз",
+    "emptyCityList": "Қалалар тізімі бос",
+    "productName": "Өнім атауы",
+    "productDescription": "Өнім сипаттамасы",
+    "@productDescription": {
+        "description": "Default product description text"
+    },
+    "homeAddress": "\"Үй\" мекенжайы",
+    "@homeAddress": {
+        "description": "Home address label"
+    },
+    "postalIndex": "индекс: {index}",
+    "myAddresses": "Менің мекенжайларым",
+    "orderHistory": "Тапсырыстар тарихы",
+    "@orderHistory": {
+        "description": "Order history page title"
+    },
+    "orderDetails": "Тапсырыс туралы",
+    "@orderDetails": {
+        "description": "Order details page title"
+    },
+    "support": "Қолдау қызметі",
+    "@support": {
+        "description": "Support section title"
+    },
+    "supportTitle": "Қолдау қызметі",
+    "@supportTitle": {
+        "description": "Support page title"
+    },
+    "supportWorkingHours": "Біз сізге көмеkтесуге\nдайын әр күні 9:00 - 22:00",
+    "@supportWorkingHours": {
+        "description": "Support working hours message"
+    },
+    "whatsapp": "WhatsApp",
+    "@whatsapp": {
+        "description": "WhatsApp button text"
+    },
+    "telegram": "Telegram",
+    "@telegram": {
+        "description": "Telegram button text"
+    },
+    "faq": "Жиі қойылатын сұрақтар",
+    "@faq": {
+        "description": "FAQ section title"
+    },
+    "failedToOpen": "{url} ашу мүмкін емес",
+    "@failedToOpen": {
+        "description": "Error message when URL cannot be opened",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "exitApp": "Қолданбадан шығу",
+    "exitConfirmation": "Сіз шынымен қолданбадан шығғыңыз келе ме?",
+    "cancel": "Бас тарту",
+    "notInStock": "Сатылымда жоқ",
+    "@notInStock": {
+        "description": "Product out of stock label"
+    },
+    "youWon": "Сіз жеңдіңіз!",
+    "@youWon": {
+        "description": "Prize won message"
+    },
+    "weWillContactYou": "Жақында сізбен байланысамыз",
+    "@weWillContactYou": {
+        "description": "Contact message after winning"
+    },
+    "index": "Индекс: {index}",
+    "@index": {
+        "description": "Postal index text with placeholder",
+        "placeholders": {
+            "index": {
+                "type": "String"
+            }
+        }
+    },
+    "price": "{price} ₸",
+    "@price": {
+        "description": "Price with currency",
+        "placeholders": {
+            "price": {
+                "type": "String"
+            }
+        }
+    },
+    "oldPrice": "{price} ₸",
+    "@oldPrice": {
+        "description": "Old price with currency",
+        "placeholders": {
+            "price": {
+                "type": "String"
+            }
+        }
+    },
+    "productDescriptionShort": "Барлық макияжда жеңілдік пен ыңғайлылықты қамтамасыз етеді...",
+    "home": "Басты бет",
+    "products": "тауарлар",
+    "@products": {
+        "description": "Products count text"
+    },
+    "more": "Толығырақ",
+    "in_sale": "Сатылымда",
+    "not_in_sale": "Сатылымда жоқ",
+    "purchases": "Сатып алулар",
+    "orderAgain": "Қайта тапсырыс беру",
+    "myPrizes": "Менің ұтыстарым",
+    "noPrizes": "Ұтыс жоқ",
+    "cartEmpty": "Себет бос",
+    "addedItemsWillAppearHere": "Қосылған тауарлар\nмұнда көрсетіледі",
+    "goToShopping": "Сатып алуға өту",
+    "proceedToCheckout": "Рәсімдеуге өту",
+    "pricePerItem": "{price} тг/дана",
+    "@pricePerItem": {
+        "description": "Price per item text",
+        "placeholders": {
+            "price": {
+                "type": "String"
+            }
+        }
+    },
+    "cannotAddMore": "Қосымша қосу мүмкін емес. Бұл максимум.",
+    "prize_goods": "Ұтыстың товарлары",
+    "number_of_tickets": "Акцияға қатысу нөмірі",
+    "tickets": "билеттер",
+    "description": "Сипаттама",
+    "@description": {
+        "description": "Product description section title"
+    },
+    "addToCart": "Себетке қосу",
+    "@addToCart": {
+        "description": "Add to cart button text"
+    },
+    "error": "Қате: {message}",
+    "@error": {
+        "description": "Generic error message",
+        "placeholders": {
+            "message": {
+                "type": "String"
+            }
+        }
+    },
+    "errorTitle": "Қате",
+    "@errorTitle": {
+        "description": "Error title for snackbar"
+    },
+    "productOutOfStock": "Тауар қоймада жоқ!",
+    "@productOutOfStock": {
+        "description": "Product out of stock message"
+    },
+    "success": "Сәтті!",
+    "@success": {
+        "description": "Success title for snackbar"
+    },
+    "productAddedToCart": "Тауар сәтті себетке қосылды!",
+    "@productAddedToCart": {
+        "description": "Product added to cart success message"
+    },
+    "goToCart": "Себетке өту",
+    "@goToCart": {
+        "description": "Go to cart button text"
+    },
+    "showFirst": "Алдымен көрсету",
+    "@showFirst": {
+        "description": "Sorting modal title"
+    },
+    "sortPopular": "Танымал",
+    "@sortPopular": {
+        "description": "Sort by popularity option"
+    },
+    "sortCheap": "Алдымен арзан",
+    "@sortCheap": {
+        "description": "Sort by price ascending option"
+    },
+    "sortExpensive": "Алдымен қымбат",
+    "@sortExpensive": {
+        "description": "Sort by price descending option"
+    },
+    "myData": "Менің деректерім",
+    "@myData": {
+        "description": "My data page title"
+    },
+    "save": "Сақтау",
+    "@save": {
+        "description": "Save button text"
+    },
+    "deleteAccount": "Тіркелгіні жою",
+    "@deleteAccount": {
+        "description": "Delete account button text"
+    },
+    "fillAllFields": "Барлық өрістерді толтырыңыз",
+    "@fillAllFields": {
+        "description": "Validation message for empty fields"
+    },
+    "profileUpdateError": "Профильді жаңарту кезінде қате: {message}",
+    "@profileUpdateError": {
+        "description": "Profile update error message",
+        "placeholders": {
+            "message": {
+                "type": "String"
+            }
+        }
+    },
+    "faqTicketAfterPayment": "Төлемнен кейін билет қалай беріледі?",
+    "@faqTicketAfterPayment": {
+        "description": "FAQ question about ticket issuance"
+    },
+    "faqTicketAfterPaymentAnswer": "Төлемнен кейін билет автоматты түрде беріледі. Сіз оны Менің профилім бөлімінде көре аласыз.",
+    "@faqTicketAfterPaymentAnswer": {
+        "description": "FAQ answer about ticket issuance"
+    },
+    "faqDeliveryMethod": "Жеткізу қалай жүргізіледі?",
+    "@faqDeliveryMethod": {
+        "description": "FAQ question about delivery method"
+    },
+    "faqDeliveryMethodAnswer": "Жеткізу ҚазПошта арқылы жүргізіледі. Тапсырыс жіберілген кезде сіз хабарландыру аласыз.",
+    "@faqDeliveryMethodAnswer": {
+        "description": "FAQ answer about delivery method"
+    },
+    "faqDeliveryTime": "Жеткізу қанша уақыт алады?",
+    "@faqDeliveryTime": {
+        "description": "FAQ question about delivery time"
+    },
+    "faqDeliveryTimeAnswer": "Жеткізу әдетте 3-7 жұмыс күні алады, сіздің аймағыңызға байланысты.",
+    "@faqDeliveryTimeAnswer": {
+        "description": "FAQ answer about delivery time"
+    },
+    "faqCancelOrder": "Төлемнен кейін тапсырысты болдырмауға бола ма?",
+    "@faqCancelOrder": {
+        "description": "FAQ question about order cancellation"
+    },
+    "faqCancelOrderAnswer": "Иә, тапсырысты жіберілгенге дейін болдыра аласыз. Ол үшін біздің қолдау қызметімен байланысыңыз.",
+    "@faqCancelOrderAnswer": {
+        "description": "FAQ answer about order cancellation"
+    },
+    "faqTrackOrder": "Тапсырысты қалай қадағалауға болады?",
+    "@faqTrackOrder": {
+        "description": "FAQ question about order tracking"
+    },
+    "faqTrackOrderAnswer": "Жіберілгеннен кейін сіз қадағалау нөмірін аласыз. Сіз пакетті ҚазПошта веб-сайтында немесе Менің тапсырыстарым бөлімінде қадағалай аласыз.",
+    "@faqTrackOrderAnswer": {
+        "description": "FAQ answer about order tracking"
+    },
+    "orderHistory": "Тапсырыстар тарихы",
+    "@orderHistory": {
+        "description": "Order history page title"
+    },
+    "orderDetails": "Тапсырыс туралы",
+    "@orderDetails": {
+        "description": "Order details page title"
+    },
+    "deliveryAddress": "Жеткізу мекенжайы:",
+    "@deliveryAddress": {
+        "description": "Delivery address label"
+    },
+    "noData": "Деректер жоқ",
+    "@noData": {
+        "description": "No data available message"
+    },
+    "recipient": "Алушы:",
+    "@recipient": {
+        "description": "Recipient label"
+    },
+    "noName": "Аты жоқ",
+    "@noName": {
+        "description": "No name available message"
+    },
+    "noPhone": "Телефон нөмірі жоқ",
+    "@noPhone": {
+        "description": "No phone number available message"
+    },
+    "deliveryDate": "Жеткізу күні:",
+    "@deliveryDate": {
+        "description": "Delivery date label"
+    },
+    "orderId": "Тапсырыс ID: {id}",
+    "@orderId": {
+        "description": "Order ID text with placeholder",
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "orderStatusPaymentPending": "Төлем күтілуде",
+    "@orderStatusPaymentPending": {
+        "description": "Order status: Payment Pending"
+    },
+    "orderStatusProcessing": "Өңделуде",
+    "@orderStatusProcessing": {
+        "description": "Order status: Processing"
+    },
+    "orderStatusWay": "Жолда",
+    "@orderStatusWay": {
+        "description": "Order status: On the Way"
+    },
+    "orderStatusPickup": "Алу пунктісінде күтілуде",
+    "@orderStatusPickup": {
+        "description": "Order status: Ready for Pickup"
+    },
+    "orderStatusDelivered": "Алынды",
+    "@orderStatusDelivered": {
+        "description": "Order status: Delivered"
+    },
+    "orderStatusCanceled": "Бас тартылды",
+    "@orderStatusCanceled": {
+        "description": "Order status: Canceled"
+    },
+    "orderStatusAssembling": "Тапсырыс жиналуда",
+    "@orderStatusAssembling": {
+        "description": "Order status: Assembling"
+    },
+    "orderStatusAbandoned": "Бас тартылды",
+    "@orderStatusAbandoned": {
+        "description": "Order status: Abandoned"
+    },
+    "orderStatusPaymentFailed": "Төлем қатесі",
+    "@orderStatusPaymentFailed": {
+        "description": "Order status: Payment Failed"
+    },
+    "orderProcessingMessage": "Сіздің тауарларыңыз брондалды, тапсырыс өңделуде. Тапсырыс жинауға берілгенде сіз хабарландыру аласыз",
+    "@orderProcessingMessage": {
+        "description": "Order processing status message"
+    },
+    "ticketsWillBeAwarded": "Билеттер есептеледі",
+    "@ticketsWillBeAwarded": {
+        "description": "Tickets award message"
+    },
+    "totalAmount": "Жалпы сома",
+    "@totalAmount": {
+        "description": "Total amount label"
+    },
+    "items": "Тауарлар",
+    "@items": {
+        "description": "Items label"
+    },
+    "discount": "Жеңілдік",
+    "@discount": {
+        "description": "Discount label"
+    },
+    "promotionalNumbers": "Акциялық нөмірлер",
+    "@promotionalNumbers": {
+        "description": "Promotional numbers label"
+    },
+    "delivery": "Жеткізу",
+    "@delivery": {
+        "description": "Delivery label"
+    },
+    "free": "Тегін",
+    "@free": {
+        "description": "Free delivery text"
+    },
+    "total": "Барлығы",
+    "@total": {
+        "description": "Total label"
+    },
+    "paid": "Төленді",
+    "@paid": {
+        "description": "Paid status"
+    },
+    "unpaid": "Төленбеді",
+    "@unpaid": {
+        "description": "Unpaid status"
+    },
+    "enterPhoneNumber": "Телефон нөміріңізді \nенгізіңіз",
+    "@enterPhoneNumber": {
+        "description": "Phone number input title"
+    },
+    "weWillSendSms": "Растау коды бар SMS жібереміз",
+    "@weWillSendSms": {
+        "description": "SMS verification message"
+    },
+    "getCode": "Код алу",
+    "@getCode": {
+        "description": "Get verification code button"
+    },
+    "termsAndPrivacy": "\"Код алу\" түймесін басу арқылы сіз пайдалану шарттарын және құпиялылық саясатын қабылдайсыз",
+    "@termsAndPrivacy": {
+        "description": "Terms and privacy policy text"
+    },
+    "enterCode": "Кодты енгізіңіз",
+    "@enterCode": {
+        "description": "Enter verification code title"
+    },
+    "sentToNumber": "Оны +7 {phoneNumber} нөміріне жібердік \n",
+    "@sentToNumber": {
+        "description": "SMS sent confirmation message",
+        "placeholders": {
+            "phoneNumber": {
+                "type": "String"
+            }
+        }
+    },
+    "signIn": "Кіру",
+    "@signIn": {
+        "description": "Sign in button text"
+    }
+} 

@@ -9,17 +9,34 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   equatable: ^2.0.7
   flutter_bloc: ^9.1.0
   flutter_native_splash: ^2.4.5
   flutter_svg: ^2.0.17
   dio: ^5.8.0+1
   shared_preferences: ^2.5.2
+  go_router: ^14.8.1
+  flutter_riverpod: ^2.6.1
+  json_annotation: ^4.9.0
+  shimmer: ^3.0.0
+  url_launcher: ^6.3.1
+  firebase_core: ^3.13.0
+  firebase_messaging: ^15.2.5
+  mask_text_input_formatter: ^2.9.0
+  webview_flutter: ^4.11.0
+  webview_flutter_wkwebview: ^3.20.0
+  awesome_notifications: ^0.10.1
+  pin_code_fields: ^8.0.1
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.15
 
 flutter:
   generate: true
@@ -29,6 +46,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+    - assets/icons/notification_icons/
 
   fonts:
     - family: Gilroy
@@ -43,3 +61,24 @@ flutter:
           weight: 400
         - asset: fonts/Gilroy-Light.ttf
           weight: 300
+
+flutter_native_splash:
+  color: "#00320F"
+  android_12:
+    color: "#00320F"
+    icon_background_color: "#00320F"
+
+  android: true
+  ios: true
+
+# Add l10n configuration
+flutter_intl:
+  enabled: true
+  class_name: S
+  main_locale: en
+  arb_dir: lib/l10n
+  output_dir: lib/generated
+# flutter gen-l10n
+# dart pub global run flutterfire_cli:flutterfire configure
+# flutter pub run build_runner build --delete-conflicting-outputs
+

@@ -1,0 +1,453 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Russian (`ru`).
+class AppLocalizationsRu extends AppLocalizations {
+  AppLocalizationsRu([String locale = 'ru']) : super(locale);
+
+  @override
+  String get appName => 'Bai Market';
+
+  @override
+  String get welcome => 'Добро пожаловать';
+
+  @override
+  String get login => 'Войти';
+
+  @override
+  String get register => 'Регистрация';
+
+  @override
+  String get email => 'Электронная почта';
+
+  @override
+  String get password => 'Пароль';
+
+  @override
+  String get confirmPassword => 'Подтвердите пароль';
+
+  @override
+  String get forgotPassword => 'Забыли пароль?';
+
+  @override
+  String get dontHaveAccount => 'Нет аккаунта?';
+
+  @override
+  String get alreadyHaveAccount => 'Уже есть аккаунт?';
+
+  @override
+  String get phone => 'Телефон';
+
+  @override
+  String get name => 'Имя';
+
+  @override
+  String get surname => 'Фамилия';
+
+  @override
+  String get phoneNumber => 'Номер телефона';
+
+  @override
+  String get enterName => 'Введите имя';
+
+  @override
+  String get enterSurname => 'Введите фамилию';
+
+  @override
+  String get enterPhone => 'Введите номер телефона';
+
+  @override
+  String get enterEmail => 'Введите email';
+
+  @override
+  String get enterPassword => 'Введите пароль';
+
+  @override
+  String get enterConfirmPassword => 'Подтвердите пароль';
+
+  @override
+  String get cart => 'Корзина';
+
+  @override
+  String get favorites => 'Избранное';
+
+  @override
+  String get profile => 'Профиль';
+
+  @override
+  String get settings => 'Настройки';
+
+  @override
+  String get language => 'Язык';
+
+  @override
+  String get notifications => 'Уведомления';
+
+  @override
+  String get logout => 'Выйти';
+
+  @override
+  String get catalog => 'Каталог';
+
+  @override
+  String get freeDelivery => 'Бесплатная доставка';
+
+  @override
+  String get deliveryAddress => 'Адрес доставки:';
+
+  @override
+  String get addressExample => 'Например: Ауезова 34';
+
+  @override
+  String get postalCode => 'Почтовый индекс';
+
+  @override
+  String get cardNumber => 'Номер карты';
+
+  @override
+  String get enterCardNumber => 'Введите номер карты';
+
+  @override
+  String get cvv => 'CVV';
+
+  @override
+  String get whoWillMeet => 'Кто встретит курьера?';
+
+  @override
+  String get nameExample => 'Например: Абзал';
+
+  @override
+  String get tryAgain => 'Попробовать снова';
+
+  @override
+  String get emptyCityList => 'Список городов пуст';
+
+  @override
+  String get productName => 'Название продукта';
+
+  @override
+  String get productDescription => 'Описание продукта';
+
+  @override
+  String get homeAddress => 'Адрес \"Дом\"';
+
+  @override
+  String postalIndex(String index) {
+    return 'индекс: $index';
+  }
+
+  @override
+  String get myAddresses => 'Мои адреса';
+
+  @override
+  String get orderHistory => 'История заказов';
+
+  @override
+  String get support => 'Поддержка';
+
+  @override
+  String get supportTitle => 'Поддержка';
+
+  @override
+  String get supportWorkingHours => 'Мы готовы помогать вам\nкаждый день с 9:00 - 22:00';
+
+  @override
+  String get whatsapp => 'WhatsApp';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get faq => 'Часто задаваемые вопросы';
+
+  @override
+  String failedToOpen(String url) {
+    return 'Не удалось открыть $url';
+  }
+
+  @override
+  String get exitApp => 'Выход из приложения';
+
+  @override
+  String get exitConfirmation => 'Вы действительно хотите выйти из приложения?';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get notInStock => 'Нет в продаже';
+
+  @override
+  String get youWon => 'Вы победили!';
+
+  @override
+  String get weWillContactYou => 'Скоро свяжемся с вами';
+
+  @override
+  String index(String index) {
+    return 'Индекс: $index';
+  }
+
+  @override
+  String price(String price) {
+    return '$price ₸';
+  }
+
+  @override
+  String oldPrice(String price) {
+    return '$price ₸';
+  }
+
+  @override
+  String get productDescriptionShort => 'Обеспечивает легкость и комфорт в макияжа весь...';
+
+  @override
+  String get home => 'Главная';
+
+  @override
+  String get products => 'товаров';
+
+  @override
+  String get more => 'Подробнее';
+
+  @override
+  String get in_sale => 'В продаже';
+
+  @override
+  String get not_in_sale => 'Нет в продаже';
+
+  @override
+  String get purchases => 'Покупку';
+
+  @override
+  String get orderAgain => 'Заказать снова';
+
+  @override
+  String get myPrizes => 'Мои призы';
+
+  @override
+  String get noPrizes => 'Нет призов';
+
+  @override
+  String get cartEmpty => 'В корзине пусто';
+
+  @override
+  String get addedItemsWillAppearHere => 'Добавленные товары будут\nотображаться тут';
+
+  @override
+  String get goToShopping => 'К покупкам';
+
+  @override
+  String get proceedToCheckout => 'Перейти к оформлению';
+
+  @override
+  String pricePerItem(String price) {
+    return '$price тг/шт';
+  }
+
+  @override
+  String get cannotAddMore => 'Больше нельзя добавить. Это максимум.';
+
+  @override
+  String get prize_goods => 'Призовые товары';
+
+  @override
+  String get number_of_tickets => 'Номер для участия в Акции';
+
+  @override
+  String get tickets => 'билеты';
+
+  @override
+  String get description => 'Описание';
+
+  @override
+  String get addToCart => 'В корзину';
+
+  @override
+  String get productOutOfStock => 'Товара нет в наличии!';
+
+  @override
+  String get productAddedToCart => 'Товар успешно сохранен в корзине!';
+
+  @override
+  String get goToCart => 'В корзину';
+
+  @override
+  String get showFirst => 'Вначале показывать';
+
+  @override
+  String get sortPopular => 'Популярное';
+
+  @override
+  String get sortCheap => 'Сначала дешевые';
+
+  @override
+  String get sortExpensive => 'Сначала дорогие';
+
+  @override
+  String get myData => 'Мои данные';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get deleteAccount => 'Удалить аккаунт';
+
+  @override
+  String get fillAllFields => 'Пожалуйста, заполните все поля';
+
+  @override
+  String profileUpdateError(String message) {
+    return 'Ошибка при обновлении профиля: $message';
+  }
+
+  @override
+  String error(String message) {
+    return 'Ошибка: $message';
+  }
+
+  @override
+  String get faqTicketAfterPayment => 'Как выдается номерок после оплаты?';
+
+  @override
+  String get faqTicketAfterPaymentAnswer => 'После оплаты номерок выдается автоматически. Вы можете увидеть его в разделе Мой профиль.';
+
+  @override
+  String get faqDeliveryMethod => 'Как осуществляется доставка?';
+
+  @override
+  String get faqDeliveryMethodAnswer => 'Доставка осуществляется через КазПочту. Вы получите уведомление, когда заказ будет отправлен.';
+
+  @override
+  String get faqDeliveryTime => 'Сколько времени занимает доставка?';
+
+  @override
+  String get faqDeliveryTimeAnswer => 'Обычно доставка занимает от 3 до 7 рабочих дней, в зависимости от вашего региона.';
+
+  @override
+  String get faqCancelOrder => 'Можно ли отменить заказ после оплаты?';
+
+  @override
+  String get faqCancelOrderAnswer => 'Да, вы можете отменить заказ до момента отправки. Для этого свяжитесь с нашей поддержкой.';
+
+  @override
+  String get faqTrackOrder => 'Как отследить мой заказ?';
+
+  @override
+  String get faqTrackOrderAnswer => 'После отправки вы получите трек-номер. Вы можете отследить посылку на сайте КазПочты или в разделе Мои заказы.';
+
+  @override
+  String get errorTitle => 'Ошибка';
+
+  @override
+  String get success => 'Успех!';
+
+  @override
+  String get orderDetails => 'О заказе';
+
+  @override
+  String get noData => 'Нет данных';
+
+  @override
+  String get recipient => 'Получатель:';
+
+  @override
+  String get noName => 'Нет имени';
+
+  @override
+  String get noPhone => 'Нет номера телефона';
+
+  @override
+  String get deliveryDate => 'Дата доставки:';
+
+  @override
+  String orderId(String id) {
+    return 'ID Заказа: $id';
+  }
+
+  @override
+  String get orderStatusPaymentPending => 'Ожидает оплаты';
+
+  @override
+  String get orderStatusProcessing => 'Формируется';
+
+  @override
+  String get orderStatusWay => 'В пути';
+
+  @override
+  String get orderStatusPickup => 'Готов к выдаче';
+
+  @override
+  String get orderStatusDelivered => 'Доставлен';
+
+  @override
+  String get orderStatusCanceled => 'Отменен';
+
+  @override
+  String get orderStatusAssembling => 'Собирается';
+
+  @override
+  String get orderStatusAbandoned => 'Отменен';
+
+  @override
+  String get orderStatusPaymentFailed => 'Ошибка оплаты';
+
+  @override
+  String get orderProcessingMessage => 'Ваши товары забронированы, заказ в обработке. Вам придет уведомление, когда заказ будет передан на сборку';
+
+  @override
+  String get ticketsWillBeAwarded => 'Будет начислено билетов';
+
+  @override
+  String get totalAmount => 'Общая сумма';
+
+  @override
+  String get items => 'Товары';
+
+  @override
+  String get discount => 'Скидка';
+
+  @override
+  String get promotionalNumbers => 'Акционные номера';
+
+  @override
+  String get delivery => 'Доставка';
+
+  @override
+  String get free => 'Бесплатно';
+
+  @override
+  String get total => 'Итого';
+
+  @override
+  String get paid => 'Оплачен';
+
+  @override
+  String get unpaid => 'Не оплачен';
+
+  @override
+  String get enterPhoneNumber => 'Введите \nномер телефона';
+
+  @override
+  String get weWillSendSms => 'Отправим СМС с кодом подтверждения';
+
+  @override
+  String get getCode => 'Получить код';
+
+  @override
+  String get termsAndPrivacy => 'Нажимая на кнопку \"Получить код\", вы принимаете пользовательское соглашение и политику конфиденциальности';
+
+  @override
+  String get enterCode => 'Введите код';
+
+  @override
+  String sentToNumber(String phoneNumber) {
+    return 'Отправили его на номер \n+7 $phoneNumber';
+  }
+
+  @override
+  String get signIn => 'Войти';
+}
