@@ -26,6 +26,26 @@ class _PaymentPageState extends State<PaymentPage> {
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
           ..setNavigationDelegate(
             NavigationDelegate(
+              onNavigationRequest: (NavigationRequest request) {
+                final allowedHosts = [
+                  'api.iris-cosmetics.kz',
+                  'minio.iris-cosmetics.kz',
+                  'pay.kaspi.kz',
+                  'epay.kkb.kz',
+                  'securepay.kkb.kz',
+                  '3ds.kkb.kz',
+                ];
+                final uri = Uri.tryParse(request.url);
+                if (uri != null &&
+                    (uri.scheme == 'https') &&
+                    allowedHosts.any((h) => uri.host.endsWith(h))) {
+                  return NavigationDecision.navigate;
+                }
+                if (uri != null && uri.scheme == 'https') {
+                  return NavigationDecision.navigate;
+                }
+                return NavigationDecision.prevent;
+              },
               onPageFinished: (_) {
                 setState(() {
                   _isLoading = false;

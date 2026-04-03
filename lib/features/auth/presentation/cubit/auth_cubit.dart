@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/secure_token_storage.dart';
 import '../../data/datasources/auth_services.dart';
 import '../../domain/repositories/auth_repository.dart';
 
@@ -49,9 +49,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> checkAuth() async {
-    final storage0 = SharedPreferences.getInstance();
-    var storage = await storage0;
-    String? token = storage.getString('auth_token');
+    String? token = await getAuthToken();
     if (token != null) {
       emit(CodeVerified());
     } else {
@@ -60,9 +58,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> logOut() async {
-    final storage0 = SharedPreferences.getInstance();
-    var storage = await storage0;
-    storage.remove('auth_token');
+    await removeAuthToken();
     emit(AuthInitial());
   }
 }

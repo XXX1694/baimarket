@@ -5,7 +5,7 @@ import 'package:bai_market/features/my_data/presentation/widgets/last_name_field
 import 'package:bai_market/features/profile/data/models/profile_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/secure_token_storage.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/delete_account_button.dart';
@@ -43,13 +43,11 @@ class _MyDataPageState extends State<MyDataPage> {
     super.dispose();
   }
 
-  final _storage = SharedPreferences.getInstance();
   Future<void> _updateProfile() async {
     final l10n = AppLocalizations.of(context)!;
-    const String baseUrl = mainUrl; // Используем mainUrl из core/urls.dart
-    final url = Uri.parse('${baseUrl}profile'); // Исправленный URL
-    var storage = await _storage;
-    String? token = storage.getString('auth_token');
+    const String baseUrl = mainUrl;
+    final url = Uri.parse('${baseUrl}profile');
+    String? token = await getAuthToken();
 
     // Валидация полей
     if (firstNameController.text.isEmpty || lastNameController.text.isEmpty) {

@@ -1,20 +1,16 @@
 import 'package:bai_market/features/orders/data/models/order_model.dart';
 import 'package:bai_market/features/orders/domain/repositories/order_repository.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/secure_token_storage.dart';
 import '../../../../core/urls.dart';
 
 class OrderServices implements OrderRepository {
   final Dio _dio = Dio();
-  final _storage = SharedPreferences.getInstance();
   @override
   Future<List<OrderModel>> getOrders() async {
     final url = mainUrl;
-    var storage = await _storage;
     String finalUrl = '${url}order';
-    String? token = storage.getString('auth_token');
-    // String token =
-    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwNDI0OCwiaWF0IjoxNzQ0OTk3Mjk2LCJleHAiOjE3NDU2MDIwOTZ9.Bhm9ULK7tZPjaQg8zcmx6YbWV-rkmTCA_eyFb8fb_RM';
+    String? token = await getAuthToken();
     if (token == null) return [];
     _dio.options.headers["authorization"] = "Bearer $token";
     try {
@@ -31,7 +27,6 @@ class OrderServices implements OrderRepository {
         return [];
       }
     } catch (e) {
-      print(e);
       return [];
     }
   }

@@ -16,9 +16,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     emit(OrdersGetting());
     try {
       List<OrderModel> orders = await _orderRepository.getOrders();
-      if (orders.isNotEmpty) {
-        emit(OrdersGot(orders: orders));
-      }
+      emit(OrdersGot(orders: orders));
     } catch (e) {
       print(e);
       emit(OrdersGetError());

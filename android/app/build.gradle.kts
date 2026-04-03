@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId = "com.bmarket.baimarket"
-        minSdk = 19 // <-- Убедись, что здесь minSdk не меньше 19
+        minSdk = flutter.minSdkVersion // <-- Убедись, что здесь minSdk не меньше 19
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

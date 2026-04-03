@@ -3,8 +3,8 @@ import 'package:bai_market/core/urls.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'secure_token_storage.dart';
 
 class FirebaseMessagingService {
   static final FirebaseMessagingService _instance =
@@ -61,7 +61,7 @@ class FirebaseMessagingService {
           try {
             apnsToken = await _firebaseMessaging.getAPNSToken();
             if (apnsToken != null) {
-              print('APNS Token successfully obtained: $apnsToken');
+              print('APNS Token successfully obtained');
             } else {
               print(
                 'APNS Token is null, attempt ${retryCount + 1} of $maxRetries',
@@ -272,7 +272,7 @@ class FirebaseMessagingService {
   // Обработка обновления токена
   static Future<void> _handleTokenRefresh(String newToken) async {
     try {
-      print('FCM Token обновлён: $newToken');
+      print('FCM Token обновлён');
       await _sendTokenToBackend(newToken);
     } catch (e) {
       print('Ошибка обработки обновления токена: $e');
@@ -284,7 +284,7 @@ class FirebaseMessagingService {
     try {
       final fcmToken = await _firebaseMessaging.getToken();
       if (fcmToken != null) {
-        print('FCM Token получен: $fcmToken');
+        print('FCM Token получен');
         await _sendTokenToBackend(fcmToken);
       }
     } catch (e) {
@@ -295,8 +295,7 @@ class FirebaseMessagingService {
   // Отправка токена на бэкенд
   static Future<void> _sendTokenToBackend(String token) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final authToken = prefs.getString('auth_token');
+      final authToken = await getAuthToken();
       // print(authToken);
       if (authToken == null) {
         print('Токен авторизации не найден');

@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/secure_token_storage.dart';
 import '../../../../core/urls.dart';
 import '../../domain/repositories/create_order_repository.dart';
 
 class CreateOrderServices implements CreateOrderRepository {
   final Dio _dio = Dio();
-  final _storage = SharedPreferences.getInstance();
   @override
   Future<String?> createOrder({
     required int cartId,
@@ -22,10 +21,9 @@ class CreateOrderServices implements CreateOrderRepository {
     required int? filialId,
   }) async {
     final url = mainUrl;
-    var storage = await _storage;
     String finalUrl = '${url}delivery';
     String finalUrl1 = '${url}order/new/';
-    String? token = storage.getString('auth_token');
+    String? token = await getAuthToken();
     if (token == null) return null;
     _dio.options.headers["authorization"] = "Bearer $token";
     try {

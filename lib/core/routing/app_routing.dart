@@ -65,6 +65,8 @@ final router = GoRouter(
     GoRoute(path: '/orders', builder: (context, state) => OrdersPage()),
     GoRoute(
       path: '/order',
+      redirect: (context, state) =>
+          state.extra is OrderModel ? null : '/orders',
       builder: (context, state) {
         final order = state.extra as OrderModel;
         return OrderPage(orderModel: order);
@@ -72,6 +74,8 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/my_data',
+      redirect: (context, state) =>
+          state.extra is ProfileModel ? null : '/profile',
       builder: (context, state) {
         final profile = state.extra as ProfileModel;
         return MyDataPage(profileModel: profile);
@@ -80,6 +84,8 @@ final router = GoRouter(
     GoRoute(path: '/my_address', builder: (context, state) => MyAddressPage()),
     GoRoute(
       path: '/make_order',
+      redirect: (context, state) =>
+          state.extra is CartModel ? null : '/cart',
       builder: (context, state) {
         final cart = state.extra as CartModel;
         return CreateOrderPage(cartModel: cart);
@@ -90,6 +96,8 @@ final router = GoRouter(
     GoRoute(path: '/tickets', builder: (context, state) => TicketsPage()),
     GoRoute(
       path: '/payment',
+      redirect: (context, state) =>
+          state.extra is String ? null : '/main',
       builder: (context, state) {
         final url = state.extra as String;
         return PaymentPage(paymentUrl: url);

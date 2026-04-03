@@ -1,14 +1,13 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/secure_token_storage.dart';
 import '../../../../core/urls.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 class AuthServices implements AuthRepository {
   final Dio _dio = Dio();
-  final _storage = SharedPreferences.getInstance();
   @override
   Future<bool> sendOtp({required String phoneNumber}) async {
     final url = mainUrl;
@@ -34,7 +33,6 @@ class AuthServices implements AuthRepository {
     required String code,
   }) async {
     final url = mainUrl;
-    var storage = await _storage;
     String finalUrl = '${url}auth/otp/confirm';
     try {
       final response = await _dio.post(
@@ -42,7 +40,7 @@ class AuthServices implements AuthRepository {
         data: jsonEncode({"phoneNumber": phoneNumber, "code": code}),
       );
       if (response.statusCode == 201) {
-        storage.setString('auth_token', response.data['accessToken']);
+        await setAuthToken(response.data['accessToken']);
         return true;
       } else {
         return false;
