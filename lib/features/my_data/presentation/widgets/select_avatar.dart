@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/secure_token_storage.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/urls.dart';
 import '../../../../core/widgets/show_image.dart';
@@ -57,8 +57,7 @@ class _SelectAvatarState extends State<SelectAvatar> {
     if (_image == null) return;
 
     try {
-      final storage = await SharedPreferences.getInstance();
-      final token = storage.getString('auth_token');
+      final token = await getAuthToken();
       if (token == null) throw Exception('No auth token found');
 
       final formData = FormData.fromMap({

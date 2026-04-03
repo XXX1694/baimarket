@@ -1,11 +1,6 @@
 import 'package:dio/dio.dart';
+import '../../../../core/secure_token_storage.dart';
 import '../models/user_address_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-Future<String?> getToken() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getString('auth_token');
-}
 
 class UserAddressRemoteDatasource {
   final Dio dio;
@@ -14,7 +9,7 @@ class UserAddressRemoteDatasource {
   UserAddressRemoteDatasource(this.dio, this.baseUrl);
 
   Future<List<UserAddressModel>> getAddresses() async {
-    final token = await getToken();
+    final token = await getAuthToken();
     final response = await dio.get(
       '${baseUrl}user-address',
       options: Options(headers: {'Authorization': 'Bearer $token'}),
@@ -29,7 +24,7 @@ class UserAddressRemoteDatasource {
   }
 
   Future<void> addAddress(UserAddressModel address) async {
-    final token = await getToken();
+    final token = await getAuthToken();
     final response = await dio.post(
       '${baseUrl}user-address',
       data: address.toJson(),
@@ -41,7 +36,7 @@ class UserAddressRemoteDatasource {
   }
 
   Future<void> deleteAddress(int id) async {
-    final token = await getToken();
+    final token = await getAuthToken();
     final response = await dio.delete(
       '${baseUrl}user-address/$id',
       options: Options(headers: {'Authorization': 'Bearer $token'}),
