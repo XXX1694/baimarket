@@ -1,18 +1,21 @@
 import 'package:bai_market/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:bai_market/features/support/presentation/pages/support_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../core/app_pallete.dart';
-import '../../../../core/urls.dart';
-import '../../../../core/widgets/show_image.dart';
-import '../widgets/menu_list.dart';
-import '../widgets/my_tickets.dart';
-import '../widgets/profile_list.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../auth/presentation/cubit/auth_cubit.dart';
+import '../../../cart/presentation/pages/cart_page.dart';
+import '../widgets/profile_cart_banner.dart';
+import '../widgets/profile_header.dart';
+import '../widgets/profile_invite_banner.dart';
+import '../widgets/profile_language_selector.dart';
+import '../widgets/profile_menu_item.dart';
+import '../widgets/profile_user_card.dart';
 
 ProfileCubit profileCubitGlobal = ProfileCubit();
+final AuthCubit _authCubit = AuthCubit();
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -25,16 +28,18 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     profileCubitGlobal.getProfileData();
+    globalCartCubit.getCart();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocConsumer<ProfileCubit, ProfileState>(
       bloc: profileCubitGlobal,
       listener: (context, state) {
         if (state is ProfileGetError) {
-          authCubit.logOut();
+          _authCubit.logOut();
           context.go('/');
         }
       },
@@ -42,149 +47,92 @@ class _ProfilePageState extends State<ProfilePage> {
         if (state is ProfileGot) {
           return Scaffold(
             backgroundColor: Colors.white,
-            body: SafeArea(
+            body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            const Text(
-                              'Профиль',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w700,
-                                color: mainColorLight,
-                              ),
-                            ),
-                            const Spacer(),
-                            CupertinoButton(
-                              padding: const EdgeInsets.all(0),
-                              onPressed: () {
-                                context.push('/notification');
-                              },
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFF2F2F2),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    'assets/icons/ring.svg',
-                                    color: Color(0xFF575E6E),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Container(
-                              height: 70,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                color: lightGray,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child:
-                                  state.profile.avatarUrl != null &&
-                                          state.profile.avatarUrl!.isNotEmpty
-                                      ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(16),
-                                        child: NetworkImageWidget(
-                                          url:
-                                              '$imgUrl${state.profile.avatarUrl}',
-                                        ),
-                                      )
-                                      : Center(
-                                        child: Text(
-                                          state.profile.firstName!.isNotEmpty
-                                              ? '${(state.profile.firstName ?? 'U')[0]}${(state.profile.lastName ?? 'S')[0]}'
-                                              : 'U',
-                                          style: TextStyle(
-                                            fontSize: 36,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black26,
-                                          ),
-                                        ),
-                                      ),
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.profile.firstName!.isNotEmpty
-                                      ? '${state.profile.firstName} ${state.profile.lastName?[0]}.'
-                                      : "Профиль",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '+7${state.profile.phoneNumber}',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            CupertinoButton(
-                              padding: const EdgeInsets.all(0),
-                              onPressed: () {
-                                context.push('/my_data', extra: state.profile);
-                              },
-                              child: SvgPicture.asset(
-                                'assets/icons/arrow_right.svg',
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
-                  MenuList(profile: state.profile),
+                  // Header
+                  const ProfileHeader(),
+                  const SizedBox(height: 8),
+
+                  // User Card
+                  ProfileUserCard(profile: state.profile),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      color: lightGray,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 12),
-                              MyTickets(),
-                              const SizedBox(height: 12),
-                              ProfileList(),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+
+                  // Cart Banner (shows when cart has items)
+                  const ProfileCartBanner(),
+                  const SizedBox(height: 8),
+
+                  // Divider
+                  Divider(
+                    height: 1,
+                    color: Colors.grey.shade100,
+                    thickness: 8,
                   ),
+                  const SizedBox(height: 8),
+
+                  // Menu Items
+                  ProfileMenuItem(
+                    icon: CupertinoIcons.ticket,
+                    iconColor: const Color(0xFFFF6B6B),
+                    title: l10n.myTickets,
+                    subtitle: l10n.specifyDeliveryAddress,
+                    onTap: () => context.push('/tickets'),
+                  ),
+                  ProfileMenuItem(
+                    icon: Icons.location_on_outlined,
+                    iconColor: const Color(0xFF5B8DEF),
+                    title: l10n.myAddresses,
+                    subtitle: l10n.specifyDeliveryAddress,
+                    onTap: () => context.push('/my_address'),
+                  ),
+                  ProfileMenuItem(
+                    icon: CupertinoIcons.cart,
+                    iconColor: const Color(0xFF4ECDC4),
+                    title: l10n.myOrders,
+                    subtitle: l10n.orderStatus,
+                    onTap: () => context.push('/orders'),
+                  ),
+                  ProfileMenuItem(
+                    icon: CupertinoIcons.creditcard,
+                    iconColor: const Color(0xFF4ECDC4),
+                    title: l10n.myCard,
+                    subtitle: l10n.orderStatus,
+                    onTap: () {},
+                  ),
+                  ProfileMenuItem(
+                    icon: CupertinoIcons.person_2,
+                    iconColor: const Color(0xFF4ECDC4),
+                    title: l10n.contacts,
+                    subtitle: l10n.orderStatus,
+                    onTap: () {
+                      showModalBottomSheet(
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        isScrollControlled: true,
+                        useSafeArea: true,
+                        context: context,
+                        builder: (_) => const SupportPage(),
+                      );
+                    },
+                  ),
+
+                  // Language Selector
+                  const ProfileLanguageSelector(),
+                  const SizedBox(height: 16),
+
+                  // Invite Friends
+                  const ProfileInviteBanner(),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
           );
-        } else {
-          return Scaffold();
         }
+        return const Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }

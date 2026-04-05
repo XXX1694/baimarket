@@ -429,5 +429,37 @@
     "signIn": "Войти",
     "@signIn": {
         "description": "Sign in button text"
-    }
+    },
+    "market": "Маркет",
+    "streams": "Эфиры",
+    "orders": "Заказы",
+    "searchHint": "Что вы искали?",
+    "all": "Все",
+    "plusPrice": "Plus пен алсаңыз",
+    "sellerOrders": "{count} заказа",
+    "@sellerOrders": {
+        "placeholders": { "count": { "type": "String" } }
+    },
+    "reviews": "Отзывы",
+    "reviewsCount": "{count} отзывы",
+    "@reviewsCount": {
+        "placeholders": { "count": { "type": "String" } }
+    },
+    "readAll": "Читать все",
+    "relatedProducts": "Еще может подойти",
+    "buy": "Купить",
+    "newTag": "Новинка",
+    "hitTag": "Хит",
+    "myTickets": "Мой билеты",
+    "specifyDeliveryAddress": "Укажите адрес доставки",
+    "myOrders": "Мои заказы",
+    "orderStatus": "Статус заказы",
+    "myCard": "Мой карта",
+    "contacts": "Контакты",
+    "inviteFriends": "Приглашайте друзей",
+    "goToPayment": "Перейти в оплате",
+    "clearCart": "Очистить",
+    "youSaved": "Вы экономили",
+    "recommended": "Рекомендуем",
+    "notAvailable": "Нет в наличии"
 } 

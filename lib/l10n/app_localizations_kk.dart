@@ -450,4 +450,86 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get signIn => 'Кіру';
+
+  @override
+  String get market => 'Маркет';
+
+  @override
+  String get streams => 'Эфирлер';
+
+  @override
+  String get orders => 'Тапсырыстар';
+
+  @override
+  String get searchHint => 'Не іздедіңіз?';
+
+  @override
+  String get all => 'Барлығы';
+
+  @override
+  String get plusPrice => 'Plus-пен алсаңыз';
+
+  @override
+  String sellerOrders(String count) {
+    return '$count тапсырыс';
+  }
+
+  @override
+  String get reviews => 'Пікірлер';
+
+  @override
+  String reviewsCount(String count) {
+    return '$count пікір';
+  }
+
+  @override
+  String get readAll => 'Барлығын оқу';
+
+  @override
+  String get relatedProducts => 'Сізге ұнауы мүмкін';
+
+  @override
+  String get buy => 'Сатып алу';
+
+  @override
+  String get newTag => 'Жаңа';
+
+  @override
+  String get hitTag => 'Хит';
+
+  @override
+  String get myTickets => 'Менің билеттерім';
+
+  @override
+  String get specifyDeliveryAddress => 'Жеткізу мекенжайын көрсетіңіз';
+
+  @override
+  String get myOrders => 'Менің тапсырыстарым';
+
+  @override
+  String get orderStatus => 'Тапсырыс күйі';
+
+  @override
+  String get myCard => 'Менің картам';
+
+  @override
+  String get contacts => 'Байланыстар';
+
+  @override
+  String get inviteFriends => 'Достарыңызды шақырыңыз';
+
+  @override
+  String get goToPayment => 'Төлемге өту';
+
+  @override
+  String get clearCart => 'Тазалау';
+
+  @override
+  String get youSaved => 'Сіз үнемдедіңіз';
+
+  @override
+  String get recommended => 'Ұсынамыз';
+
+  @override
+  String get notAvailable => 'Қолжетімсіз';
 }

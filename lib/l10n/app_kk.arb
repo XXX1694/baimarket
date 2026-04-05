@@ -434,5 +434,37 @@
     "signIn": "Кіру",
     "@signIn": {
         "description": "Sign in button text"
-    }
+    },
+    "market": "Маркет",
+    "streams": "Эфирлер",
+    "orders": "Тапсырыстар",
+    "searchHint": "Не іздедіңіз?",
+    "all": "Барлығы",
+    "plusPrice": "Plus-пен алсаңыз",
+    "sellerOrders": "{count} тапсырыс",
+    "@sellerOrders": {
+        "placeholders": { "count": { "type": "String" } }
+    },
+    "reviews": "Пікірлер",
+    "reviewsCount": "{count} пікір",
+    "@reviewsCount": {
+        "placeholders": { "count": { "type": "String" } }
+    },
+    "readAll": "Барлығын оқу",
+    "relatedProducts": "Сізге ұнауы мүмкін",
+    "buy": "Сатып алу",
+    "newTag": "Жаңа",
+    "hitTag": "Хит",
+    "myTickets": "Менің билеттерім",
+    "specifyDeliveryAddress": "Жеткізу мекенжайын көрсетіңіз",
+    "myOrders": "Менің тапсырыстарым",
+    "orderStatus": "Тапсырыс күйі",
+    "myCard": "Менің картам",
+    "contacts": "Байланыстар",
+    "inviteFriends": "Достарыңызды шақырыңыз",
+    "goToPayment": "Төлемге өту",
+    "clearCart": "Тазалау",
+    "youSaved": "Сіз үнемдедіңіз",
+    "recommended": "Ұсынамыз",
+    "notAvailable": "Қолжетімсіз"
 } 

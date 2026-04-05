@@ -450,4 +450,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signIn => 'Sign In';
+
+  @override
+  String get market => 'Market';
+
+  @override
+  String get streams => 'Streams';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get searchHint => 'What were you looking for?';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get plusPrice => 'With Plus';
+
+  @override
+  String sellerOrders(String count) {
+    return '$count orders';
+  }
+
+  @override
+  String get reviews => 'Reviews';
+
+  @override
+  String reviewsCount(String count) {
+    return '$count reviews';
+  }
+
+  @override
+  String get readAll => 'Read all';
+
+  @override
+  String get relatedProducts => 'You might also like';
+
+  @override
+  String get buy => 'Buy';
+
+  @override
+  String get newTag => 'New';
+
+  @override
+  String get hitTag => 'Hit';
+
+  @override
+  String get myTickets => 'My tickets';
+
+  @override
+  String get specifyDeliveryAddress => 'Specify delivery address';
+
+  @override
+  String get myOrders => 'My orders';
+
+  @override
+  String get orderStatus => 'Order status';
+
+  @override
+  String get myCard => 'My card';
+
+  @override
+  String get contacts => 'Contacts';
+
+  @override
+  String get inviteFriends => 'Invite friends';
+
+  @override
+  String get goToPayment => 'Go to payment';
+
+  @override
+  String get clearCart => 'Clear';
+
+  @override
+  String get youSaved => 'You saved';
+
+  @override
+  String get recommended => 'Recommended';
+
+  @override
+  String get notAvailable => 'Not available';
 }
