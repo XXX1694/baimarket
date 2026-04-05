@@ -601,5 +601,37 @@
     "signIn": "Sign In",
     "@signIn": {
         "description": "Sign in button text"
-    }
+    },
+    "market": "Market",
+    "streams": "Streams",
+    "orders": "Orders",
+    "searchHint": "What were you looking for?",
+    "all": "All",
+    "plusPrice": "With Plus",
+    "sellerOrders": "{count} orders",
+    "@sellerOrders": {
+        "placeholders": { "count": { "type": "String" } }
+    },
+    "reviews": "Reviews",
+    "reviewsCount": "{count} reviews",
+    "@reviewsCount": {
+        "placeholders": { "count": { "type": "String" } }
+    },
+    "readAll": "Read all",
+    "relatedProducts": "You might also like",
+    "buy": "Buy",
+    "newTag": "New",
+    "hitTag": "Hit",
+    "myTickets": "My tickets",
+    "specifyDeliveryAddress": "Specify delivery address",
+    "myOrders": "My orders",
+    "orderStatus": "Order status",
+    "myCard": "My card",
+    "contacts": "Contacts",
+    "inviteFriends": "Invite friends",
+    "goToPayment": "Go to payment",
+    "clearCart": "Clear",
+    "youSaved": "You saved",
+    "recommended": "Recommended",
+    "notAvailable": "Not available"
 } 

@@ -450,4 +450,86 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get signIn => 'Войти';
+
+  @override
+  String get market => 'Маркет';
+
+  @override
+  String get streams => 'Эфиры';
+
+  @override
+  String get orders => 'Заказы';
+
+  @override
+  String get searchHint => 'Что вы искали?';
+
+  @override
+  String get all => 'Все';
+
+  @override
+  String get plusPrice => 'Plus пен алсаңыз';
+
+  @override
+  String sellerOrders(String count) {
+    return '$count заказа';
+  }
+
+  @override
+  String get reviews => 'Отзывы';
+
+  @override
+  String reviewsCount(String count) {
+    return '$count отзывы';
+  }
+
+  @override
+  String get readAll => 'Читать все';
+
+  @override
+  String get relatedProducts => 'Еще может подойти';
+
+  @override
+  String get buy => 'Купить';
+
+  @override
+  String get newTag => 'Новинка';
+
+  @override
+  String get hitTag => 'Хит';
+
+  @override
+  String get myTickets => 'Мой билеты';
+
+  @override
+  String get specifyDeliveryAddress => 'Укажите адрес доставки';
+
+  @override
+  String get myOrders => 'Мои заказы';
+
+  @override
+  String get orderStatus => 'Статус заказы';
+
+  @override
+  String get myCard => 'Мой карта';
+
+  @override
+  String get contacts => 'Контакты';
+
+  @override
+  String get inviteFriends => 'Приглашайте друзей';
+
+  @override
+  String get goToPayment => 'Перейти в оплате';
+
+  @override
+  String get clearCart => 'Очистить';
+
+  @override
+  String get youSaved => 'Вы экономили';
+
+  @override
+  String get recommended => 'Рекомендуем';
+
+  @override
+  String get notAvailable => 'Нет в наличии';
 }

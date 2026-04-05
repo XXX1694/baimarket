@@ -29,13 +29,13 @@ class _MainScreenState extends State<MenuPage> {
         bottomNavIndexProvider = StateProvider((ref) => 0);
         break;
       case 'catalog':
-        bottomNavIndexProvider = StateProvider((ref) => 1);
-        break;
-      case 'cart':
         bottomNavIndexProvider = StateProvider((ref) => 2);
         break;
-      case 'profile':
+      case 'cart':
         bottomNavIndexProvider = StateProvider((ref) => 3);
+        break;
+      case 'profile':
+        bottomNavIndexProvider = StateProvider((ref) => 4);
         break;
       default:
         bottomNavIndexProvider = StateProvider((ref) => 0);
@@ -66,7 +66,6 @@ class _MainScreenState extends State<MenuPage> {
           const SizedBox(height: 3),
           Text(
             label,
-
             style:
                 active
                     ? TextStyle(
@@ -99,12 +98,16 @@ class _MainScreenState extends State<MenuPage> {
             index: currentIndex,
             children: [
               MainPage(),
+              // Streams placeholder
+              const Scaffold(
+                body: Center(child: Text('Streams')),
+              ),
               CatalogPage(),
               CartPage(
                 toCatalog: () {
                   ref
                       .read(bottomNavIndexProvider.notifier)
-                      .update((state) => 1);
+                      .update((state) => 2);
                 },
               ),
               ProfilePage(),
@@ -117,34 +120,54 @@ class _MainScreenState extends State<MenuPage> {
           final currentIndex = ref.watch(bottomNavIndexProvider);
           return Container(
             padding: const EdgeInsets.symmetric(vertical: 10),
-
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
-              // border: Border.fromBorderSide(BorderSide(color: lightGray)),
             ),
             child: SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildNavItem(
+                    icon: Text(
+                      'Б',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    activeIcon: Text(
+                      'Б',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w900,
+                        color: mainColorLight,
+                      ),
+                    ),
+                    label: l10n.market,
+                    index: 0,
+                    ref: ref,
+                    active: currentIndex == 0,
+                  ),
+                  _buildNavItem(
                     icon: Opacity(
                       opacity: 0.54,
                       child: SvgPicture.asset(
-                        'assets/icons/home.svg',
+                        'assets/icons/featured.svg',
                         height: 24,
                         width: 24,
                       ),
                     ),
                     activeIcon: SvgPicture.asset(
-                      'assets/icons/home.svg',
+                      'assets/icons/featured.svg',
                       color: mainColorLight,
                       height: 24,
                       width: 24,
                     ),
-                    label: l10n.home,
-                    index: 0,
+                    label: l10n.streams,
+                    index: 1,
                     ref: ref,
-                    active: currentIndex == 0,
+                    active: currentIndex == 1,
                   ),
                   _buildNavItem(
                     activeIcon: SvgPicture.asset(
@@ -162,9 +185,9 @@ class _MainScreenState extends State<MenuPage> {
                       ),
                     ),
                     label: l10n.catalog,
-                    index: 1,
+                    index: 2,
                     ref: ref,
-                    active: currentIndex == 1,
+                    active: currentIndex == 2,
                   ),
                   _buildNavItem(
                     activeIcon: SvgPicture.asset(
@@ -182,9 +205,9 @@ class _MainScreenState extends State<MenuPage> {
                       ),
                     ),
                     label: l10n.cart,
-                    index: 2,
+                    index: 3,
                     ref: ref,
-                    active: currentIndex == 2,
+                    active: currentIndex == 3,
                   ),
                   _buildNavItem(
                     activeIcon: SvgPicture.asset(
@@ -202,9 +225,9 @@ class _MainScreenState extends State<MenuPage> {
                       ),
                     ),
                     label: l10n.profile,
-                    index: 3,
+                    index: 4,
                     ref: ref,
-                    active: currentIndex == 3,
+                    active: currentIndex == 4,
                   ),
                 ],
               ),

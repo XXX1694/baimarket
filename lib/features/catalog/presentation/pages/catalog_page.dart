@@ -1,16 +1,11 @@
-// ignore_for_file: deprecated_member_use
-
-import 'package:bai_market/core/app_pallete.dart';
-import 'package:bai_market/features/catalog/presentation/cubit/catalog_cubit.dart';
-import 'package:bai_market/features/catalog/presentation/widgets/category_products.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bai_market/features/collection/presentation/cubit/collection_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../l10n/app_localizations.dart';
-import '../widgets/select_category.dart';
+import '../../../../core/widgets/shimmer.dart';
+import '../widgets/catalog_app_bar.dart';
+import '../widgets/catalog_product_card.dart';
+import '../widgets/catalog_tabs.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
@@ -20,126 +15,85 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
-  late CatalogCubit cubit = CatalogCubit();
-  final ValueNotifier<String> slug = ValueNotifier<String>('all');
+  final CollectionCubit _collectionCubit = CollectionCubit();
 
   @override
   void initState() {
     super.initState();
-    slug.addListener(onTextChanged);
+    _collectionCubit.getCollection(slug: 'new', sort: 'popular');
   }
 
-  void onTextChanged() {
-    cubit.getCategories(slug: slug.value);
-  }
-
-  @override
-  void dispose() {
-    slug.dispose();
-    super.dispose();
+  void _onTabChanged(String slug) {
+    _collectionCubit.getCollection(slug: slug, sort: 'popular');
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: BlocProvider.value(
-          value: cubit,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: CustomScrollView(
-              physics: const ClampingScrollPhysics(),
-              slivers: [
-                SliverAppBar(
-                  pinned: false, // Прикрепляем AppBar к верхней части
-                  // snap: true,
-                  floating: true,
-                  centerTitle: false,
-                  stretchTriggerOffset: 130.0,
-                  expandedHeight: 130.0,
-                  backgroundColor: Colors.white,
-                  shadowColor: Colors.transparent,
-                  surfaceTintColor: Colors.transparent,
-                  elevation: 0,
-                  collapsedHeight: 90,
-                  automaticallyImplyLeading: false,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            // App Bar
+            const SliverToBoxAdapter(child: CatalogAppBar()),
 
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 8),
-                        Text(
-                          l10n.catalog,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: mainColorLight,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          l10n.freeDelivery,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: [
-                    CupertinoButton(
-                      padding: const EdgeInsets.all(0),
-                      onPressed: () {
-                        context.push('/notification');
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 20),
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF2F2F2),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            'assets/icons/ring.svg',
-                            color: Color(0xFF575E6E),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedBox(height: 16, width: double.infinity),
-                        SelectCategory(notifier: slug),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Divider(color: Colors.black12, height: 1),
-                      const SizedBox(height: 4),
-                      CategoryProducts(),
-                    ],
-                  ),
-                ),
-              ],
+            // Collection Tabs
+            SliverToBoxAdapter(
+              child: CatalogTabs(onTabChanged: _onTabChanged),
             ),
-          ),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 12)),
+
+            // Product Grid
+            SliverToBoxAdapter(
+              child: BlocBuilder<CollectionCubit, CollectionState>(
+                bloc: _collectionCubit,
+                builder: (context, state) {
+                  if (state is CollectionGot) {
+                    final products = state.collection.products;
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      itemCount: products.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.48,
+                      ),
+                      itemBuilder: (context, index) {
+                        return CatalogProductCard(product: products[index]);
+                      },
+                    );
+                  }
+
+                  // Shimmer loading
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: 4,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 0.48,
+                    ),
+                    itemBuilder: (context, index) {
+                      return SimpleShimmer(borderRadius: 16);
+                    },
+                  );
+                },
+              ),
+            ),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          ],
         ),
       ),
     );

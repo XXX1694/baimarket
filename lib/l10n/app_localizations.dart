@@ -942,6 +942,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign In'**
   String get signIn;
+
+  /// No description provided for @market.
+  ///
+  /// In en, this message translates to:
+  /// **'Market'**
+  String get market;
+
+  /// No description provided for @streams.
+  ///
+  /// In en, this message translates to:
+  /// **'Streams'**
+  String get streams;
+
+  /// No description provided for @orders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get orders;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What were you looking for?'**
+  String get searchHint;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @plusPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'With Plus'**
+  String get plusPrice;
+
+  /// No description provided for @sellerOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} orders'**
+  String sellerOrders(String count);
+
+  /// No description provided for @reviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews'**
+  String get reviews;
+
+  /// No description provided for @reviewsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} reviews'**
+  String reviewsCount(String count);
+
+  /// No description provided for @readAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Read all'**
+  String get readAll;
+
+  /// No description provided for @relatedProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'You might also like'**
+  String get relatedProducts;
+
+  /// No description provided for @buy.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy'**
+  String get buy;
+
+  /// No description provided for @newTag.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newTag;
+
+  /// No description provided for @hitTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Hit'**
+  String get hitTag;
+
+  /// No description provided for @myTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'My tickets'**
+  String get myTickets;
+
+  /// No description provided for @specifyDeliveryAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Specify delivery address'**
+  String get specifyDeliveryAddress;
+
+  /// No description provided for @myOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'My orders'**
+  String get myOrders;
+
+  /// No description provided for @orderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Order status'**
+  String get orderStatus;
+
+  /// No description provided for @myCard.
+  ///
+  /// In en, this message translates to:
+  /// **'My card'**
+  String get myCard;
+
+  /// No description provided for @contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get contacts;
+
+  /// No description provided for @inviteFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite friends'**
+  String get inviteFriends;
+
+  /// No description provided for @goToPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to payment'**
+  String get goToPayment;
+
+  /// No description provided for @clearCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clearCart;
+
+  /// No description provided for @youSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'You saved'**
+  String get youSaved;
+
+  /// No description provided for @recommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get recommended;
+
+  /// No description provided for @notAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get notAvailable;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
