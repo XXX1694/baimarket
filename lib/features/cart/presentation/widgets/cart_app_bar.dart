@@ -1,3 +1,4 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -52,7 +53,7 @@ class CartAppBar extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF4ECDC4),
+                  color: mainColorLight,
                 ),
               ),
             )

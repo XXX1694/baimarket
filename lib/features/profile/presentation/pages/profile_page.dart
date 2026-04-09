@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context, state) {
         if (state is ProfileGot) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: const Color(0xFFF5F5F5),
             body: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -56,70 +56,78 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 8),
 
                   // User Card
-                  ProfileUserCard(profile: state.profile),
-                  const SizedBox(height: 16),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: ProfileUserCard(profile: state.profile),
+                  ),
+                  const SizedBox(height: 12),
 
                   // Cart Banner (shows when cart has items)
                   const ProfileCartBanner(),
-                  const SizedBox(height: 8),
 
-                  // Divider
-                  Divider(
-                    height: 1,
-                    color: Colors.grey.shade100,
-                    thickness: 8,
+                  // Menu Items block
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        ProfileMenuItem(
+                          svgAsset: 'assets/icons/profile_page/profile_page_tickets.svg',
+                          title: l10n.myTickets,
+                          subtitle: l10n.specifyDeliveryAddress,
+                          onTap: () => context.push('/tickets'),
+                          showDivider: true,
+                        ),
+                        ProfileMenuItem(
+                          svgAsset: 'assets/icons/profile_page/profile_page_location.svg',
+                          title: l10n.myAddresses,
+                          subtitle: l10n.specifyDeliveryAddress,
+                          onTap: () => context.push('/my_address'),
+                          showDivider: true,
+                        ),
+                        ProfileMenuItem(
+                          svgAsset: 'assets/icons/profile_page/profile_page_orders.svg',
+                          title: l10n.myOrders,
+                          subtitle: l10n.orderStatus,
+                          onTap: () => context.push('/orders'),
+                          showDivider: true,
+                        ),
+                        ProfileMenuItem(
+                          svgAsset: 'assets/icons/profile_page/profile_page_card.svg',
+                          title: l10n.myCard,
+                          subtitle: l10n.orderStatus,
+                          onTap: () {},
+                          showDivider: true,
+                        ),
+                        ProfileMenuItem(
+                          svgAsset: 'assets/icons/profile_page/profile_page_contacts.svg',
+                          title: l10n.contacts,
+                          subtitle: l10n.orderStatus,
+                          onTap: () {
+                            showModalBottomSheet(
+                              elevation: 0,
+                              backgroundColor: Colors.white,
+                              isScrollControlled: true,
+                              useSafeArea: true,
+                              context: context,
+                              builder: (_) => const SupportPage(),
+                            );
+                          },
+                          showDivider: true,
+                        ),
+                        // Language Selector
+                        const ProfileLanguageSelector(),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 8),
-
-                  // Menu Items
-                  ProfileMenuItem(
-                    icon: CupertinoIcons.ticket,
-                    iconColor: const Color(0xFFFF6B6B),
-                    title: l10n.myTickets,
-                    subtitle: l10n.specifyDeliveryAddress,
-                    onTap: () => context.push('/tickets'),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.location_on_outlined,
-                    iconColor: const Color(0xFF5B8DEF),
-                    title: l10n.myAddresses,
-                    subtitle: l10n.specifyDeliveryAddress,
-                    onTap: () => context.push('/my_address'),
-                  ),
-                  ProfileMenuItem(
-                    icon: CupertinoIcons.cart,
-                    iconColor: const Color(0xFF4ECDC4),
-                    title: l10n.myOrders,
-                    subtitle: l10n.orderStatus,
-                    onTap: () => context.push('/orders'),
-                  ),
-                  ProfileMenuItem(
-                    icon: CupertinoIcons.creditcard,
-                    iconColor: const Color(0xFF4ECDC4),
-                    title: l10n.myCard,
-                    subtitle: l10n.orderStatus,
-                    onTap: () {},
-                  ),
-                  ProfileMenuItem(
-                    icon: CupertinoIcons.person_2,
-                    iconColor: const Color(0xFF4ECDC4),
-                    title: l10n.contacts,
-                    subtitle: l10n.orderStatus,
-                    onTap: () {
-                      showModalBottomSheet(
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        isScrollControlled: true,
-                        useSafeArea: true,
-                        context: context,
-                        builder: (_) => const SupportPage(),
-                      );
-                    },
-                  ),
-
-                  // Language Selector
-                  const ProfileLanguageSelector(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
 
                   // Invite Friends
                   const ProfileInviteBanner(),

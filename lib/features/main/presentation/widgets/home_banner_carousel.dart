@@ -34,7 +34,7 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
   void _startAutoSlide() {
     _autoSlideTimer = Timer.periodic(const Duration(seconds: 5), (_) {
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
     });
@@ -44,52 +44,56 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
   Widget build(BuildContext context) {
     if (widget.banners.isEmpty) return const SizedBox.shrink();
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
+    return Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: SizedBox(
-              height: 200,
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentIndex = index % widget.banners.length;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  final bannerIndex = index % widget.banners.length;
-                  return NetworkImageWidget(
-                    url: '$imgUrl${widget.banners[bannerIndex].photoUrl ?? ''}',
-                    fit: BoxFit.cover,
-                  );
-                },
-              ),
+          SizedBox(
+            height: 200,
+            child: PageView.builder(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index % widget.banners.length;
+                });
+              },
+              itemBuilder: (context, index) {
+                final bannerIndex = index % widget.banners.length;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: NetworkImageWidget(
+                      url: '$imgUrl${widget.banners[bannerIndex].photoUrl ?? ''}',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              widget.banners.length,
-              (i) => AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 3),
-                width: _currentIndex == i ? 10 : 8,
-                height: _currentIndex == i ? 10 : 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == i
-                      ? Colors.white
-                      : Colors.white.withValues(alpha: 0.5),
+          Positioned(
+            bottom: 16,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                widget.banners.length,
+                (i) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  margin: const EdgeInsets.symmetric(horizontal: 3),
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: _currentIndex == i
+                        ? Colors.white
+                        : Colors.white.withValues(alpha: 0.5),
+                  ),
                 ),
               ),
             ),
           ),
         ],
-      ),
     );
   }
 }

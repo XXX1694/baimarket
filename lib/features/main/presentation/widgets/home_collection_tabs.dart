@@ -27,17 +27,17 @@ class _HomeCollectionTabsState extends State<HomeCollectionTabs> {
         if (state is SlugGot) {
           return _buildTabs(state.slugs, l10n);
         }
-        return const SizedBox(height: 44);
+        return const SizedBox(height: 32);
       },
     );
   }
 
   Widget _buildTabs(List<SlugModel> slugs, AppLocalizations l10n) {
     return SizedBox(
-      height: 44,
+      height: 32,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         itemCount: slugs.length,
         itemBuilder: (context, index) {
           final isSelected = _selectedIndex == index;
@@ -50,25 +50,26 @@ class _HomeCollectionTabsState extends State<HomeCollectionTabs> {
                   descriptionEn: slugs[index].nameEn ?? '',
                 );
           return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: CupertinoButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
+            padding: const EdgeInsets.only(right: 2),
+            child: GestureDetector(
+
+              onTap: () {
                 setState(() => _selectedIndex = index);
                 widget.onTabChanged(slugs[index].slug ?? 'new');
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 decoration: BoxDecoration(
                   color: isSelected ? Colors.black : Colors.transparent,
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   name,
                   style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    color: isSelected ? Colors.white : Colors.black87,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: isSelected ? Colors.white : Colors.black,
+
                   ),
                 ),
               ),

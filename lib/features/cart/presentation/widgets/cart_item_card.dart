@@ -1,3 +1,4 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -73,7 +74,7 @@ class CartItemCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF4ECDC4),
+                        color: mainColorLight,
                       ),
                     ),
                     if (product?.oldPrice != null) ...[

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/app_pallete.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../cart/presentation/cubit/cart_cubit.dart';
 import '../../../cart/presentation/pages/cart_page.dart';
@@ -181,7 +182,7 @@ class _ProductBottomBarState extends State<ProductBottomBar> {
                   height: 48,
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFF6B6B),
+                    color: mainColorLight,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Center(

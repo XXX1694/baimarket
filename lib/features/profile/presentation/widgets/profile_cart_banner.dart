@@ -1,3 +1,4 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,12 +28,12 @@ class ProfileCartBanner extends StatelessWidget {
           );
 
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
             child: Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFF5FAFA),
-                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,11 +42,12 @@ class ProfileCartBanner extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '$totalPrice₸',
+                        '$totalPrice ₸',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF4ECDC4),
+                          color: mainColorLight,
+                          fontFamily: 'Gilroy',
                         ),
                       ),
                       const Spacer(),
@@ -55,15 +57,16 @@ class ProfileCartBanner extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF5E6C8),
+                          color: const Color(0xFFF5F0E8),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          '${items.length}',
+                          '${items.length} ${l10n.items}',
                           style: const TextStyle(
-                            fontSize: 13,
+                            fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: Colors.black87,
+                            fontFamily: 'Gilroy',
                           ),
                         ),
                       ),
@@ -73,7 +76,7 @@ class ProfileCartBanner extends StatelessWidget {
 
                   // Product images
                   SizedBox(
-                    height: 70,
+                    height: 68,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: items.length > 4 ? 4 : items.length,
@@ -81,9 +84,9 @@ class ProfileCartBanner extends StatelessWidget {
                         final photoUrls = items[index].model?.photoUrls;
                         return Container(
                           margin: const EdgeInsets.only(right: 8),
-                          width: 70,
+                          width: 68,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF0F0F0),
+                            color: const Color(0xFFF5F5F5),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: ClipRRect(
@@ -108,10 +111,10 @@ class ProfileCartBanner extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       onPressed: () => context.push('/cart'),
                       child: Container(
-                        height: 48,
+                        height: 46,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF4ECDC4),
-                          borderRadius: BorderRadius.circular(14),
+                          color: mainColorLight,
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
                           child: Text(
@@ -120,6 +123,7 @@ class ProfileCartBanner extends StatelessWidget {
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
+                              fontFamily: 'Gilroy',
                             ),
                           ),
                         ),

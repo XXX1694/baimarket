@@ -3,6 +3,7 @@ import 'package:bai_market/features/collection/presentation/cubit/collection_cub
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../cart/presentation/pages/cart_page.dart';
@@ -35,7 +36,7 @@ class _ProductPageState extends State<ProductPage> {
   void initState() {
     super.initState();
     _productCubit.getProductDetail(id: int.parse(widget.id ?? '0'));
-    _relatedCubit.getCollection(slug: 'new', sort: 'popular');
+    _relatedCubit.getCollection(slug: 'all', sort: 'popular');
     globalCartCubit.getCart();
   }
 
@@ -49,13 +50,25 @@ class _ProductPageState extends State<ProductPage> {
     profileCubitGlobal.getProfileData();
   }
 
+  Widget _block(Widget child, {bool noRadius = false}) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(noRadius ? 0 : 12),
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF7F7F7),
         body: BlocConsumer<ProductCubit, ProductState>(
           bloc: _productCubit,
           listener: (context, state) {
@@ -66,145 +79,128 @@ class _ProductPageState extends State<ProductPage> {
           builder: (context, state) {
             if (state is ProductGot) {
               final product = state.productModel;
-              return Stack(
+              return Column(
                 children: [
-                  CustomScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    slivers: [
-                      // App Bar
-                      SliverToBoxAdapter(
-                        child: ProductAppBar(
-                          isFavorite: _isFavorite,
-                          onFavoriteTap: () => _toggleFavorite(product.id),
+                  Expanded(
+                    child: CustomScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      slivers: [
+                        // AppBar
+                        SliverToBoxAdapter(
+                          child: ProductAppBar(
+                            isFavorite: _isFavorite,
+                            onFavoriteTap: () => _toggleFavorite(product.id),
+                          ),
                         ),
-                      ),
 
-                      // Image Grid
-                      SliverToBoxAdapter(
-                        child: ProductImageGrid(model: product),
-                      ),
-
-                      // Tags
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: ProductTags(model: product),
+                        // Image Grid — on gray background
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: ProductImageGrid(model: product),
+                          ),
                         ),
-                      ),
 
-                      // Price Section
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: ProductPriceSection(model: product),
-                        ),
-                      ),
-
-                      // Description
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                          child: Text(
-                            TranslationUtils.getLocalizedName(
-                              context: context,
-                              nameKz: product.detailedDescriptionKz ??
-                                  product.descriptionKz ??
-                                  '',
-                              nameRu: product.detailedDescriptionRu ??
-                                  product.descriptionRu ??
-                                  '',
-                              nameEn: product.detailedDescriptionEn ??
-                                  product.descriptionEn ??
-                                  '',
-                            ),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black87,
-                              height: 1.5,
+                        // Block 2: Tags + Price + Description
+                        SliverToBoxAdapter(
+                          child: _block(
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ProductTags(model: product),
+                                  const SizedBox(height: 12),
+                                  ProductPriceSection(model: product),
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    () {
+                                      final desc = TranslationUtils.getLocalizedName(
+                                        context: context,
+                                        nameKz: product.detailedDescriptionKz ??
+                                            product.descriptionKz ?? '',
+                                        nameRu: product.detailedDescriptionRu ??
+                                            product.descriptionRu ?? '',
+                                        nameEn: product.detailedDescriptionEn ??
+                                            product.descriptionEn ?? '',
+                                      );
+                                      return desc.trim().isEmpty
+                                          ? l10n.defaultDescription
+                                          : desc;
+                                    }(),
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontFamily: 'Gilroy',
+                                      height: 1.5,
+                                    ),
+                                    maxLines: 5,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
-                      // Divider
-                      const SliverToBoxAdapter(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Divider(height: 1, color: Color(0xFFEEEEEE)),
+                        const SliverToBoxAdapter(child: SizedBox(height: 10)),
+
+                        // Block 3: Seller Info
+                        SliverToBoxAdapter(
+                          child: _block(
+                            ProductSellerInfo(sellerName: product.name),
+                          ),
                         ),
-                      ),
 
-                      // Seller Info (mocked)
-                      SliverToBoxAdapter(
-                        child: ProductSellerInfo(
-                          sellerName: product.name,
+                        const SliverToBoxAdapter(child: SizedBox(height: 10)),
+
+                        // Block 4: Reviews
+                        SliverToBoxAdapter(
+                          child: _block(
+                            const Padding(
+                              padding: EdgeInsets.all(16),
+                              child: ProductReviewsSection(),
+                            ),
+                          ),
                         ),
-                      ),
 
-                      // Divider
-                      const SliverToBoxAdapter(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Divider(height: 1, color: Color(0xFFEEEEEE)),
+                        const SliverToBoxAdapter(child: SizedBox(height: 8)),
+
+                        // Block 5: Related Products
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: BlocBuilder<CollectionCubit, CollectionState>(
+                              bloc: _relatedCubit,
+                              builder: (context, relatedState) {
+                                if (relatedState is CollectionGot) {
+                                  return ProductRelatedItems(
+                                    products: relatedState.collection.products,
+                                  );
+                                }
+                                return const SizedBox.shrink();
+                              },
+                            ),
+                          ),
                         ),
-                      ),
 
-                      // Reviews (mocked)
-                      const SliverToBoxAdapter(
-                        child: ProductReviewsSection(),
-                      ),
-
-                      // Divider
-                      const SliverToBoxAdapter(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Divider(height: 1, color: Color(0xFFEEEEEE)),
-                        ),
-                      ),
-
-                      // Related Products
-                      SliverToBoxAdapter(
-                        child: BlocBuilder<CollectionCubit, CollectionState>(
-                          bloc: _relatedCubit,
-                          builder: (context, relatedState) {
-                            if (relatedState is CollectionGot) {
-                              return ProductRelatedItems(
-                                products: relatedState.collection.products,
-                              );
-                            }
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                      ),
-
-                      // Bottom padding for bottom bar
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 100),
-                      ),
-                    ],
+                        const SliverToBoxAdapter(child: SizedBox(height: 20)),
+                      ],
+                    ),
                   ),
 
-                  // Bottom Bar
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: ProductBottomBar(model: product),
-                  ),
+                  // Bottom Bar — pinned to bottom
+                  ProductBottomBar(model: product),
                 ],
               );
             }
 
             if (state is ProductGetError) {
-              return Center(
-                child: Text(l10n.error('')),
-              );
+              return Center(child: Text(l10n.error('')));
             }
 
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),

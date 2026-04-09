@@ -1,5 +1,7 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class ProfileInviteBanner extends StatelessWidget {
@@ -9,7 +11,7 @@ class ProfileInviteBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CupertinoButton(
         padding: EdgeInsets.zero,
         onPressed: () {
@@ -19,24 +21,25 @@ class ProfileInviteBanner extends StatelessWidget {
           height: 56,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: const Color(0xFFE8F8F5),
+            color: const Color(0xFFE8F5E9),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.people_outline,
-                color: const Color(0xFF4ECDC4),
-                size: 24,
+              SvgPicture.asset(
+                'assets/icons/profile_page/profile_page_share_with_others.svg',
+                width: 22,
+                height: 22,
               ),
               const SizedBox(width: 10),
               Text(
                 l10n.inviteFriends,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF4ECDC4),
+                  color: mainColorLight,
+                  fontFamily: 'Gilroy',
                 ),
               ),
             ],

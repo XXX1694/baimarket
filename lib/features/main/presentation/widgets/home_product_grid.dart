@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/product_card.dart';
 import '../../../catalog/data/models/category_product_model.dart';
-import 'home_product_card.dart';
 
 class HomeProductGrid extends StatelessWidget {
   const HomeProductGrid({super.key, required this.products});
@@ -17,10 +17,10 @@ class HomeProductGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        childAspectRatio: 0.65,
+        mainAxisExtent: 320,
       ),
       itemBuilder: (context, index) {
-        return HomeProductCard(product: products[index]);
+        return ProductCard(product: products[index]);
       },
     );
   }

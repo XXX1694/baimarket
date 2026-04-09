@@ -1,3 +1,4 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -22,7 +23,7 @@ class ProductTags extends StatelessWidget {
           descriptionEn: (col['nameEn'] ?? col['name'] ?? '') as String,
         );
         if (name.isNotEmpty) {
-          tags.add(_TagData(name, const Color(0xFF4ECDC4)));
+          tags.add(_TagData(name, mainColorLight));
         }
       }
     }
@@ -40,13 +41,10 @@ class ProductTags extends StatelessWidget {
 
     if (tags.isEmpty) return const SizedBox.shrink();
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        children: tags.map((tag) => _TagChip(tag: tag)).toList(),
-      ),
+    return Wrap(
+      spacing: 6,
+      runSpacing: 6,
+      children: tags.map((tag) => _TagChip(tag: tag)).toList(),
     );
   }
 }
@@ -64,17 +62,18 @@ class _TagChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         color: tag.color,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
         tag.label,
         style: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
+          fontSize: 10,
+          fontWeight: FontWeight.w500,
           color: Colors.white,
+          fontFamily: 'Gilroy',
         ),
       ),
     );

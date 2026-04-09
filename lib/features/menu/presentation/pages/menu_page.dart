@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../../../main/presentation/pages/main_page.dart';
+import '../../../streams/presentation/pages/streams_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key, required this.initialPage});
@@ -51,7 +52,10 @@ class _MainScreenState extends State<MenuPage> {
     required int index,
     required ref,
     required bool active,
+    required bool darkMode,
   }) {
+    final activeColor = darkMode ? Colors.white : mainColorLight;
+    final inactiveColor = darkMode ? Colors.white38 : Colors.black54;
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
       onPressed: () {
@@ -66,20 +70,12 @@ class _MainScreenState extends State<MenuPage> {
           const SizedBox(height: 3),
           Text(
             label,
-            style:
-                active
-                    ? TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: mainColorLight,
-                      fontSize: 11,
-                      height: 16 / 11,
-                    )
-                    : TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black54,
-                      fontSize: 11,
-                      height: 16 / 11,
-                    ),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: active ? activeColor : inactiveColor,
+              fontSize: 11,
+              height: 16 / 11,
+            ),
             textAlign: TextAlign.center,
           ),
         ],
@@ -98,10 +94,7 @@ class _MainScreenState extends State<MenuPage> {
             index: currentIndex,
             children: [
               MainPage(),
-              // Streams placeholder
-              const Scaffold(
-                body: Center(child: Text('Streams')),
-              ),
+              const StreamsPage(),
               CatalogPage(),
               CartPage(
                 toCatalog: () {
@@ -118,116 +111,125 @@ class _MainScreenState extends State<MenuPage> {
       bottomNavigationBar: Consumer(
         builder: (context, ref, child) {
           final currentIndex = ref.watch(bottomNavIndexProvider);
-          return Container(
+          final darkMode = currentIndex == 1;
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(vertical: 10),
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            decoration: BoxDecoration(
+              color: darkMode ? const Color(0xFF111111) : Colors.white,
+              border: Border(
+                top: BorderSide(
+                  color: darkMode ? Colors.white12 : Colors.black12,
+                  width: 0.5,
+                ),
+              ),
             ),
             child: SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildNavItem(
-                    icon: Text(
-                      'Б',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.black54,
-                      ),
+                    icon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_baimarket_disabled.svg',
+                      height: 24,
+                      width: 24,
+                      colorFilter: darkMode
+                          ? const ColorFilter.mode(Colors.white38, BlendMode.srcIn)
+                          : null,
                     ),
-                    activeIcon: Text(
-                      'Б',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w900,
-                        color: mainColorLight,
-                      ),
+                    activeIcon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_baimarket_active.svg',
+                      height: 24,
+                      width: 24,
                     ),
                     label: l10n.market,
                     index: 0,
                     ref: ref,
                     active: currentIndex == 0,
+                    darkMode: darkMode,
                   ),
                   _buildNavItem(
-                    icon: Opacity(
-                      opacity: 0.54,
-                      child: SvgPicture.asset(
-                        'assets/icons/featured.svg',
-                        height: 24,
-                        width: 24,
-                      ),
-                    ),
-                    activeIcon: SvgPicture.asset(
-                      'assets/icons/featured.svg',
-                      color: mainColorLight,
+                    icon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_video_disabled.svg',
                       height: 24,
                       width: 24,
+                      colorFilter: darkMode
+                          ? const ColorFilter.mode(Colors.white38, BlendMode.srcIn)
+                          : null,
+                    ),
+                    activeIcon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_video_active.svg',
+                      height: 24,
+                      width: 24,
+                      colorFilter: darkMode
+                          ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
+                          : null,
                     ),
                     label: l10n.streams,
                     index: 1,
                     ref: ref,
                     active: currentIndex == 1,
+                    darkMode: darkMode,
                   ),
                   _buildNavItem(
-                    activeIcon: SvgPicture.asset(
-                      'assets/icons/catalog.svg',
-                      color: mainColorLight,
+                    icon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_catalog_disabled.svg',
                       height: 24,
                       width: 24,
+                      colorFilter: darkMode
+                          ? const ColorFilter.mode(Colors.white38, BlendMode.srcIn)
+                          : null,
                     ),
-                    icon: Opacity(
-                      opacity: 0.54,
-                      child: SvgPicture.asset(
-                        'assets/icons/catalog.svg',
-                        height: 24,
-                        width: 24,
-                      ),
+                    activeIcon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_catalog_active.svg',
+                      height: 24,
+                      width: 24,
                     ),
                     label: l10n.catalog,
                     index: 2,
                     ref: ref,
                     active: currentIndex == 2,
+                    darkMode: darkMode,
                   ),
                   _buildNavItem(
-                    activeIcon: SvgPicture.asset(
-                      'assets/icons/cart.svg',
-                      color: mainColorLight,
+                    icon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_cart_disabled.svg',
                       height: 24,
                       width: 24,
+                      colorFilter: darkMode
+                          ? const ColorFilter.mode(Colors.white38, BlendMode.srcIn)
+                          : null,
                     ),
-                    icon: Opacity(
-                      opacity: 0.54,
-                      child: SvgPicture.asset(
-                        'assets/icons/cart.svg',
-                        height: 24,
-                        width: 24,
-                      ),
+                    activeIcon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_cart_active.svg',
+                      height: 24,
+                      width: 24,
                     ),
                     label: l10n.cart,
                     index: 3,
                     ref: ref,
                     active: currentIndex == 3,
+                    darkMode: darkMode,
                   ),
                   _buildNavItem(
-                    activeIcon: SvgPicture.asset(
-                      'assets/icons/profile.svg',
-                      color: mainColorLight,
+                    icon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_profile_disabled.svg',
                       height: 24,
                       width: 24,
+                      colorFilter: darkMode
+                          ? const ColorFilter.mode(Colors.white38, BlendMode.srcIn)
+                          : null,
                     ),
-                    icon: Opacity(
-                      opacity: 0.54,
-                      child: SvgPicture.asset(
-                        'assets/icons/profile.svg',
-                        height: 24,
-                        width: 24,
-                      ),
+                    activeIcon: SvgPicture.asset(
+                      'assets/icons/main_menu/main_menu_profile_active.svg',
+                      height: 24,
+                      width: 24,
                     ),
                     label: l10n.profile,
                     index: 4,
                     ref: ref,
                     active: currentIndex == 4,
+                    darkMode: darkMode,
                   ),
                 ],
               ),

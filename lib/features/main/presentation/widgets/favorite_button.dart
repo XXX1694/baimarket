@@ -62,7 +62,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     return GestureDetector(
       onTap: _handleTap,
       child: SvgPicture.asset(
-        _isFavorite ? 'assets/icons/liked.svg' : 'assets/icons/like_main.svg',
+        _isFavorite
+            ? 'assets/icons/common/product_like_active.svg'
+            : 'assets/icons/common/product_like_disabled.svg',
       ),
     );
   }

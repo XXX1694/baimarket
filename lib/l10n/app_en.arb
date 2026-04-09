@@ -633,5 +633,8 @@
     "clearCart": "Clear",
     "youSaved": "You saved",
     "recommended": "Recommended",
-    "notAvailable": "Not available"
-} 
+    "notAvailable": "Not available",
+    "defaultDescription": "A high-quality product that meets your daily care needs. Carefully selected ingredients ensure effective results. Suitable for all skin types. Recommended by professionals."
+,
+    "liveNow": "Live now"
+}

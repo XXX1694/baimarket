@@ -532,4 +532,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notAvailable => 'Нет в наличии';
+
+  @override
+  String get defaultDescription => 'Высококачественный продукт, разработанный для ежедневного ухода. Тщательно подобранные компоненты обеспечивают эффективный результат. Подходит для всех типов кожи. Рекомендован специалистами.';
+
+  @override
+  String get liveNow => 'Сейчас в эфире';
 }

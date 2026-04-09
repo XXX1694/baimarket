@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _collectionCubit.getCollection(slug: 'new', sort: 'popular');
+    _collectionCubit.getCollection(slug: 'all', sort: 'popular');
   }
 
   void _onTabChanged(String slug) {
@@ -37,12 +37,14 @@ class _MainPageState extends State<MainPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
+        backgroundColor: Color(0xFFF7F7F7),
+        body: Column(
+          children: [
+            const HomeAppBar(),
+            Expanded(
+              child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            // App Bar
-            SliverToBoxAdapter(child: const HomeAppBar()),
 
             // Banner Carousel
             SliverToBoxAdapter(
@@ -53,7 +55,7 @@ class _MainPageState extends State<MainPage> {
                     return HomeBannerCarousel(banners: state.banners);
                   }
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(
                       height: 200,
                       child: SimpleShimmer(borderRadius: 20),
@@ -120,6 +122,9 @@ class _MainPageState extends State<MainPage> {
                   },
                 ),
               ),
+            ),
+          ],
+        ),
             ),
           ],
         ),

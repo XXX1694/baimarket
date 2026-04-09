@@ -532,4 +532,10 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get notAvailable => 'Қолжетімсіз';
+
+  @override
+  String get defaultDescription => 'Күнделікті күтімге арналған жоғары сапалы өнім. Мұқият таңдалған компоненттер тиімді нәтиже береді. Барлық тері түрлеріне жарамды. Мамандар ұсынған өнім.';
+
+  @override
+  String get liveNow => 'Қазір эфирде';
 }

@@ -1,75 +1,80 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   const ProfileMenuItem({
     super.key,
-    required this.icon,
-    required this.iconColor,
+    required this.svgAsset,
     required this.title,
     required this.subtitle,
     required this.onTap,
+    this.showDivider = false,
   });
 
-  final IconData icon;
-  final Color iconColor;
+  final String svgAsset;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
+  final bool showDivider;
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      onPressed: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        child: Row(
-          children: [
-            Container(
-              height: 42,
-              width: 42,
-              decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Icon(icon, color: iconColor, size: 22),
-              ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black87,
-                    ),
+    return Column(
+      children: [
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
+              children: [
+                SvgPicture.asset(svgAsset, width: 26, height: 26),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87,
+                          fontFamily: 'Gilroy',
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade400,
+                          fontFamily: 'Gilroy',
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 2),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                SvgPicture.asset(
+                  'assets/icons/product_page/product_page_arrow_right.svg',
+                  width: 20,
+                  height: 20,
+                ),
+              ],
             ),
-            Icon(
-              Icons.chevron_right,
-              color: Colors.grey.shade300,
-              size: 24,
-            ),
-          ],
+          ),
         ),
-      ),
+        if (showDivider)
+          Divider(
+            height: 1,
+            thickness: 0.5,
+            indent: 56,
+            endIndent: 0,
+            color: Colors.grey.shade200,
+          ),
+      ],
     );
   }
 }

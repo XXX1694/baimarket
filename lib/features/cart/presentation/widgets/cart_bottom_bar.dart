@@ -1,3 +1,4 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -47,7 +48,7 @@ class CartBottomBar extends StatelessWidget {
                     height: 24,
                     width: 24,
                     decoration: const BoxDecoration(
-                      color: Color(0xFF4ECDC4),
+                      color: mainColorLight,
                       shape: BoxShape.circle,
                     ),
                     child: const Center(
@@ -67,7 +68,7 @@ class CartBottomBar extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF4ECDC4),
+                      color: mainColorLight,
                     ),
                   ),
                   const Spacer(),
@@ -91,7 +92,7 @@ class CartBottomBar extends StatelessWidget {
               height: 52,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: const Color(0xFF4ECDC4),
+                color: mainColorLight,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Padding(

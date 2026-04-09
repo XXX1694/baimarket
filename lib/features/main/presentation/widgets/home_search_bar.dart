@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../l10n/app_localizations.dart';
 
@@ -10,36 +11,32 @@ class HomeSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
           Expanded(
-            child: CupertinoButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
+            child: GestureDetector(
+              onTap: () {
                 context.push('/catalog');
               },
               child: Container(
-                height: 52,
+                height: 50,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      CupertinoIcons.search,
-                      color: Colors.grey.shade500,
-                      size: 22,
-                    ),
+                    SvgPicture.asset('assets/icons/main_page/main_page_search.svg', height: 24, width: 24),
                     const SizedBox(width: 12),
                     Text(
                       l10n.searchHint,
                       style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey.shade500,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                        fontFamily: 'Gilroy',
                       ),
                     ),
                   ],
@@ -48,24 +45,19 @@ class HomeSearchBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               context.push('/favorites');
             },
             child: Container(
-              height: 52,
-              width: 52,
+              height: 50,
+              width: 50,
               decoration: BoxDecoration(
-                color: const Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.circular(16),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
               ),
-              child: const Center(
-                child: Icon(
-                  CupertinoIcons.heart,
-                  color: Colors.black87,
-                  size: 24,
-                ),
+              child:  Center(
+                child:   SvgPicture.asset('assets/icons/main_page/main_page_like.svg', height: 24, width: 24),
               ),
             ),
           ),

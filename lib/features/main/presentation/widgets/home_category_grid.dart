@@ -35,7 +35,7 @@ class HomeCategoryGrid extends StatelessWidget {
     final bottomRow = slugs.skip(3).take(2).toList();
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           Row(
@@ -70,7 +70,7 @@ class HomeCategoryGrid extends StatelessWidget {
 
   Widget _buildShimmerGrid() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           Row(
@@ -81,7 +81,7 @@ class HomeCategoryGrid extends StatelessWidget {
                   padding: EdgeInsets.only(right: i < 2 ? 8 : 0),
                   child: SizedBox(
                     height: 100,
-                    child: SimpleShimmer(borderRadius: 16),
+                    child: SimpleShimmer(borderRadius: 12),
                   ),
                 ),
               ),
@@ -96,7 +96,7 @@ class HomeCategoryGrid extends StatelessWidget {
                   padding: EdgeInsets.only(right: i < 1 ? 8 : 0),
                   child: SizedBox(
                     height: 120,
-                    child: SimpleShimmer(borderRadius: 16),
+                    child: SimpleShimmer(borderRadius: 12),
                   ),
                 ),
               ),
@@ -121,18 +121,22 @@ class _CategoryCard extends StatelessWidget {
         context.push('/collection/${slug.slug ?? 'new'}');
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: SizedBox(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
           height: height,
           child: Stack(
             fit: StackFit.expand,
             children: [
-              NetworkImageWidget(
-                url: slug.iconUrl != null && slug.iconUrl!.isNotEmpty
-                    ? '$imgUrl${slug.iconUrl!}'
-                    : '',
-                fit: BoxFit.cover,
-              ),
+              // NetworkImageWidget(
+              //   url: slug.iconUrl != null && slug.iconUrl!.isNotEmpty
+              //       ? '$imgUrl${slug.iconUrl!}'
+              //       : '',
+              //   fit: BoxFit.cover,
+              // ),
               Positioned(
                 left: 10,
                 bottom: 10,
@@ -146,13 +150,8 @@ class _CategoryCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 4,
-                        color: Colors.black26,
-                      ),
-                    ],
+                    color: Colors.black,
+                  
                   ),
                 ),
               ),
