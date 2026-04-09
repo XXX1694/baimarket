@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widgets/shimmer.dart';
 import '../widgets/catalog_app_bar.dart';
-import '../widgets/catalog_product_card.dart';
+import '../../../../core/widgets/product_card.dart';
 import '../widgets/catalog_tabs.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -32,7 +32,7 @@ class _CatalogPageState extends State<CatalogPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF5F5F5),
         body: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -63,10 +63,10 @@ class _CatalogPageState extends State<CatalogPage> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
-                        childAspectRatio: 0.48,
+                        mainAxisExtent: 320,
                       ),
                       itemBuilder: (context, index) {
-                        return CatalogProductCard(product: products[index]);
+                        return ProductCard(product: products[index]);
                       },
                     );
                   }

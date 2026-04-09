@@ -27,22 +27,20 @@ class ProductAppBar extends StatelessWidget {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () => context.pop(),
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.black87,
-              size: 26,
+            child: SvgPicture.asset(
+              'assets/icons/product_page/product_page_back_arrow.svg',
+              height: 26,
+              width: 26,
             ),
           ),
           const Spacer(),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {
-              // Share functionality
-            },
-            child: const Icon(
-              CupertinoIcons.share,
-              color: Colors.black87,
-              size: 24,
+            onPressed: () {},
+            child: SvgPicture.asset(
+              'assets/icons/product_page/product_page_share.svg',
+              height: 26,
+              width: 26,
             ),
           ),
           const SizedBox(width: 12),
@@ -50,7 +48,9 @@ class ProductAppBar extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: onFavoriteTap,
             child: SvgPicture.asset(
-              isFavorite ? 'assets/icons/liked.svg' : 'assets/icons/like_main.svg',
+              isFavorite
+                  ? 'assets/icons/common/product_like_active.svg'
+                  : 'assets/icons/product_page/product_page_like.svg',
               height: 26,
               width: 26,
             ),

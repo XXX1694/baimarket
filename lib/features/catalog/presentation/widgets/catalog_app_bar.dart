@@ -1,5 +1,7 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class CatalogAppBar extends StatelessWidget {
@@ -17,10 +19,10 @@ class CatalogAppBar extends StatelessWidget {
       child: Row(
         children: [
           // Location
-          const Icon(
-            Icons.location_on,
-            color: Color(0xFF4ECDC4),
-            size: 24,
+          SvgPicture.asset(
+            'assets/icons/catalog_page_location.svg',
+            height: 24,
+            width: 24,
           ),
           const SizedBox(width: 6),
           const Text(
@@ -35,20 +37,9 @@ class CatalogAppBar extends StatelessWidget {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {},
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xFF5B5BFF),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Text(
-                'Plus',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+            child: SvgPicture.asset(
+              'assets/icons/main_plus_big.svg',
+              height: 30,
             ),
           ),
           const SizedBox(width: 8),
@@ -56,17 +47,17 @@ class CatalogAppBar extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: () => context.push('/notification'),
             child: Container(
-              height: 44,
-              width: 44,
-              decoration: const BoxDecoration(
-                color: Color(0xFFF2F2F2),
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
               ),
-              child: const Center(
-                child: Icon(
-                  CupertinoIcons.chat_bubble_fill,
-                  color: Colors.black54,
-                  size: 20,
+              child: Center(
+                child: SvgPicture.asset(
+                  'assets/icons/main_page/main_page_chat.svg',
+                  height: 24,
+                  width: 24,
                 ),
               ),
             ),

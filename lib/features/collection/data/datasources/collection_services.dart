@@ -14,25 +14,38 @@ class CollectionServices implements CollectionRepository {
   }) async {
     final url = mainUrl;
     String finalUrl = '${url}model/by-collection/$slug?sort=$sort';
-    String finalUrl1 = '${url}collection/$slug';
     try {
       final response = await _dio.get(finalUrl);
-      List data = response.data;
-      List<CategoryProductModel> products = [];
-      for (int i = 0; i < data.length; i++) {
-        CategoryProductModel productModel = CategoryProductModel.fromJson(
-          data[i],
-        );
-        products.add(productModel);
-      }
-      final response1 = await _dio.get(finalUrl1);
-      CollectionDetail detail = CollectionDetail.fromJson(response1.data);
+      if (response.statusCode != 200) return null;
 
-      if (response.statusCode == 200 && response1.statusCode == 200) {
-        return Collection(detail: detail, products: products);
-      } else {
-        return null;
+      List data = response.data;
+      List<CategoryProductModel> products = data
+          .map((e) => CategoryProductModel.fromJson(e))
+          .toList();
+
+      // "all" tab has no collection detail endpoint — use dummy
+      if (slug == 'all') {
+        final dummy = CollectionDetail(
+          id: 0,
+          slug: 'all',
+          nameKz: 'Бәрі',
+          nameRu: 'Все',
+          nameEn: 'All',
+          descriptionKz: null,
+          descriptionRu: null,
+          descriptionEn: null,
+          iconUrl: null,
+          backgroundUrl: null,
+          createdAt: null,
+          updatedAt: null,
+        );
+        return Collection(detail: dummy, products: products);
       }
+
+      final response1 = await _dio.get('${url}collection/$slug');
+      if (response1.statusCode != 200) return null;
+      CollectionDetail detail = CollectionDetail.fromJson(response1.data);
+      return Collection(detail: detail, products: products);
     } catch (e) {
       return null;
     }

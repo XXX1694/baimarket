@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart' as provider;
 import '../../../../core/providers/language_provider.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -14,31 +15,22 @@ class ProfileLanguageSelector extends StatelessWidget {
     final currentLang = languageProvider.currentLocale.languageCode;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         children: [
-          Container(
-            height: 42,
-            width: 42,
-            decoration: BoxDecoration(
-              color: const Color(0xFF5B5BFF).withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.translate,
-                color: Color(0xFF5B5BFF),
-                size: 22,
-              ),
-            ),
+          SvgPicture.asset(
+            'assets/icons/profile_page/profile_page_language.svg',
+            width: 26,
+            height: 26,
           ),
           const SizedBox(width: 14),
           Text(
             l10n.language,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Colors.black87,
+              fontFamily: 'Gilroy',
             ),
           ),
           const Spacer(),
@@ -75,9 +67,9 @@ class _LangPill extends StatelessWidget {
       padding: EdgeInsets.zero,
       onPressed: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF3D3D3D) : const Color(0xFFF5F5F5),
+          color: isSelected ? Colors.black87 : const Color(0xFFF0F0F0),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
@@ -85,7 +77,8 @@ class _LangPill extends StatelessWidget {
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w500,
-            color: isSelected ? Colors.white : Colors.black87,
+            color: isSelected ? Colors.white : Colors.black54,
+            fontFamily: 'Gilroy',
           ),
         ),
       ),

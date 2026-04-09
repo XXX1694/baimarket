@@ -532,4 +532,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notAvailable => 'Not available';
+
+  @override
+  String get defaultDescription => 'A high-quality product that meets your daily care needs. Carefully selected ingredients ensure effective results. Suitable for all skin types. Recommended by professionals.';
+
+  @override
+  String get liveNow => 'Live now';
 }

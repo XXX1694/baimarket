@@ -10,16 +10,16 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top + 8,
-        left: 16,
-        right: 16,
+        top: MediaQuery.of(context).padding.top + 2,
+        left: 20,
+        right: 20,
         bottom: 8,
       ),
       child: Row(
         children: [
           SvgPicture.asset(
-            'assets/icons/logo.svg',
-            height: 40,
+            'assets/icons/main_page/main_page_logo.svg',
+            height: 36,
           ),
           const Spacer(),
           CupertinoButton(
@@ -27,40 +27,29 @@ class HomeAppBar extends StatelessWidget {
             onPressed: () {
               // Plus subscription action
             },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xFF5B5BFF),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Text(
-                'Plus',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            child: SvgPicture.asset(
+            'assets/icons/main_page/main_page_plus_icon.svg',
+            height: 30,
           ),
-          const SizedBox(width: 8),
+          ),
+          const SizedBox(width: 10),
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
               context.push('/notification');
             },
             child: Container(
-              height: 44,
-              width: 44,
+              height: 40,
+              width: 40,
               decoration: BoxDecoration(
-                color: const Color(0xFFF2F2F2),
+                color: Colors.black.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: SvgPicture.asset(
-                  'assets/icons/notification.svg',
-                  height: 22,
-                  width: 22,
+                  'assets/icons/main_page/main_page_chat.svg',
+                  height: 24,
+                  width: 24,
                 ),
               ),
             ),

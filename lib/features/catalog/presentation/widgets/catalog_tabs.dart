@@ -1,3 +1,4 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,7 @@ class _CatalogTabsState extends State<CatalogTabs> {
 
   Widget _buildTabs(List<SlugModel> slugs) {
     return SizedBox(
-      height: 44,
+      height: 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -55,23 +56,21 @@ class _CatalogTabsState extends State<CatalogTabs> {
                 widget.onTabChanged(slugs[index].slug ?? 'all');
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF4ECDC4) : Colors.transparent,
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    color: isSelected
-                        ? const Color(0xFF4ECDC4)
-                        : Colors.grey.shade300,
-                    width: 1.5,
-                  ),
+                  color: isSelected ? mainColorLight : Colors.transparent,
+                  borderRadius: BorderRadius.circular(100),
+                  border: isSelected
+                      ? null
+                      : Border.all(color: Colors.grey.shade300, width: 1),
                 ),
                 child: Text(
                   name,
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    color: isSelected ? Colors.white : Colors.black87,
+                    fontFamily: 'Gilroy',
+                    fontSize: 13,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                    color: isSelected ? Colors.white : Colors.black54,
                   ),
                 ),
               ),
