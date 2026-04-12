@@ -1110,6 +1110,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Live now'**
   String get liveNow;
+
+  /// No description provided for @otpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 4-digit code\nto your phone'**
+  String get otpSubtitle;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get resendCode;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

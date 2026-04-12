@@ -19,7 +19,6 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   final AuthCubit _cubit = AuthCubit();
   final TextEditingController _controller = TextEditingController();
-  String _dialCode = '7'; // KZ default
 
   @override
   void dispose() {
@@ -110,9 +109,7 @@ class _AuthPageState extends State<AuthPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: PhoneNumberInput(
                     controller: _controller,
-                    onCountryChanged: (dialCode) {
-                      _dialCode = dialCode;
-                    },
+                    onCountryChanged: (_) {},
                   ),
                 ),
 
@@ -158,24 +155,7 @@ class _AuthPageState extends State<AuthPage> {
                         fontFamily: 'Gilroy',
                       ),
                       children: [
-                        const TextSpan(text: 'Нажимая на кнопку '),
-                        TextSpan(
-                          text: '"${l10n.getCode}"',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: _teal,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const TextSpan(
-                          text:
-                              ', вы принимаете пользователское соглашение и политику конфиденциальности',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        TextSpan(text: l10n.termsAndPrivacy),
                       ],
                     ),
                   ),

@@ -82,7 +82,7 @@
     },
     "cart": "Cart",
     "@cart": {
-        "description": "Cart section title"
+        "description": "Cart menu item text"
     },
     "favorites": "Favorites",
     "@favorites": {
@@ -90,7 +90,7 @@
     },
     "profile": "Profile",
     "@profile": {
-        "description": "Profile section title"
+        "description": "Profile menu item text"
     },
     "settings": "Settings",
     "@settings": {
@@ -110,15 +110,15 @@
     },
     "catalog": "Catalog",
     "@catalog": {
-        "description": "Catalog section title"
+        "description": "Catalog menu item text"
     },
     "freeDelivery": "Free delivery",
     "@freeDelivery": {
         "description": "Free delivery text"
     },
-    "deliveryAddress": "Delivery Address",
+    "deliveryAddress": "Delivery Address:",
     "@deliveryAddress": {
-        "description": "Delivery address field label"
+        "description": "Delivery address label"
     },
     "addressExample": "Example: Auezova 34",
     "@addressExample": {
@@ -183,7 +183,7 @@
     },
     "orderHistory": "Order History",
     "@orderHistory": {
-        "description": "Order history section title"
+        "description": "Order history page title"
     },
     "support": "Support",
     "@support": {
@@ -274,18 +274,6 @@
     "@home": {
         "description": "Home menu item text"
     },
-    "catalog": "Catalog",
-    "@catalog": {
-        "description": "Catalog menu item text"
-    },
-    "cart": "Cart",
-    "@cart": {
-        "description": "Cart menu item text"
-    },
-    "profile": "Profile",
-    "@profile": {
-        "description": "Profile menu item text"
-    },
     "products": "products",
     "@products": {
         "description": "Products count text"
@@ -326,7 +314,6 @@
     "@cannotAddMore": {
         "description": "Maximum items reached message"
     },
-
     "prize_goods": "Prize goods",
     "number_of_tickets": "Number for participation",
     "tickets": "tickets",
@@ -448,17 +435,9 @@
     "@success": {
         "description": "Success title for snackbar"
     },
-    "orderHistory": "Order History",
-    "@orderHistory": {
-        "description": "Order history page title"
-    },
     "orderDetails": "Order Details",
     "@orderDetails": {
         "description": "Order details page title"
-    },
-    "deliveryAddress": "Delivery Address:",
-    "@deliveryAddress": {
-        "description": "Delivery address label"
     },
     "noData": "No data",
     "@noData": {
@@ -610,12 +589,20 @@
     "plusPrice": "With Plus",
     "sellerOrders": "{count} orders",
     "@sellerOrders": {
-        "placeholders": { "count": { "type": "String" } }
+        "placeholders": {
+            "count": {
+                "type": "String"
+            }
+        }
     },
     "reviews": "Reviews",
     "reviewsCount": "{count} reviews",
     "@reviewsCount": {
-        "placeholders": { "count": { "type": "String" } }
+        "placeholders": {
+            "count": {
+                "type": "String"
+            }
+        }
     },
     "readAll": "Read all",
     "relatedProducts": "You might also like",
@@ -634,7 +621,9 @@
     "youSaved": "You saved",
     "recommended": "Recommended",
     "notAvailable": "Not available",
-    "defaultDescription": "A high-quality product that meets your daily care needs. Carefully selected ingredients ensure effective results. Suitable for all skin types. Recommended by professionals."
-,
-    "liveNow": "Live now"
+    "defaultDescription": "A high-quality product that meets your daily care needs. Carefully selected ingredients ensure effective results. Suitable for all skin types. Recommended by professionals.",
+    "liveNow": "Live now",
+    "otpSubtitle": "We sent a 4-digit code\nto your phone",
+    "resendCode": "Resend code",
+    "confirm": "Confirm"
 }

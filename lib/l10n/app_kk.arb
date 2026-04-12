@@ -24,12 +24,12 @@
     "freeDelivery": "Тегін жеткізу",
     "enterName": "Атыңызды енгізіңіз",
     "enterSurname": "Тегіңізді енгізіңіз",
-    "phoneNumber": "Телефон нөірі",
+    "phoneNumber": "Телефон нөмірі",
     "enterPhone": "Телефон нөміріңізді енгізіңіз",
     "enterEmail": "Email-діңізді енгізіңіз",
     "enterPassword": "Құпия сөзіңізді енгізіңіз",
     "enterConfirmPassword": "Құпия сөзіңізді растаңыз",
-    "deliveryAddress": "Жеткізу мекенжайы",
+    "deliveryAddress": "Жеткізу мекенжайы:",
     "addressExample": "Мысалы: Әуезов 34",
     "postalCode": "Пошта индексі",
     "cardNumber": "Карта нөмірі",
@@ -281,15 +281,6 @@
     "@faqTrackOrderAnswer": {
         "description": "FAQ answer about order tracking"
     },
-    "orderHistory": "Тапсырыстар тарихы",
-    "@orderHistory": {
-        "description": "Order history page title"
-    },
-    "orderDetails": "Тапсырыс туралы",
-    "@orderDetails": {
-        "description": "Order details page title"
-    },
-    "deliveryAddress": "Жеткізу мекенжайы:",
     "@deliveryAddress": {
         "description": "Delivery address label"
     },
@@ -443,12 +434,20 @@
     "plusPrice": "Plus-пен алсаңыз",
     "sellerOrders": "{count} тапсырыс",
     "@sellerOrders": {
-        "placeholders": { "count": { "type": "String" } }
+        "placeholders": {
+            "count": {
+                "type": "String"
+            }
+        }
     },
     "reviews": "Пікірлер",
     "reviewsCount": "{count} пікір",
     "@reviewsCount": {
-        "placeholders": { "count": { "type": "String" } }
+        "placeholders": {
+            "count": {
+                "type": "String"
+            }
+        }
     },
     "readAll": "Барлығын оқу",
     "relatedProducts": "Сізге ұнауы мүмкін",
@@ -467,7 +466,9 @@
     "youSaved": "Сіз үнемдедіңіз",
     "recommended": "Ұсынамыз",
     "notAvailable": "Қолжетімсіз",
-    "defaultDescription": "Күнделікті күтімге арналған жоғары сапалы өнім. Мұқият таңдалған компоненттер тиімді нәтиже береді. Барлық тері түрлеріне жарамды. Мамандар ұсынған өнім."
-,
-    "liveNow": "Қазір эфирде"
+    "defaultDescription": "Күнделікті күтімге арналған жоғары сапалы өнім. Мұқият таңдалған компоненттер тиімді нәтиже береді. Барлық тері түрлеріне жарамды. Мамандар ұсынған өнім.",
+    "liveNow": "Қазір эфирде",
+    "otpSubtitle": "Телефоныңызға 4 таңбалы код\nжібердік",
+    "resendCode": "Кодты қайта жіберу",
+    "confirm": "Растау"
 }

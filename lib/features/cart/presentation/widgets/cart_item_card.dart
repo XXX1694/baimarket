@@ -1,12 +1,14 @@
-import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/urls.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../../core/widgets/show_image.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/models/cart_item_model.dart';
+
+const Color _teal = Color(0xFF3DBFAD);
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
@@ -33,8 +35,14 @@ class CartItemCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFF0F0F0), width: 1),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 12,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,10 +52,10 @@ class CartItemCard extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: () => context.push('/product/${product?.id}'),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(12),
               child: SizedBox(
-                height: 120,
-                width: 120,
+                height: 110,
+                width: 90,
                 child: NetworkImageWidget(
                   url: product?.photoUrls != null &&
                           product!.photoUrls!.isNotEmpty
@@ -58,7 +66,7 @@ class CartItemCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 12),
 
           // Info section
           Expanded(
@@ -67,14 +75,15 @@ class CartItemCard extends StatelessWidget {
               children: [
                 // Price row
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       '$totalItemPrice₸',
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         fontWeight: FontWeight.w700,
-                        color: mainColorLight,
+                        color: _teal,
+                        fontFamily: 'Gilroy',
                       ),
                     ),
                     if (product?.oldPrice != null) ...[
@@ -82,9 +91,11 @@ class CartItemCard extends StatelessWidget {
                       Text(
                         '${product!.oldPrice}₸',
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                           color: Colors.grey.shade400,
                           decoration: TextDecoration.lineThrough,
+                          fontFamily: 'Gilroy',
                         ),
                       ),
                     ],
@@ -100,10 +111,11 @@ class CartItemCard extends StatelessWidget {
                     descriptionRu: product?.descriptionRu ?? '',
                     descriptionEn: product?.descriptionEn ?? '',
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
-                    color: Colors.grey.shade600,
+                    color: Colors.black54,
+                    fontFamily: 'Gilroy',
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -117,7 +129,8 @@ class CartItemCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFFFF6B6B),
+                      color: Color(0xFFFF3B30),
+                      fontFamily: 'Gilroy',
                     ),
                   ),
                 const SizedBox(height: 10),
@@ -126,7 +139,7 @@ class CartItemCard extends StatelessWidget {
                 Container(
                   height: 36,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF5F5F5),
+                    color: const Color(0xFFF2F2F2),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -135,29 +148,30 @@ class CartItemCard extends StatelessWidget {
                       CupertinoButton(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         onPressed: onRemove,
-                        child: Icon(
+                        child: SvgPicture.asset(
                           item.quantity <= 1
-                              ? CupertinoIcons.trash
-                              : CupertinoIcons.minus,
-                          size: 18,
-                          color: Colors.black54,
+                              ? 'assets/icons/cart_page/cart_page_trash.svg'
+                              : 'assets/icons/cart_page/cart_page_minus.svg',
+                          width: 18,
+                          height: 18,
                         ),
                       ),
                       Text(
                         '${item.quantity}',
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 15,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black,
+                          color: Colors.black87,
+                          fontFamily: 'Gilroy',
                         ),
                       ),
                       CupertinoButton(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         onPressed: onAdd,
-                        child: const Icon(
-                          CupertinoIcons.plus,
-                          size: 18,
-                          color: Colors.black54,
+                        child: SvgPicture.asset(
+                          'assets/icons/cart_page/cart_page_add.svg',
+                          width: 18,
+                          height: 18,
                         ),
                       ),
                     ],
