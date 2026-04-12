@@ -13,7 +13,6 @@ import '../../features/my_address/presentation/pages/my_address_page.dart';
 import '../../features/my_data/presentation/pages/my_data_page.dart';
 import '../../features/notification/presentation/pages/notification_list.dart';
 import '../../features/notification/presentation/pages/notification_page.dart';
-import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/order/presentation/pages/order_page.dart';
 import '../../features/orders/presentation/pages/orders_page.dart';
 import '../../features/prizes/presentation/pages/prizes_page.dart';
@@ -24,13 +23,17 @@ import '../../features/tickets/presentation/pages/tickets_page.dart';
 final router = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(path: '/', builder: (context, state) => OnboardingScreen()),
+    GoRoute(path: '/', builder: (context, state) => AuthPage()),
     GoRoute(path: '/auth', builder: (context, state) => AuthPage()),
     GoRoute(
       path: '/auth/otp/:phoneNumber',
       builder:
           (context, state) =>
-              OtpPage(phoneNumber: state.pathParameters['phoneNumber']),
+              OtpPage(
+                phoneNumber: Uri.decodeComponent(
+                  state.pathParameters['phoneNumber'] ?? '',
+                ),
+              ),
     ),
     GoRoute(
       path: '/main',

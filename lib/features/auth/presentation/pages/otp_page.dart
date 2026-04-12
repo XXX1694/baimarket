@@ -1,13 +1,17 @@
-import 'package:bai_market/core/app_pallete.dart';
-import 'package:bai_market/core/widgets/main_button.dart';
+import 'dart:async';
+
 import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/otp_input.dart';
+
+const Color _teal = Color(0xFF3DBFAD);
 
 class OtpPage extends StatelessWidget {
   const OtpPage({super.key, required this.phoneNumber});
@@ -31,20 +35,34 @@ class _OtpPageContent extends StatefulWidget {
 }
 
 class _OtpPageContentState extends State<_OtpPageContent> {
-  late TextEditingController controller;
-  static const platform = MethodChannel('com.bai_market/sms');
+  late TextEditingController _controller;
+  static final platform = const MethodChannel('com.bai_market/sms');
+
+  int _secondsLeft = 59;
+  Timer? _timer;
 
   @override
   void initState() {
-    controller = TextEditingController();
     super.initState();
+    _controller = TextEditingController();
     _listenToSmsCode();
+    _startTimer();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsLeft == 0) {
+        timer.cancel();
+      } else {
+        setState(() => _secondsLeft--);
+      }
+    });
+  }
+
+  void _resendCode() {
+    setState(() => _secondsLeft = 59);
+    _startTimer();
+    // TODO: вызвать повторную отправку OTP
   }
 
   Future<void> _listenToSmsCode() async {
@@ -64,64 +82,178 @@ class _OtpPageContentState extends State<_OtpPageContent> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: BlocConsumer<AuthCubit, AuthState>(
-            listener: (context, state) {
-              if (state is CodeVerified) {
-                context.go('/main');
-              }
-            },
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 64),
-                  Text(
+    final timerText = '00:${_secondsLeft.toString().padLeft(2, '0')}';
+
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is CodeVerified) {
+          context.go('/main');
+        }
+        if (state is AuthError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is AuthLoading;
+        return Scaffold(
+          backgroundColor: const Color(0xFFF7F7F7),
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Back button
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, top: 4),
+                  child: CupertinoButton(
+                    padding: const EdgeInsets.all(12),
+                    onPressed: () => context.pop(),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow_left.svg',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 52),
+
+                // Title
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
                     l10n.enterCode,
-                    style: TextStyle(
-                      fontSize: 22,
-                      height: 1,
-                      fontWeight: FontWeight.w700,
-                      color: mainColorLight,
+                    style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontFamily: 'Gilroy',
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    l10n.sentToNumber(widget.phoneNumber ?? ''),
-                    style: TextStyle(
-                      fontSize: 14,
+                ),
+
+                const SizedBox(height: 12),
+
+                // Subtitle
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 48),
+                  child: Text(
+                    'Мы отправили 4 значный код\nна ваш телефон',
+                    style: const TextStyle(
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: Colors.black54,
+                      fontFamily: 'Gilroy',
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 32),
-                  OtpInput(
-                    externalController: controller,
-                    onCodeComplete: _verifyOtp,
+                ),
+
+                const SizedBox(height: 28),
+
+                // OTP input
+                OtpInput(
+                  externalController: _controller,
+                  onCodeComplete: _verifyOtp,
+                ),
+
+                const SizedBox(height: 60),
+
+                // Resend timer
+                Center(
+                  child:
+                      _secondsLeft > 0
+                          ? RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black45,
+                                fontFamily: 'Gilroy',
+                              ),
+                              children: [
+                                const TextSpan(text: 'Отправить код повторно '),
+                                TextSpan(
+                                  text: timerText,
+                                  style: const TextStyle(
+                                    color: _teal,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'Gilroy',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                          : CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: _resendCode,
+                            child: const Text(
+                              'Отправить код повторно',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontFamily: 'Gilroy',
+                              ),
+                            ),
+                          ),
+                ),
+
+                const Spacer(),
+
+                // Button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: SizedBox(
+                    height: 60,
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      borderRadius: BorderRadius.circular(8),
+                      color: _teal,
+                      onPressed:
+                          isLoading ? null : () => _verifyOtp(_controller.text),
+                      child:
+                          isLoading
+                              ? const CupertinoActivityIndicator(
+                                color: Colors.white,
+                              )
+                              : const Text(
+                                'Подтвердить',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontFamily: 'Gilroy',
+                                ),
+                              ),
+                    ),
                   ),
-                  const Spacer(),
-                  MainButton(
-                    onPressed: () {
-                      _verifyOtp(controller.text);
-                    },
-                    text: l10n.signIn,
-                  ),
-                  const SizedBox(height: 40),
-                ],
-              );
-            },
+                ),
+
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
