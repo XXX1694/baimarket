@@ -538,4 +538,13 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get liveNow => 'Қазір эфирде';
+
+  @override
+  String get otpSubtitle => 'Телефоныңызға 4 таңбалы код\nжібердік';
+
+  @override
+  String get resendCode => 'Кодты қайта жіберу';
+
+  @override
+  String get confirm => 'Растау';
 }

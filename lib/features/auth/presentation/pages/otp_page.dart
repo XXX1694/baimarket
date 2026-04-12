@@ -155,7 +155,7 @@ class _OtpPageContentState extends State<_OtpPageContent> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 48),
                   child: Text(
-                    'Мы отправили 4 значный код\nна ваш телефон',
+                    l10n.otpSubtitle,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -189,7 +189,7 @@ class _OtpPageContentState extends State<_OtpPageContent> {
                                 fontFamily: 'Gilroy',
                               ),
                               children: [
-                                const TextSpan(text: 'Отправить код повторно '),
+                                TextSpan(text: '${l10n.resendCode} '),
                                 TextSpan(
                                   text: timerText,
                                   style: const TextStyle(
@@ -205,8 +205,8 @@ class _OtpPageContentState extends State<_OtpPageContent> {
                           : CupertinoButton(
                             padding: EdgeInsets.zero,
                             onPressed: _resendCode,
-                            child: const Text(
-                              'Отправить код повторно',
+                            child: Text(
+                              l10n.resendCode,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -235,8 +235,8 @@ class _OtpPageContentState extends State<_OtpPageContent> {
                               ? const CupertinoActivityIndicator(
                                 color: Colors.white,
                               )
-                              : const Text(
-                                'Подтвердить',
+                              : Text(
+                                l10n.confirm,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,

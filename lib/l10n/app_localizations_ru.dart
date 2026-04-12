@@ -538,4 +538,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get liveNow => 'Сейчас в эфире';
+
+  @override
+  String get otpSubtitle => 'Мы отправили 4 значный код\nна ваш телефон';
+
+  @override
+  String get resendCode => 'Отправить код повторно';
+
+  @override
+  String get confirm => 'Подтвердить';
 }

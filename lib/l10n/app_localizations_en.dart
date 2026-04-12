@@ -538,4 +538,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get liveNow => 'Live now';
+
+  @override
+  String get otpSubtitle => 'We sent a 4-digit code\nto your phone';
+
+  @override
+  String get resendCode => 'Resend code';
+
+  @override
+  String get confirm => 'Confirm';
 }

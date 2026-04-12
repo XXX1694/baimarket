@@ -1,7 +1,9 @@
-import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../l10n/app_localizations.dart';
+
+const Color _teal = Color(0xFF3DBFAD);
 
 class CartAppBar extends StatelessWidget {
   const CartAppBar({super.key, this.onClear, this.showClear = false});
@@ -21,29 +23,26 @@ class CartAppBar extends StatelessWidget {
       child: Row(
         children: [
           CupertinoButton(
-            padding: EdgeInsets.zero,
+            padding: const EdgeInsets.all(8),
             onPressed: () => Navigator.of(context).maybePop(),
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.black87,
-              size: 26,
+            child: SvgPicture.asset(
+              'assets/icons/arrow_left.svg',
+              width: 24,
+              height: 24,
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
-              '',
+              l10n.cart,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+                fontFamily: 'Gilroy',
+              ),
               textAlign: TextAlign.center,
             ),
           ),
-          Text(
-            l10n.cart,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          const Expanded(child: SizedBox()),
           if (showClear)
             CupertinoButton(
               padding: EdgeInsets.zero,
@@ -53,7 +52,8 @@ class CartAppBar extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: mainColorLight,
+                  color: _teal,
+                  fontFamily: 'Gilroy',
                 ),
               ),
             )

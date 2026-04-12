@@ -1,3 +1,4 @@
+import 'package:bai_market/core/secure_token_storage.dart';
 import 'package:bai_market/features/cart/data/models/cart_model.dart';
 import 'package:bai_market/features/create_order/presentation/pages/create_order_page.dart';
 import 'package:bai_market/features/orders/data/models/order_model.dart';
@@ -22,6 +23,13 @@ import '../../features/tickets/presentation/pages/tickets_page.dart';
 
 final router = GoRouter(
   initialLocation: '/',
+  redirect: (context, state) async {
+    final token = await getAuthToken();
+    final isOnAuth = state.matchedLocation == '/' ||
+        state.matchedLocation == '/auth';
+    if (token != null && isOnAuth) return '/main';
+    return null;
+  },
   routes: [
     GoRoute(path: '/', builder: (context, state) => AuthPage()),
     GoRoute(path: '/auth', builder: (context, state) => AuthPage()),

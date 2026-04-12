@@ -32,7 +32,7 @@
     "enterEmail": "Введите email",
     "enterPassword": "Введите пароль",
     "enterConfirmPassword": "Подтвердите пароль",
-    "deliveryAddress": "Адрес доставки",
+    "deliveryAddress": "Адрес доставки:",
     "addressExample": "Например: Ауезова 34",
     "postalCode": "Почтовый индекс",
     "cardNumber": "Номер карты",
@@ -284,7 +284,6 @@
     "@faqTrackOrderAnswer": {
         "description": "FAQ answer about order tracking"
     },
-    "deliveryAddress": "Адрес доставки:",
     "@deliveryAddress": {
         "description": "Delivery address label"
     },
@@ -438,12 +437,20 @@
     "plusPrice": "Plus пен алсаңыз",
     "sellerOrders": "{count} заказа",
     "@sellerOrders": {
-        "placeholders": { "count": { "type": "String" } }
+        "placeholders": {
+            "count": {
+                "type": "String"
+            }
+        }
     },
     "reviews": "Отзывы",
     "reviewsCount": "{count} отзывы",
     "@reviewsCount": {
-        "placeholders": { "count": { "type": "String" } }
+        "placeholders": {
+            "count": {
+                "type": "String"
+            }
+        }
     },
     "readAll": "Читать все",
     "relatedProducts": "Еще может подойти",
@@ -462,7 +469,9 @@
     "youSaved": "Вы экономили",
     "recommended": "Рекомендуем",
     "notAvailable": "Нет в наличии",
-    "defaultDescription": "Высококачественный продукт, разработанный для ежедневного ухода. Тщательно подобранные компоненты обеспечивают эффективный результат. Подходит для всех типов кожи. Рекомендован специалистами."
-,
-    "liveNow": "Сейчас в эфире"
+    "defaultDescription": "Высококачественный продукт, разработанный для ежедневного ухода. Тщательно подобранные компоненты обеспечивают эффективный результат. Подходит для всех типов кожи. Рекомендован специалистами.",
+    "liveNow": "Сейчас в эфире",
+    "otpSubtitle": "Мы отправили 4 значный код\nна ваш телефон",
+    "resendCode": "Отправить код повторно",
+    "confirm": "Подтвердить"
 }

@@ -1,7 +1,6 @@
 import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class CartEmptyState extends StatelessWidget {
@@ -21,8 +20,9 @@ class CartEmptyState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(
-            'assets/icons/card_empty.svg',
+          Image.asset(
+            'assets/icons/cart_page/cart_page_empty.png',
+            width: 100,
             height: 100,
           ),
           const SizedBox(height: 20),
