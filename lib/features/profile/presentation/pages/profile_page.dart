@@ -131,6 +131,85 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   // Invite Friends
                   const ProfileInviteBanner(),
+                  const SizedBox(height: 12),
+
+                  // Logout Button
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (ctx) => CupertinoAlertDialog(
+                            title: Text(
+                              l10n.exitApp,
+                              style: const TextStyle(fontFamily: 'Gilroy'),
+                            ),
+                            content: Text(
+                              l10n.exitConfirmation,
+                              style: const TextStyle(fontFamily: 'Gilroy'),
+                            ),
+                            actions: [
+                              CupertinoDialogAction(
+                                onPressed: () => Navigator.of(ctx).pop(),
+                                child: Text(
+                                  l10n.cancel,
+                                  style: const TextStyle(fontFamily: 'Gilroy'),
+                                ),
+                              ),
+                              CupertinoDialogAction(
+                                isDestructiveAction: true,
+                                onPressed: () async {
+                                  Navigator.of(ctx).pop();
+                                  await _authCubit.logOut();
+                                  if (context.mounted) context.go('/');
+                                },
+                                child: Text(
+                                  l10n.logout,
+                                  style: const TextStyle(fontFamily: 'Gilroy'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 26,
+                              height: 26,
+                              alignment: Alignment.center,
+                              child: const Icon(
+                                CupertinoIcons.square_arrow_left,
+                                color: Color(0xFFE53935),
+                                size: 22,
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            Text(
+                              l10n.logout,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFFE53935),
+                                fontFamily: 'Gilroy',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 40),
                 ],
               ),

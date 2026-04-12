@@ -1,13 +1,13 @@
-import 'package:bai_market/core/app_pallete.dart';
-import 'package:bai_market/core/widgets/main_button.dart';
 import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../l10n/app_localizations.dart';
-import '../../data/datasources/auth_services.dart';
 import '../widgets/phone_number_input.dart';
+
+const Color _teal = Color(0xFF3DBFAD);
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -17,88 +17,176 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  late AuthCubit cubit = AuthCubit();
-  late TextEditingController controller;
-  @override
-  void initState() {
-    controller = TextEditingController();
-    super.initState();
-  }
+  final AuthCubit _cubit = AuthCubit();
+  final TextEditingController _controller = TextEditingController();
+  String _dialCode = '7'; // KZ default
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
+  }
+
+  String get _digits => _controller.text.replaceAll(RegExp(r'\D'), '');
+
+  void _submit() {
+    debugPrint('📱 controller.text = "${_controller.text}"');
+    debugPrint('📱 digits = "$_digits"');
+    if (_digits.isEmpty) {
+      debugPrint('❌ digits empty, aborting');
+      return;
+    }
+    debugPrint('🚀 calling sendOtp...');
+    _cubit.sendOtp(phoneNumber: _digits);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: BlocConsumer<AuthCubit, AuthState>(
-            bloc: cubit,
-            listener: (context, state) {
-              if (state is CodeSended) {
-                context.push('/auth/otp/${removeAllSpaces(controller.text)}');
-              }
-            },
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 64),
-                  Text(
-                    l10n.enterPhoneNumber,
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      color: mainColorLight,
+    return BlocConsumer<AuthCubit, AuthState>(
+      bloc: _cubit,
+      listener: (context, state) {
+        debugPrint('🔔 AuthState changed: ${state.runtimeType}');
+        if (state is CodeSended) {
+          debugPrint('✅ CodeSended → navigating to OTP');
+          context.push('/auth/otp/$_digits');
+        }
+        if (state is AuthError) {
+          debugPrint('❌ AuthError: ${state.message}');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is AuthLoading;
+        return Scaffold(
+          backgroundColor: const Color(0xFFF7F7F7),
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 82),
+
+                // Title
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    l10n.phoneNumber,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontFamily: 'Gilroy',
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 12),
-                  Text(
+                ),
+
+                const SizedBox(height: 12),
+
+                // Subtitle
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 60),
+                  child: Text(
                     l10n.weWillSendSms,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: Colors.black54,
+                      fontFamily: 'Gilroy',
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 32),
-                  Expanded(child: PhoneNumberInput(controller: controller)),
-                  MainButton(
-                    onPressed: () {
-                      cubit.sendOtp(phoneNumber: controller.text);
+                ),
+
+                const SizedBox(height: 24),
+
+                // Phone input
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: PhoneNumberInput(
+                    controller: _controller,
+                    onCountryChanged: (dialCode) {
+                      _dialCode = dialCode;
                     },
-                    text: l10n.getCode,
                   ),
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      l10n.termsAndPrivacy,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                      textAlign: TextAlign.center,
+                ),
+
+                const Spacer(),
+
+                // Button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: SizedBox(
+                    height: 60,
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      borderRadius: BorderRadius.circular(8),
+                      color: _teal,
+                      onPressed: isLoading ? null : _submit,
+                      child: isLoading
+                          ? const CupertinoActivityIndicator(color: Colors.white)
+                          : Text(
+                              l10n.getCode,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                fontFamily: 'Gilroy',
+                              ),
+                            ),
                     ),
                   ),
-                  const SizedBox(height: 40),
-                ],
-              );
-            },
+                ),
+
+                const SizedBox(height: 24),
+
+                // Terms
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black54,
+                        fontFamily: 'Gilroy',
+                      ),
+                      children: [
+                        const TextSpan(text: 'Нажимая на кнопку '),
+                        TextSpan(
+                          text: '"${l10n.getCode}"',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: _teal,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const TextSpan(
+                          text:
+                              ', вы принимаете пользователское соглашение и политику конфиденциальности',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

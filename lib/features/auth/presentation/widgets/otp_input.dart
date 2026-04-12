@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../../core/app_pallete.dart';
+const Color _teal = Color(0xFF3DBFAD);
 
 class OtpInput extends StatefulWidget {
   const OtpInput({
@@ -51,53 +51,50 @@ class _OtpInputState extends State<OtpInput> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 270,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Focus(
         focusNode: _focusNode,
         child: PinCodeTextField(
           appContext: context,
           length: 4,
           controller: widget.externalController,
-          cursorColor: mainColorLight,
+          cursorColor: _teal,
+          cursorHeight: 22,
+          cursorWidth: 1.5,
           textStyle: const TextStyle(
             fontSize: 24,
-            fontWeight: FontWeight.w500,
-            color: mainColorLight,
+            fontWeight: FontWeight.w600,
+            color: Colors.black87,
+            fontFamily: 'Gilroy',
           ),
           pinTheme: PinTheme(
             shape: PinCodeFieldShape.box,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(14),
             fieldHeight: 60,
-            fieldWidth: 60,
-            activeFillColor: lightGray,
-            inactiveFillColor: lightGray,
-            selectedFillColor: lightGray,
-            activeColor: mainColorLight,
+            fieldWidth: 58,
+            fieldOuterPadding: const EdgeInsets.symmetric(horizontal: 12),
+            activeFillColor: const Color(0xFFEEEEEE),
+            inactiveFillColor: const Color(0xFFEEEEEE),
+            selectedFillColor: const Color(0xFFEEEEEE),
+            activeColor: _teal,
             inactiveColor: Colors.transparent,
-            selectedColor: mainColorLight,
+            selectedColor: _teal,
           ),
           enableActiveFill: true,
           keyboardType: TextInputType.number,
-
           autoFocus: true,
-          cursorHeight: 0,
           enablePinAutofill: true,
+          mainAxisAlignment: MainAxisAlignment.center,
+          pastedTextStyle: const TextStyle(),
           onChanged: (value) {},
           onCompleted: (value) {
             _focusNode.requestFocus();
             widget.onCodeComplete(value);
           },
-          beforeTextPaste: (text) {
-            return true;
-          },
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) {
-            if (value?.length != 4) {
-              return '';
-            }
-            return null;
-          },
+          beforeTextPaste: (text) => true,
+          autovalidateMode: AutovalidateMode.disabled,
+          validator: (value) => null,
         ),
       ),
     );
