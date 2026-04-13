@@ -289,7 +289,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
-                                color: mainColorDark,
+                                color: Colors.black87,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -325,7 +325,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w500,
-                      color: mainColorLight,
+                      color: Colors.black87,
                     ),
                     maxLines: 1,
                   ),

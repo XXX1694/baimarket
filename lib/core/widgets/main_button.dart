@@ -1,5 +1,6 @@
 import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
   const MainButton({super.key, required this.onPressed, required this.text});
@@ -22,7 +23,7 @@ class MainButton extends StatelessWidget {
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
-              color: mainColorDark,
+              color: Colors.white,
             ),
           ),
         ),

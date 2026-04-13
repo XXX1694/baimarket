@@ -63,7 +63,9 @@ class _SelectCategoryState extends State<SelectCategory> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: mainColorDark,
+                          color: selectedIndex == index
+                              ? Colors.white
+                              : Colors.black87,
                         ),
                       ),
                     ),

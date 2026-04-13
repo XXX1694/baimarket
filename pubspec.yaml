@@ -1,7 +1,7 @@
 name: bai_market
 description: "Cosmetics App"
 publish_to: "none"
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: ^3.7.0
@@ -55,6 +55,7 @@ flutter:
     - assets/icons/common/
     - assets/icons/product_page/
     - assets/icons/profile_page/
+    - assets/icons/cart_page/
 
   fonts:
     - family: Gilroy
@@ -75,10 +76,10 @@ flutter:
           weight: 300
 
 flutter_native_splash:
-  color: "#00320F"
+  color: "#3DBFAD"
   android_12:
-    color: "#00320F"
-    icon_background_color: "#00320F"
+    color: "#3DBFAD"
+    icon_background_color: "#3DBFAD"
 
   android: true
   ios: true

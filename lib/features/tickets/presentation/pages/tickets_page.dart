@@ -37,7 +37,7 @@ class _TicketsPageState extends State<TicketsPage> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
-                    color: mainColorLight,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -46,7 +46,7 @@ class _TicketsPageState extends State<TicketsPage> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black,
+                    color: Colors.white70,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -55,7 +55,7 @@ class _TicketsPageState extends State<TicketsPage> {
                   style: TextStyle(
                     fontSize: 96,
                     fontWeight: FontWeight.w200,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
                 const Spacer(),

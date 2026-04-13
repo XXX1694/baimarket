@@ -143,7 +143,7 @@ class MainItems extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -166,7 +166,7 @@ class MainItems extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: mainColorDark,
+                                color: Colors.black87,
                               ),
                             ),
                             products[index].oldPrice != null
@@ -206,7 +206,7 @@ class MainItems extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: mainColorLight,
+                            color: Colors.black87,
                           ),
                           maxLines: 1,
                         ),

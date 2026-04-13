@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/app_pallete.dart';
 
@@ -32,7 +33,7 @@ class PayButton extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: mainColorDark,
+                color: Colors.white,
               ),
             ),
             Text(
@@ -40,7 +41,7 @@ class PayButton extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: mainColorDark,
+                color: Colors.white,
               ),
             ),
           ],
