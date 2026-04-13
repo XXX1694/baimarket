@@ -16,14 +16,16 @@ class CatalogPage extends StatefulWidget {
 
 class _CatalogPageState extends State<CatalogPage> {
   final CollectionCubit _collectionCubit = CollectionCubit();
+  String _currentSlug = 'new';
 
   @override
   void initState() {
     super.initState();
-    _collectionCubit.getCollection(slug: 'new', sort: 'popular');
+    _collectionCubit.getCollection(slug: _currentSlug, sort: 'popular');
   }
 
   void _onTabChanged(String slug) {
+    setState(() => _currentSlug = slug);
     _collectionCubit.getCollection(slug: slug, sort: 'popular');
   }
 
@@ -51,9 +53,12 @@ class _CatalogPageState extends State<CatalogPage> {
               child: BlocBuilder<CollectionCubit, CollectionState>(
                 bloc: _collectionCubit,
                 builder: (context, state) {
+                  final Widget child;
+
                   if (state is CollectionGot) {
                     final products = state.collection.products;
-                    return GridView.builder(
+                    child = GridView.builder(
+                      key: ValueKey(_currentSlug),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -69,24 +74,29 @@ class _CatalogPageState extends State<CatalogPage> {
                         return ProductCard(product: products[index]);
                       },
                     );
+                  } else {
+                    child = GridView.builder(
+                      key: const ValueKey('shimmer'),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      itemCount: 4,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.48,
+                      ),
+                      itemBuilder: (context, index) {
+                        return SimpleShimmer(borderRadius: 16);
+                      },
+                    );
                   }
 
-                  // Shimmer loading
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: 4,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.48,
-                    ),
-                    itemBuilder: (context, index) {
-                      return SimpleShimmer(borderRadius: 16);
-                    },
+                  return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 220),
+                    child: child,
                   );
                 },
               ),

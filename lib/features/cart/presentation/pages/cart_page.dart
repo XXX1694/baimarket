@@ -153,7 +153,7 @@ class _CartPageState extends State<CartPage> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 4),
 
           // Recommended
           const CartRecommended(),

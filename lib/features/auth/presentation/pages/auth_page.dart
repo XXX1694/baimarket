@@ -1,3 +1,4 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/phone_number_input.dart';
-
-const Color _teal = Color(0xFF3DBFAD);
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -123,7 +122,7 @@ class _AuthPageState extends State<AuthPage> {
                     child: CupertinoButton(
                       padding: EdgeInsets.zero,
                       borderRadius: BorderRadius.circular(8),
-                      color: _teal,
+                      color: mainColorLight,
                       onPressed: isLoading ? null : _submit,
                       child: isLoading
                           ? const CupertinoActivityIndicator(color: Colors.white)

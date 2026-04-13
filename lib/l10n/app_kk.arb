@@ -470,5 +470,14 @@
     "liveNow": "Қазір эфирде",
     "otpSubtitle": "Телефоныңызға 4 таңбалы код\nжібердік",
     "resendCode": "Кодты қайта жіберу",
-    "confirm": "Растау"
+    "confirm": "Растау",
+    "continueAction": "Жалғастыру",
+    "notificationCategoryPurchase": "Сатып алу",
+    "notificationCategoryDelivery": "Жеткізу",
+    "notificationCategoryStream": "Эфирлер",
+    "notificationCategorySubscription": "Жазылым",
+    "noNotifications": "Хабарландырулар жоқ",
+    "selectAddress": "Мекенжай таңдаңыз",
+    "noSavedAddresses": "Сізде сақталған мекенжайлар жоқ",
+    "addAddress": "Мекенжай қосу"
 }

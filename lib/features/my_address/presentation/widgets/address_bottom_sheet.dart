@@ -1,6 +1,7 @@
 import 'package:bai_market/core/app_pallete.dart';
 import 'package:bai_market/core/widgets/main_button.dart';
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../data/models/user_address_model.dart';
 import 'address_tile.dart';
 
@@ -20,6 +21,7 @@ class AddressBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -31,7 +33,7 @@ class AddressBottomSheet extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Выберите адрес',
+                l10n.selectAddress,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -39,13 +41,13 @@ class AddressBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             if (addresses.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32),
                 child: Text(
-                  'У вас пока нет сохранённых адресов',
-                  style: TextStyle(color: Colors.black54, fontSize: 16),
+                  l10n.noSavedAddresses,
+                  style: const TextStyle(color: Colors.black54, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
               )
@@ -58,7 +60,7 @@ class AddressBottomSheet extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: 16),
-            MainButton(onPressed: onAdd, text: 'Добавить адрес'),
+            MainButton(onPressed: onAdd, text: l10n.addAddress),
           ],
         ),
       ),

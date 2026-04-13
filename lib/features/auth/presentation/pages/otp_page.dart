@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/otp_input.dart';
-
-const Color _teal = Color(0xFF3DBFAD);
 
 class OtpPage extends StatelessWidget {
   const OtpPage({super.key, required this.phoneNumber});
@@ -62,7 +61,7 @@ class _OtpPageContentState extends State<_OtpPageContent> {
   void _resendCode() {
     setState(() => _secondsLeft = 59);
     _startTimer();
-    // TODO: вызвать повторную отправку OTP
+    context.read<AuthCubit>().sendOtp(phoneNumber: widget.phoneNumber ?? '');
   }
 
   Future<void> _listenToSmsCode() async {
@@ -193,7 +192,7 @@ class _OtpPageContentState extends State<_OtpPageContent> {
                                 TextSpan(
                                   text: timerText,
                                   style: const TextStyle(
-                                    color: _teal,
+                                    color: mainColorLight,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     fontFamily: 'Gilroy',
@@ -227,7 +226,7 @@ class _OtpPageContentState extends State<_OtpPageContent> {
                     child: CupertinoButton(
                       padding: EdgeInsets.zero,
                       borderRadius: BorderRadius.circular(8),
-                      color: _teal,
+                      color: mainColorLight,
                       onPressed:
                           isLoading ? null : () => _verifyOtp(_controller.text),
                       child:

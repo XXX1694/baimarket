@@ -8,9 +8,9 @@ import 'package:go_router/go_router.dart';
 import 'package:bai_market/core/utils/translation_utils.dart';
 
 import '../../../../core/urls.dart';
+import '../../../../core/widgets/product_card.dart';
 import '../../../../core/widgets/show_image.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../main/presentation/widgets/main_items.dart';
 import '../widgets/select_soring.dart';
 
 class CollectionPage extends StatefulWidget {
@@ -210,7 +210,20 @@ class _CollectionPageState extends State<CollectionPage> {
                                   ],
                                 ),
                                 const SizedBox(height: 16),
-                                MainItems(products: state.collection.products),
+                                GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.zero,
+                                  itemCount: state.collection.products.length,
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                    mainAxisExtent: 320,
+                                  ),
+                                  itemBuilder: (context, index) =>
+                                      ProductCard(product: state.collection.products[index]),
+                                ),
                               ],
                             ),
                           ),

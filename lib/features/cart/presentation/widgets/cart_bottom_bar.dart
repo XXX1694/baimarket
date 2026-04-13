@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/app_pallete.dart';
 import '../../../../l10n/app_localizations.dart';
-
-const Color _teal = Color(0xFF3DBFAD);
 
 class CartBottomBar extends StatelessWidget {
   const CartBottomBar({
@@ -19,118 +18,112 @@ class CartBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Container(
-      padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 10,
-        bottom: MediaQuery.of(context).padding.bottom + 12,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 12,
-            offset: const Offset(0, -2),
+    return Material(
+      color: Colors.white,
+      child: Container(
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 10,
+          bottom: MediaQuery.of(context).padding.bottom + 12,
+        ),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            top: BorderSide(color: Color(0xFFEEEEEE), width: 1),
           ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Savings row
-          if (savedAmount > 0)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              margin: const EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xFFE6F8F6),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    height: 26,
-                    width: 26,
-                    decoration: const BoxDecoration(
-                      color: _teal,
-                      shape: BoxShape.circle,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Savings row
+            if (savedAmount > 0)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                margin: const EdgeInsets.only(bottom: 6),
+               color: Colors.white70,
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/cart_plus.svg',
+                      width: 18,
+                      height: 18,
                     ),
-                    child: const Center(
+                    const SizedBox(width: 8),
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFF117DAA), Color(0xFF1EA396)],
+                      ).createShader(bounds),
+                      blendMode: BlendMode.srcIn,
                       child: Text(
-                        'Р',
-                        style: TextStyle(
+                        l10n.youSaved,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                           color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
                           fontFamily: 'Gilroy',
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    l10n.youSaved,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black87,
-                      fontFamily: 'Gilroy',
+                    const Spacer(),
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFF117DAA), Color(0xFF1EA396)],
+                      ).createShader(bounds),
+                      blendMode: BlendMode.srcIn,
+                      child: Text(
+                        '$savedAmount₸',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontFamily: 'Gilroy',
+                        ),
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '$savedAmount₸',
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: _teal,
-                      fontFamily: 'Gilroy',
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
 
-          // Checkout button
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: onCheckout,
-            child: Container(
-              height: 56,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: _teal,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Text(
-                    l10n.proceedToCheckout,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      fontFamily: 'Gilroy',
+            // Checkout button
+            GestureDetector(
+              onTap: onCheckout,
+              child: Container(
+                height: 56,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: mainColorLight,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Text(
+                      l10n.proceedToCheckout,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontFamily: 'Gilroy',
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '$totalPrice₸',
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      fontFamily: 'Gilroy',
+                    const Spacer(),
+                    Text(
+                      '$totalPrice₸',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontFamily: 'Gilroy',
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

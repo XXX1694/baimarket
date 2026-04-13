@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/urls.dart';
 import '../../../../core/widgets/show_image.dart';
 import '../../data/models/banner_model.dart';
@@ -57,13 +58,17 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
               },
               itemBuilder: (context, index) {
                 final bannerIndex = index % widget.banners.length;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: NetworkImageWidget(
-                      url: '$imgUrl${widget.banners[bannerIndex].photoUrl ?? ''}',
-                      fit: BoxFit.cover,
+                final banner = widget.banners[bannerIndex];
+                return GestureDetector(
+                  onTap: () => context.push('/banner', extra: banner),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: NetworkImageWidget(
+                        url: '$imgUrl${banner.photoUrl ?? ''}',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 );

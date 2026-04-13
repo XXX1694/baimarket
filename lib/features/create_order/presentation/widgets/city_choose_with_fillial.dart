@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/app_pallete.dart';
 import '../../../../core/urls.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class CityChooseWithFillial extends StatefulWidget {
   const CityChooseWithFillial({
@@ -186,7 +187,8 @@ class _CityChooseWithFillialState extends State<CityChooseWithFillial> {
                         itemCount: cities.length,
                         itemBuilder: (context, index) {
                           final city = cities[index];
-                          final cityName = city.nameRu ?? "Город без названия";
+                          final l10n = AppLocalizations.of(context)!;
+                          final cityName = city.nameRu ?? city.nameKz ?? city.nameEn ?? l10n.noData;
                           return ListTile(
                             title: Text(
                               cityName,

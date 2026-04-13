@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../app_pallete.dart';
 import '../urls.dart';
 import 'plus_price_badge.dart';
 import '../utils/translation_utils.dart';
@@ -106,15 +107,15 @@ class ProductCard extends StatelessWidget {
                       ],
                     ],
                   ),
-      
+
                   // Plus price
                   if (plusPrice != null) ...[
                     const SizedBox(height: 4),
                     PlusPriceBadge(plusPrice: plusPrice),
                   ],
-      
+
                   const SizedBox(height: 8),
-      
+
                   // Description
                   Text(
                     TranslationUtils.getLocalizedName(
@@ -133,9 +134,9 @@ class ProductCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-      
+
                   const SizedBox(height: 8),
-      
+
                   // Buy button
                   SizedBox(
                     width: double.infinity,
@@ -147,7 +148,7 @@ class ProductCard extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xFF21C7A3),
+                          color: mainColorLight,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Center(

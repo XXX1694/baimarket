@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/app_pallete.dart';
 import '../../../../core/urls.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../../core/widgets/show_image.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../data/models/cart_item_model.dart';
-
-const Color _teal = Color(0xFF3DBFAD);
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
@@ -35,7 +34,7 @@ class CartItemCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
@@ -52,7 +51,7 @@ class CartItemCard extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: () => context.push('/product/${product?.id}'),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
               child: SizedBox(
                 height: 110,
                 width: 90,
@@ -82,7 +81,7 @@ class CartItemCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
-                        color: _teal,
+                        color: mainColorLight,
                         fontFamily: 'Gilroy',
                       ),
                     ),

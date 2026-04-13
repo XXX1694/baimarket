@@ -1128,6 +1128,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
+
+  /// No description provided for @continueAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
+
+  /// No description provided for @notificationCategoryPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase'**
+  String get notificationCategoryPurchase;
+
+  /// No description provided for @notificationCategoryDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery'**
+  String get notificationCategoryDelivery;
+
+  /// No description provided for @notificationCategoryStream.
+  ///
+  /// In en, this message translates to:
+  /// **'Streams'**
+  String get notificationCategoryStream;
+
+  /// No description provided for @notificationCategorySubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get notificationCategorySubscription;
+
+  /// No description provided for @noNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get noNotifications;
+
+  /// No description provided for @selectAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Select address'**
+  String get selectAddress;
+
+  /// No description provided for @noSavedAddresses.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any saved addresses yet'**
+  String get noSavedAddresses;
+
+  /// No description provided for @addAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add address'**
+  String get addAddress;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

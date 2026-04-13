@@ -50,6 +50,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/icons/notification_icons/
+    - assets/icons/notification/
     - assets/icons/main_page/
     - assets/icons/main_menu/
     - assets/icons/common/

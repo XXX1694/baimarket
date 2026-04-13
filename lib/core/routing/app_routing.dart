@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/auth_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
+import '../../features/main/data/models/banner_model.dart';
+import '../../features/main/presentation/pages/banner_page.dart';
 import '../../features/collection/presentation/pages/collection_page.dart';
 import '../../features/favorites/presentation/pages/favorites_page.dart';
 import '../../features/menu/presentation/pages/menu_page.dart';
@@ -45,7 +47,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/main',
-      builder: (context, state) => MenuPage(initialPage: 'home'),
+      builder: (context, state) => MenuPage(initialPage: 'catalog'),
     ),
     GoRoute(
       path: '/catalog',
@@ -103,6 +105,15 @@ final router = GoRouter(
       },
     ),
     GoRoute(path: '/favorites', builder: (context, state) => FavoritesPage()),
+    GoRoute(
+      path: '/banner',
+      redirect: (context, state) =>
+          state.extra is BannerModel ? null : '/main',
+      builder: (context, state) {
+        final banner = state.extra as BannerModel;
+        return BannerPage(banner: banner);
+      },
+    ),
     GoRoute(path: '/prizes', builder: (context, state) => PrizesPage()),
     GoRoute(path: '/tickets', builder: (context, state) => TicketsPage()),
     GoRoute(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/widgets/product_card.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../collection/presentation/cubit/collection_cubit.dart';
-import '../../../main/presentation/widgets/home_product_card.dart';
 
 class CartRecommended extends StatefulWidget {
   const CartRecommended({super.key});
@@ -36,24 +36,26 @@ class _CartRecommendedState extends State<CartRecommended> {
                 child: Text(
                   l10n.recommended,
                   style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black,
                   ),
                 ),
               ),
               const SizedBox(height: 14),
               SizedBox(
-                height: 280,
+                height: 320,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   itemCount: products.length > 8 ? 8 : products.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: 170,
-                      margin: const EdgeInsets.only(right: 10),
-                      child: HomeProductCard(product: products[index]),
+                    return SizedBox(
+                      width: 180,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: ProductCard(product: products[index]),
+                      ),
                     );
                   },
                 ),
