@@ -547,4 +547,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirm => 'Confirm';
+
+  @override
+  String get continueAction => 'Continue';
+
+  @override
+  String get notificationCategoryPurchase => 'Purchase';
+
+  @override
+  String get notificationCategoryDelivery => 'Delivery';
+
+  @override
+  String get notificationCategoryStream => 'Streams';
+
+  @override
+  String get notificationCategorySubscription => 'Subscription';
+
+  @override
+  String get noNotifications => 'No notifications';
+
+  @override
+  String get selectAddress => 'Select address';
+
+  @override
+  String get noSavedAddresses => 'You don\'t have any saved addresses yet';
+
+  @override
+  String get addAddress => 'Add address';
 }

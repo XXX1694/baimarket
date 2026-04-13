@@ -28,6 +28,9 @@ void main() async {
     WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+    // Увеличиваем кэш декодированных изображений до 150 МБ (по умолчанию ~100 МБ)
+    PaintingBinding.instance.imageCache.maximumSizeBytes = 150 * 1024 * 1024;
+
     // Initialize Firebase first
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

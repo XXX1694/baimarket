@@ -11,10 +11,10 @@
             "id": "2683065e0014535b",
             "type": "leaf",
             "state": {
-              "type": "empty",
+              "type": "graph",
               "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -177,5 +177,13 @@
     }
   },
   "active": "2683065e0014535b",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "GRAPH_REPORT.md",
+    "_COMMUNITY_Community 34.md",
+    "cost.json",
+    "manifest.json",
+    "graph.html",
+    "_COMMUNITY_Community 2.md",
+    "graph.json"
+  ]
 }

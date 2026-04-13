@@ -69,11 +69,11 @@ class MainFeatured extends StatelessWidget {
                           TranslationUtils.getLocalizedDescription(
                             context: context,
                             descriptionKz:
-                                state.slugs[index].nameKz ?? "Название",
+                                state.slugs[index].nameKz ?? '',
                             descriptionRu:
-                                state.slugs[index].nameRu ?? "Название",
+                                state.slugs[index].nameRu ?? '',
                             descriptionEn:
-                                state.slugs[index].nameEn ?? "Название",
+                                state.slugs[index].nameEn ?? '',
                           ),
 
                           style: TextStyle(

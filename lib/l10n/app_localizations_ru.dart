@@ -547,4 +547,31 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get confirm => 'Подтвердить';
+
+  @override
+  String get continueAction => 'Продолжить';
+
+  @override
+  String get notificationCategoryPurchase => 'Покупка';
+
+  @override
+  String get notificationCategoryDelivery => 'Доставка';
+
+  @override
+  String get notificationCategoryStream => 'Эфиры';
+
+  @override
+  String get notificationCategorySubscription => 'Подписка';
+
+  @override
+  String get noNotifications => 'Нет уведомлений';
+
+  @override
+  String get selectAddress => 'Выберите адрес';
+
+  @override
+  String get noSavedAddresses => 'У вас пока нет сохранённых адресов';
+
+  @override
+  String get addAddress => 'Добавить адрес';
 }

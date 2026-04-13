@@ -33,10 +33,10 @@ class _CatalogTabsState extends State<CatalogTabs> {
 
   Widget _buildTabs(List<SlugModel> slugs) {
     return SizedBox(
-      height: 40,
+      height: 30,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         itemCount: slugs.length,
         itemBuilder: (context, index) {
           final isSelected = _selectedIndex == index;
@@ -48,29 +48,31 @@ class _CatalogTabsState extends State<CatalogTabs> {
           );
 
           return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: CupertinoButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
+            padding: const EdgeInsets.only(right: 12),
+            child: GestureDetector(
+              onTap: () {
                 setState(() => _selectedIndex = index);
                 widget.onTabChanged(slugs[index].slug ?? 'all');
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+                height: 30,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: isSelected ? mainColorLight : Colors.transparent,
-                  borderRadius: BorderRadius.circular(100),
+                  color: isSelected ? mainColorDark : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
                   border: isSelected
                       ? null
-                      : Border.all(color: Colors.grey.shade300, width: 1),
+                      : Border.all(color: Colors.black12, width: 0.5),
                 ),
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontFamily: 'Gilroy',
-                    fontSize: 13,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                    color: isSelected ? Colors.white : Colors.black54,
+                child: Center(
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      fontFamily: 'Gilroy',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? Colors.white : Colors.black54,
+                    ),
                   ),
                 ),
               ),

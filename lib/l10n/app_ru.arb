@@ -473,5 +473,14 @@
     "liveNow": "Сейчас в эфире",
     "otpSubtitle": "Мы отправили 4 значный код\nна ваш телефон",
     "resendCode": "Отправить код повторно",
-    "confirm": "Подтвердить"
+    "confirm": "Подтвердить",
+    "continueAction": "Продолжить",
+    "notificationCategoryPurchase": "Покупка",
+    "notificationCategoryDelivery": "Доставка",
+    "notificationCategoryStream": "Эфиры",
+    "notificationCategorySubscription": "Подписка",
+    "noNotifications": "Нет уведомлений",
+    "selectAddress": "Выберите адрес",
+    "noSavedAddresses": "У вас пока нет сохранённых адресов",
+    "addAddress": "Добавить адрес"
 }

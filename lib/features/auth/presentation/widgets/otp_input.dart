@@ -1,8 +1,7 @@
+import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-const Color _teal = Color(0xFF3DBFAD);
 
 class OtpInput extends StatefulWidget {
   const OtpInput({
@@ -59,7 +58,7 @@ class _OtpInputState extends State<OtpInput> {
           appContext: context,
           length: 4,
           controller: widget.externalController,
-          cursorColor: _teal,
+          cursorColor: mainColorLight,
           cursorHeight: 22,
           cursorWidth: 1.5,
           textStyle: const TextStyle(
@@ -77,9 +76,9 @@ class _OtpInputState extends State<OtpInput> {
             activeFillColor: const Color(0xFFEEEEEE),
             inactiveFillColor: const Color(0xFFEEEEEE),
             selectedFillColor: const Color(0xFFEEEEEE),
-            activeColor: _teal,
+            activeColor: mainColorLight,
             inactiveColor: Colors.transparent,
-            selectedColor: _teal,
+            selectedColor: mainColorLight,
           ),
           enableActiveFill: true,
           keyboardType: TextInputType.number,

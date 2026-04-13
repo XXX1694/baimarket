@@ -7,34 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/order_status_utils.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/order_again_button.dart';
-
-// Определяем statusTranslate и statusColors здесь или импортируем из общего файла
-const Map<String, String> statusTranslate = {
-  'PAYMENT_PENDING': "Ожидает оплаты",
-  'PROCESSING': "Формируется",
-  'WAY': "В пути",
-  'PICKUP': "Ожидает в пункте выдачи",
-  'DELIVERED': "Получен",
-  'CANCELED': "Отменен",
-  'ASSEMBLING': "Сборка заказа",
-  'ABANDONED': "Сброшен",
-  'PAYMENT_FAILED': "Ошибка оплаты",
-};
-
-const Map<String, Color> statusColors = {
-  'PAYMENT_PENDING': Color(0xFFF39C12), // #f39c12
-  'PROCESSING': Color(0xFF2980B9), // #2980b9
-  'WAY': Color(0xFF27AE60), // #27ae60
-  'PICKUP': Color(0xFFE67E22), // #e67e22
-  'DELIVERED': Color(0xFF2ECC71), // #2ecc71
-  'CANCELED': Color(0xFFE74C3C), // #e74c3c
-  'ASSEMBLING': Color(0xFF5B48A2), // #5B48A2
-  'ABANDONED': Color(0xFF7F8C8D), // Neutral gray for undefined statuses
-  'PAYMENT_FAILED': Color(0xFFE74C3C), // Same as CANCELED for error
-};
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key, required this.orderModel});

@@ -625,5 +625,14 @@
     "liveNow": "Live now",
     "otpSubtitle": "We sent a 4-digit code\nto your phone",
     "resendCode": "Resend code",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "continueAction": "Continue",
+    "notificationCategoryPurchase": "Purchase",
+    "notificationCategoryDelivery": "Delivery",
+    "notificationCategoryStream": "Streams",
+    "notificationCategorySubscription": "Subscription",
+    "noNotifications": "No notifications",
+    "selectAddress": "Select address",
+    "noSavedAddresses": "You don't have any saved addresses yet",
+    "addAddress": "Add address"
 }

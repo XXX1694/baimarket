@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/app_pallete.dart';
 import '../../../../l10n/app_localizations.dart';
-
-const Color _teal = Color(0xFF3DBFAD);
 
 class CartAppBar extends StatelessWidget {
   const CartAppBar({super.key, this.onClear, this.showClear = false});
@@ -52,7 +51,7 @@ class CartAppBar extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: _teal,
+                  color: mainColorLight,
                   fontFamily: 'Gilroy',
                 ),
               ),

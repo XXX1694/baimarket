@@ -48,7 +48,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get surname => 'Тегі';
 
   @override
-  String get phoneNumber => 'Телефон нөірі';
+  String get phoneNumber => 'Телефон нөмірі';
 
   @override
   String get enterName => 'Атыңызды енгізіңіз';
@@ -547,4 +547,31 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get confirm => 'Растау';
+
+  @override
+  String get continueAction => 'Жалғастыру';
+
+  @override
+  String get notificationCategoryPurchase => 'Сатып алу';
+
+  @override
+  String get notificationCategoryDelivery => 'Жеткізу';
+
+  @override
+  String get notificationCategoryStream => 'Эфирлер';
+
+  @override
+  String get notificationCategorySubscription => 'Жазылым';
+
+  @override
+  String get noNotifications => 'Хабарландырулар жоқ';
+
+  @override
+  String get selectAddress => 'Мекенжай таңдаңыз';
+
+  @override
+  String get noSavedAddresses => 'Сізде сақталған мекенжайлар жоқ';
+
+  @override
+  String get addAddress => 'Мекенжай қосу';
 }

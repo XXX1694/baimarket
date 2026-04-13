@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/urls.dart';
 import '../../../../core/widgets/shimmer.dart';
-import '../../../../core/widgets/show_image.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../get_slug_list/data/models/slug_model.dart';
 import '../../../get_slug_list/presentation/cubit/slug_cubit.dart';
@@ -117,9 +115,7 @@ class _CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      onPressed: () {
-        context.push('/collection/${slug.slug ?? 'new'}');
-      },
+      onPressed: () => context.push('/collection/${slug.slug ?? 'new'}'),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Container(

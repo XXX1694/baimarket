@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Graphify knowledge graph
+
+Before answering any question about architecture, code structure, or making changes:
+1. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+2. Use graphify-out/graph.json for specific queries if needed
+3. Navigate via the graph instead of reading raw files
+
+Run `/graphify . --update` if the graph seems outdated.
+
 ## Project Overview
 
 Bai Market (branded as Iris Cosmetics) is a Flutter mobile cosmetics e-commerce app targeting Android and iOS. It supports three locales: English, Russian, and Kazakh.
