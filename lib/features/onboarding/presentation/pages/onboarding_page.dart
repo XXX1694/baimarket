@@ -155,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        Colors.white.withOpacity(0.8),
+                        Colors.white.withValues(alpha: 0.8),
                       ],
                       stops: const [0.6, 1.0],
                     ),
@@ -195,7 +195,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 color:
                                     active
                                         ? Colors.green
-                                        : Colors.green.withOpacity(0.3),
+                                        : Colors.green.withValues(alpha: 0.3),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             );

@@ -19,7 +19,7 @@ import '../../features/notification/presentation/pages/notification_page.dart';
 import '../../features/order/presentation/pages/order_page.dart';
 import '../../features/orders/presentation/pages/orders_page.dart';
 import '../../features/prizes/presentation/pages/prizes_page.dart';
-import '../../features/product/presentation/pages/123.dart';
+import '../../features/product/presentation/pages/product_page.dart';
 import '../../features/raffle/presentation/pages/raffle_detail_page.dart';
 import '../../features/profile/data/models/profile_model.dart';
 import '../../features/tickets/presentation/pages/tickets_page.dart';

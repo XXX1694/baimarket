@@ -56,7 +56,10 @@ class SupportPage extends StatelessWidget {
                       child: Center(
                         child: SvgPicture.asset(
                           'assets/icons/cancel.svg',
-                          color: Color(0xFF575E6E),
+                          colorFilter: const ColorFilter.mode(
+                            Color(0xFF575E6E),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),

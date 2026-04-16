@@ -34,6 +34,7 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   google_fonts: ^6.2.1
   share_plus: ^10.1.4
+  provider: ^6.1.2
 
 # path_provider_foundation 2.6.0 pulls the objective_c FFI package, whose
 # dylib fails to load on the iOS simulator (runtime dlopen error). 2.5.1 is

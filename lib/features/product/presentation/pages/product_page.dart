@@ -1,203 +1,208 @@
-// import 'package:bai_market/core/app_pallete.dart';
+import 'package:bai_market/features/favorites/presentation/cubit/favorites_cubit.dart';
+import 'package:bai_market/features/collection/presentation/cubit/collection_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/utils/translation_utils.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../cart/presentation/pages/cart_page.dart';
+import '../../../profile/presentation/pages/profile_page.dart';
+import '../cubit/product_cubit.dart';
+import '../widgets/product_app_bar.dart';
+import '../widgets/product_bottom_bar.dart';
+import '../widgets/product_image_grid.dart';
+import '../widgets/product_price_section.dart';
+import '../widgets/product_related_items.dart';
+import '../widgets/product_reviews_section.dart';
+import '../widgets/product_seller_info.dart';
+import '../widgets/product_tags.dart';
 
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:go_router/go_router.dart';
+class ProductPage extends StatefulWidget {
+  const ProductPage({super.key, required this.id});
+  final String? id;
 
-// import '../../../../core/widgets/main_button.dart';
-// import '../cubit/product_cubit.dart';
-// import '../widgets/price_block.dart';
-// import '../widgets/product_image.dart';
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
 
-// class ProductPage extends StatefulWidget {
-//   const ProductPage({super.key, required this.id});
-//   final String? id;
+class _ProductPageState extends State<ProductPage> {
+  late final ProductCubit _productCubit = ProductCubit();
+  late final FavoritesCubit _favCubit = FavoritesCubit();
+  final CollectionCubit _relatedCubit = CollectionCubit();
+  bool _isFavorite = false;
 
-//   @override
-//   State<ProductPage> createState() => _ProductPageState();
-// }
+  @override
+  void initState() {
+    super.initState();
+    _productCubit.getProductDetail(id: int.parse(widget.id ?? '0'));
+    _relatedCubit.getCollection(slug: 'all', sort: 'popular');
+    globalCartCubit.getCart();
+  }
 
-// class _ProductPageState extends State<ProductPage> {
-//   late ProductCubit cubit = ProductCubit();
-//   @override
-//   void initState() {
-//     cubit.getProductDetail(id: int.parse(widget.id ?? '0'));
-//     super.initState();
-//   }
+  void _toggleFavorite(int productId) {
+    setState(() => _isFavorite = !_isFavorite);
+    if (_isFavorite) {
+      _favCubit.addfavorite(id: productId);
+    } else {
+      _favCubit.removeFromFavoritesById(id: productId);
+    }
+    profileCubitGlobal.getProfileData();
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: BlocConsumer<ProductCubit, ProductState>(
-//         bloc: cubit,
-//         listener: (context, state) {},
-//         builder: (context, state) {
-//           if (state is ProductGot) {
-//             return Column(
-//               children: [
-//                 Expanded(
-//                   child: SingleChildScrollView(
-//                     child: Column(
-//                       children: [
-//                         Container(
-//                           height: 360,
-//                           width: double.infinity,
-//                           decoration: BoxDecoration(color: lightGray),
-//                           child: Stack(
-//                             children: [
-//                               SizedBox(
-//                                 width: double.infinity,
-//                                 child: ProductImagesCarousel(
-//                                   photoUrls: state.productModel.photoUrls ?? [],
-//                                 ),
-//                               ),
-//                               SafeArea(
-//                                 child: Column(
-//                                   children: [
-//                                     const SizedBox(height: 16),
-//                                     Padding(
-//                                       padding: const EdgeInsets.symmetric(
-//                                         horizontal: 20,
-//                                       ),
-//                                       child: Row(
-//                                         mainAxisAlignment:
-//                                             MainAxisAlignment.spaceBetween,
-//                                         children: [
-//                                           CupertinoButton(
-//                                             padding: const EdgeInsets.all(0),
-//                                             onPressed: () {
-//                                               context.pop();
-//                                             },
-//                                             child: Container(
-//                                               height: 50,
-//                                               width: 50,
-//                                               decoration: BoxDecoration(
-//                                                 color: Colors.white,
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(16),
-//                                               ),
-//                                               child: Center(
-//                                                 child: SvgPicture.asset(
-//                                                   'assets/icons/arrow_left.svg',
-//                                                 ),
-//                                               ),
-//                                             ),
-//                                           ),
+  Widget _block(Widget child, {bool noRadius = false}) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(noRadius ? 0 : 12),
+      ),
+      child: child,
+    );
+  }
 
-//                                           Container(
-//                                             height: 32,
-//                                             width: 32,
-//                                             decoration: BoxDecoration(
-//                                               color: seconColor,
-//                                               borderRadius:
-//                                                   BorderRadius.circular(8),
-//                                             ),
-//                                             child: Center(
-//                                               child: SvgPicture.asset(
-//                                                 'assets/icons/ticket.svg',
-//                                                 height: 24,
-//                                                 width: 24,
-//                                               ),
-//                                             ),
-//                                           ),
-//                                         ],
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.symmetric(horizontal: 20),
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               const SizedBox(height: 20),
-//                               Row(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceBetween,
-//                                 children: [
-//                                   Text(
-//                                     state.productModel.name ??
-//                                         'Название продукта',
-//                                     style: TextStyle(
-//                                       fontSize: 20,
-//                                       fontWeight: FontWeight.w500,
-//                                       color: Colors.black,
-//                                     ),
-//                                   ),
-//                                   CupertinoButton(
-//                                     padding: const EdgeInsets.all(0),
-//                                     onPressed: () {},
-//                                     child: SvgPicture.asset(
-//                                       'assets/icons/like_product.svg',
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                               Text(
-//                                 state.productModel.descriptionRu ?? '',
-//                                 style: TextStyle(
-//                                   fontSize: 14,
-//                                   fontWeight: FontWeight.w400,
-//                                   color: Colors.black54,
-//                                 ),
-//                               ),
-//                               const SizedBox(height: 24),
-//                               const Divider(height: 1, color: Colors.black12),
-//                               const SizedBox(height: 24),
-//                               PriceBlock(productModel: state.productModel),
-//                               const SizedBox(height: 24),
-//                               Text(
-//                                 'Описание',
-//                                 style: TextStyle(
-//                                   fontSize: 16,
-//                                   fontWeight: FontWeight.w500,
-//                                   color: Colors.black,
-//                                 ),
-//                               ),
-//                               const SizedBox(height: 8),
-//                               Text(
-//                                 state.productModel.detailedDescriptionRu ?? '',
-//                                 style: TextStyle(
-//                                   fontSize: 14,
-//                                   fontWeight: FontWeight.w400,
-//                                   color: Colors.black,
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//                 Container(
-//                   width: double.infinity,
-//                   padding: const EdgeInsets.only(
-//                     right: 20,
-//                     left: 20,
-//                     top: 16,
-//                     bottom: 32,
-//                   ),
-//                   decoration: BoxDecoration(
-//                     color: Colors.white,
-//                     border: Border.fromBorderSide(BorderSide(color: lightGray)),
-//                   ),
-//                   child: MainButton(onPressed: () {}, text: 'В корзину'),
-//                 ),
-//               ],
-//             );
-//           } else {
-//             return SizedBox();
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF7F7F7),
+        body: BlocConsumer<ProductCubit, ProductState>(
+          bloc: _productCubit,
+          listener: (context, state) {
+            if (state is ProductGot) {
+              _isFavorite = state.productModel.isInFavorite ?? false;
+            }
+          },
+          builder: (context, state) {
+            if (state is ProductGot) {
+              final product = state.productModel;
+              return Column(
+                children: [
+                  Expanded(
+                    child: CustomScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      slivers: [
+                        // AppBar
+                        SliverToBoxAdapter(
+                          child: ProductAppBar(
+                            isFavorite: _isFavorite,
+                            onFavoriteTap: () => _toggleFavorite(product.id),
+                          ),
+                        ),
+
+                        // Image Grid — on gray background
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: ProductImageGrid(model: product),
+                          ),
+                        ),
+
+                        // Block 2: Tags + Price + Description
+                        SliverToBoxAdapter(
+                          child: _block(
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ProductTags(model: product),
+                                  const SizedBox(height: 12),
+                                  ProductPriceSection(model: product),
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    () {
+                                      final desc = TranslationUtils.getLocalizedName(
+                                        context: context,
+                                        nameKz: product.detailedDescriptionKz ??
+                                            product.descriptionKz ?? '',
+                                        nameRu: product.detailedDescriptionRu ??
+                                            product.descriptionRu ?? '',
+                                        nameEn: product.detailedDescriptionEn ??
+                                            product.descriptionEn ?? '',
+                                      );
+                                      return desc.trim().isEmpty
+                                          ? l10n.defaultDescription
+                                          : desc;
+                                    }(),
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontFamily: 'Gilroy',
+                                      height: 1.5,
+                                    ),
+                                    maxLines: 5,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SliverToBoxAdapter(child: SizedBox(height: 10)),
+
+                        // Block 3: Seller Info
+                        SliverToBoxAdapter(
+                          child: _block(
+                            ProductSellerInfo(sellerName: product.name),
+                          ),
+                        ),
+
+                        const SliverToBoxAdapter(child: SizedBox(height: 10)),
+
+                        // Block 4: Reviews
+                        SliverToBoxAdapter(
+                          child: _block(
+                            const Padding(
+                              padding: EdgeInsets.all(16),
+                              child: ProductReviewsSection(),
+                            ),
+                          ),
+                        ),
+
+                        const SliverToBoxAdapter(child: SizedBox(height: 8)),
+
+                        // Block 5: Related Products
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: BlocBuilder<CollectionCubit, CollectionState>(
+                              bloc: _relatedCubit,
+                              builder: (context, relatedState) {
+                                if (relatedState is CollectionGot) {
+                                  return ProductRelatedItems(
+                                    products: relatedState.collection.products,
+                                  );
+                                }
+                                return const SizedBox.shrink();
+                              },
+                            ),
+                          ),
+                        ),
+
+                        const SliverToBoxAdapter(child: SizedBox(height: 20)),
+                      ],
+                    ),
+                  ),
+
+                  // Bottom Bar — pinned to bottom
+                  ProductBottomBar(model: product),
+                ],
+              );
+            }
+
+            if (state is ProductGetError) {
+              return Center(child: Text(l10n.error('')));
+            }
+
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
+      ),
+    );
+  }
+}

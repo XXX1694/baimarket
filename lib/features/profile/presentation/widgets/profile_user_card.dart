@@ -15,7 +15,7 @@ class ProfileUserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasAvatar = profile.avatarUrl != null && profile.avatarUrl!.isNotEmpty;
     final displayName = profile.firstName != null && profile.firstName!.isNotEmpty
-        ? '${profile.firstName} ${(profile.lastName ?? '').isNotEmpty ? profile.lastName![0].toUpperCase() + '.' : ''}'
+        ? '${profile.firstName} ${(profile.lastName ?? '').isNotEmpty ? '${profile.lastName![0].toUpperCase()}.' : ''}'
         : 'User';
     final initial = profile.firstName != null && profile.firstName!.isNotEmpty
         ? profile.firstName![0].toUpperCase()
