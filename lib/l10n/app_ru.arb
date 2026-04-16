@@ -575,5 +575,24 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "favoritesEmptyTitle": "Пока тут пусто",
+    "favoritesEmptySubtitle": "Добавляйте товары в избранное, чтобы легко вернуться к ним позже!",
+    "goShopping": "К покупкам",
+    "myCards": "Мои карта",
+    "paymentCard": "Платёжная карта",
+    "addCard": "Добавить карта",
+    "cardsEmptyTitle": "Нет карта",
+    "cardsEmptySubtitle": "У вас пока нет сохранённых карт",
+    "contactsTitle": "Контакты",
+    "callCenter": "Колл-центр",
+    "callCenterSubtitle": "Проконсультируем и поможем\nв оформлении заказа",
+    "acceptCallsHours": "Принимаем звонки с 10:00 до 20:00",
+    "respondHours": "Отвечаем с 10:00 до 20:00",
+    "writeOnWhatsapp": "Написать на Whatsapp",
+    "writeOnTelegram": "Написать на Telegram",
+    "deliverySectionTitle": "Доставка",
+    "deliverySectionSubtitle": "Победитли будеть на наш телеграм каналы",
+    "selfPickupSectionTitle": "Адрес самавывоз",
+    "branches": "Филиалы"
 }

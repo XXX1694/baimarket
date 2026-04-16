@@ -157,9 +157,9 @@ class _ProductPageState extends State<ProductPage> {
                         // Block 4: Reviews
                         SliverToBoxAdapter(
                           child: _block(
-                            const Padding(
-                              padding: EdgeInsets.all(16),
-                              child: ProductReviewsSection(),
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: ProductReviewsSection(product: product),
                             ),
                           ),
                         ),

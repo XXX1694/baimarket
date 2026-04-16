@@ -690,4 +690,61 @@ class AppLocalizationsRu extends AppLocalizations {
   String priceTenge(String price) {
     return '$price₸';
   }
+
+  @override
+  String get favoritesEmptyTitle => 'Пока тут пусто';
+
+  @override
+  String get favoritesEmptySubtitle => 'Добавляйте товары в избранное, чтобы легко вернуться к ним позже!';
+
+  @override
+  String get goShopping => 'К покупкам';
+
+  @override
+  String get myCards => 'Мои карта';
+
+  @override
+  String get paymentCard => 'Платёжная карта';
+
+  @override
+  String get addCard => 'Добавить карта';
+
+  @override
+  String get cardsEmptyTitle => 'Нет карта';
+
+  @override
+  String get cardsEmptySubtitle => 'У вас пока нет сохранённых карт';
+
+  @override
+  String get contactsTitle => 'Контакты';
+
+  @override
+  String get callCenter => 'Колл-центр';
+
+  @override
+  String get callCenterSubtitle => 'Проконсультируем и поможем\nв оформлении заказа';
+
+  @override
+  String get acceptCallsHours => 'Принимаем звонки с 10:00 до 20:00';
+
+  @override
+  String get respondHours => 'Отвечаем с 10:00 до 20:00';
+
+  @override
+  String get writeOnWhatsapp => 'Написать на Whatsapp';
+
+  @override
+  String get writeOnTelegram => 'Написать на Telegram';
+
+  @override
+  String get deliverySectionTitle => 'Доставка';
+
+  @override
+  String get deliverySectionSubtitle => 'Победитли будеть на наш телеграм каналы';
+
+  @override
+  String get selfPickupSectionTitle => 'Адрес самавывоз';
+
+  @override
+  String get branches => 'Филиалы';
 }

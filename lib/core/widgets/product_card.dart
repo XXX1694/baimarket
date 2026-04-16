@@ -27,7 +27,6 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.push('/product/${product.id}'),
       child: Container(
-        height: 320,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),

@@ -1398,6 +1398,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{price}₸'**
   String priceTenge(String price);
+
+  /// No description provided for @favoritesEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet'**
+  String get favoritesEmptyTitle;
+
+  /// No description provided for @favoritesEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add items to favorites so you can easily come back to them later!'**
+  String get favoritesEmptySubtitle;
+
+  /// No description provided for @goShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Go shopping'**
+  String get goShopping;
+
+  /// No description provided for @myCards.
+  ///
+  /// In en, this message translates to:
+  /// **'My cards'**
+  String get myCards;
+
+  /// No description provided for @paymentCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment card'**
+  String get paymentCard;
+
+  /// No description provided for @addCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Add card'**
+  String get addCard;
+
+  /// No description provided for @cardsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No cards'**
+  String get cardsEmptyTitle;
+
+  /// No description provided for @cardsEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any saved cards yet'**
+  String get cardsEmptySubtitle;
+
+  /// No description provided for @contactsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get contactsTitle;
+
+  /// No description provided for @callCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Call center'**
+  String get callCenter;
+
+  /// No description provided for @callCenterSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll consult and help\nyou place an order'**
+  String get callCenterSubtitle;
+
+  /// No description provided for @acceptCallsHours.
+  ///
+  /// In en, this message translates to:
+  /// **'We accept calls from 10:00 to 20:00'**
+  String get acceptCallsHours;
+
+  /// No description provided for @respondHours.
+  ///
+  /// In en, this message translates to:
+  /// **'We reply from 10:00 to 20:00'**
+  String get respondHours;
+
+  /// No description provided for @writeOnWhatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'Message on Whatsapp'**
+  String get writeOnWhatsapp;
+
+  /// No description provided for @writeOnTelegram.
+  ///
+  /// In en, this message translates to:
+  /// **'Message on Telegram'**
+  String get writeOnTelegram;
+
+  /// No description provided for @deliverySectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery'**
+  String get deliverySectionTitle;
+
+  /// No description provided for @deliverySectionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates are posted in our Telegram channel'**
+  String get deliverySectionSubtitle;
+
+  /// No description provided for @selfPickupSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-pickup address'**
+  String get selfPickupSectionTitle;
+
+  /// No description provided for @branches.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get branches;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

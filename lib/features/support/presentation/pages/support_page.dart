@@ -1,11 +1,13 @@
-import 'package:bai_market/features/support/presentation/widgets/faq_block.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/app_pallete.dart';
 import '../../../../l10n/app_localizations.dart';
+
+const _phoneNumber = '77083453245';
+const _phoneDisplay = '+7 708 345 32 45';
+const _tgInvite = 'OJnsGK2O2SUyYTNi';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({super.key});
@@ -13,197 +15,288 @@ class SupportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: const Radius.circular(25.0),
-          topRight: const Radius.circular(25.0),
-        ),
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Color(0xFFF4F4F4),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              Row(
+      child: SafeArea(
+        top: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 12, 12),
+              child: Row(
                 children: [
                   Text(
-                    l10n.supportTitle,
+                    l10n.contactsTitle,
                     style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: mainColorLight,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      fontFamily: 'Gilroy',
                     ),
                   ),
                   const Spacer(),
                   CupertinoButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    padding: EdgeInsets.zero,
+                    minimumSize: const Size(40, 40),
+                    onPressed: () => Navigator.pop(context),
                     child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF2F2F2),
-                        borderRadius: BorderRadius.circular(16),
+                      width: 36,
+                      height: 36,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE4E4E4),
+                        shape: BoxShape.circle,
                       ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/icons/cancel.svg',
-                          colorFilter: const ColorFilter.mode(
-                            Color(0xFF575E6E),
-                            BlendMode.srcIn,
-                          ),
-                        ),
+                      child: const Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Color(0xFF8A8A8A),
                       ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-              Text(
-                l10n.supportWorkingHours,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 16),
-              CupertinoButton(
-                padding: const EdgeInsets.all(0),
-                onPressed: () {
-                  _openWhatsApp(context);
-                },
-                child: Container(
-                  height: 60,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF33BB1B),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/whatsapp.svg',
-                          height: 20,
+            ),
+
+            Flexible(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    // Call center block
+                    _SectionCard(
+                      title: l10n.callCenter,
+                      subtitle: l10n.callCenterSubtitle,
+                      rows: [
+                        _ContactRow(
+                          iconAsset: 'assets/icons/contact/contact_phone.svg',
+                          iconBg: const Color(0xFFBDF0D9),
+                          title: _phoneDisplay,
+                          subtitle: l10n.acceptCallsHours,
+                          onTap: () => _call(),
                         ),
-                        const SizedBox(width: 12),
-                        Text(
-                          l10n.whatsapp,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
+                        _ContactRow(
+                          iconAsset: 'assets/icons/contact/contact_phone.svg',
+                          iconBg: const Color(0xFFBDF0D9),
+                          title: _phoneDisplay,
+                          subtitle: l10n.acceptCallsHours,
+                          onTap: () => _call(),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              CupertinoButton(
-                padding: const EdgeInsets.all(0),
-                onPressed: () {
-                  _openTelegram(context);
-                },
-                child: Container(
-                  height: 60,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF3D4DE1),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/telegram.svg',
-                          height: 18,
+                        _ContactRow(
+                          iconAsset:
+                              'assets/icons/contact/contact_whatsapp.svg',
+                          iconBg: const Color(0xFFCFF4D9),
+                          title: l10n.writeOnWhatsapp,
+                          subtitle: l10n.respondHours,
+                          onTap: () => _openWhatsApp(context),
                         ),
-                        const SizedBox(width: 12),
-                        Text(
-                          l10n.telegram,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
+                        _ContactRow(
+                          iconAsset:
+                              'assets/icons/contact/contect_telegram.svg',
+                          iconBg: const Color(0xFFCCE4FB),
+                          title: l10n.writeOnTelegram,
+                          subtitle: l10n.respondHours,
+                          onTap: () => _openTelegram(context),
                         ),
                       ],
                     ),
-                  ),
+
+                    const SizedBox(height: 10),
+
+                    // Delivery block
+                    _SectionCard(
+                      title: l10n.deliverySectionTitle,
+                      subtitle: l10n.deliverySectionSubtitle,
+                      rows: [
+                        _ContactRow(
+                          iconAsset:
+                              'assets/icons/contact/contact_delivery.svg',
+                          iconBg: const Color(0xFFFFC9C4),
+                          title: l10n.deliverySectionTitle,
+                          subtitle: l10n.respondHours,
+                          onTap: () => _openTelegram(context),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Self-pickup block
+                    _SectionCard(
+                      title: l10n.selfPickupSectionTitle,
+                      subtitle: l10n.deliverySectionSubtitle,
+                      rows: [
+                        _ContactRow(
+                          iconAsset:
+                              'assets/icons/contact/contect_brunch.svg',
+                          iconBg: const Color(0xFFDFCFFD),
+                          title: l10n.branches,
+                          subtitle: l10n.respondHours,
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 32),
-              Text(
-                l10n.faq,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Expanded(child: FAQPage()),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  static const _inviteCode = 'OJnsGK2O2SUyYTNi';
-
-  Future<void> _openTelegram(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-    // 1) сначала пытаемся запустить сам Telegram
-    final tgUri = Uri.parse('tg://join?invite=$_inviteCode');
-    if (await canLaunchUrl(tgUri)) {
-      await launchUrl(tgUri, mode: LaunchMode.externalApplication);
-      return;
-    }
-
-    // 2) если Telegram не установлен — открываем ссылку в WebView
-    final webUri = Uri.parse('https://t.me/+$_inviteCode');
-    if (!await launchUrl(
-      webUri,
-      mode: LaunchMode.inAppWebView,
-      webViewConfiguration: const WebViewConfiguration(enableJavaScript: true),
-    )) {
-      throw l10n.failedToOpen(webUri.toString());
+  Future<void> _call() async {
+    final uri = Uri(scheme: 'tel', path: _phoneNumber);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     }
   }
 
-  static const _phoneNumber = '77002052728';
-
   Future<void> _openWhatsApp(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-    // 1) Сначала пытаемся открыть нативный WhatsApp
     final whatsappUri = Uri.parse('whatsapp://send?phone=$_phoneNumber');
     if (await canLaunchUrl(whatsappUri)) {
       await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
       return;
     }
-
-    // 2) Если WhatsApp не установлен — открываем веб‑версию
     final webUri = Uri.parse('https://wa.me/$_phoneNumber');
-    if (!await launchUrl(
-      webUri,
-      mode: LaunchMode.inAppWebView,
-      webViewConfiguration: const WebViewConfiguration(enableJavaScript: true),
-    )) {
-      throw l10n.failedToOpen(webUri.toString());
+    await launchUrl(webUri, mode: LaunchMode.externalApplication);
+  }
+
+  Future<void> _openTelegram(BuildContext context) async {
+    final tgUri = Uri.parse('tg://join?invite=$_tgInvite');
+    if (await canLaunchUrl(tgUri)) {
+      await launchUrl(tgUri, mode: LaunchMode.externalApplication);
+      return;
     }
+    final webUri = Uri.parse('https://t.me/+$_tgInvite');
+    await launchUrl(webUri, mode: LaunchMode.externalApplication);
+  }
+}
+
+class _SectionCard extends StatelessWidget {
+  const _SectionCard({
+    required this.title,
+    required this.subtitle,
+    required this.rows,
+  });
+  final String title;
+  final String subtitle;
+  final List<Widget> rows;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+              fontFamily: 'Gilroy',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF9A9A9A),
+              fontFamily: 'Gilroy',
+              height: 1.35,
+            ),
+          ),
+          const SizedBox(height: 12),
+          ...rows,
+        ],
+      ),
+    );
+  }
+}
+
+class _ContactRow extends StatelessWidget {
+  const _ContactRow({
+    required this.iconAsset,
+    required this.iconBg,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+  final String iconAsset;
+  final Color iconBg;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          children: [
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: iconBg,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              alignment: Alignment.center,
+              child: SvgPicture.asset(iconAsset, width: 28, height: 28),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontFamily: 'Gilroy',
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFFA3A3A3),
+                      fontFamily: 'Gilroy',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(
+              Icons.chevron_right,
+              color: Color(0xFFB5B5B5),
+              size: 22,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

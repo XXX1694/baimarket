@@ -7,4 +7,11 @@ abstract class CardsState extends Equatable {
   List<Object> get props => [];
 }
 
-class CardsInitial extends CardsState {}
+class CardsLoaded extends CardsState {
+  final List<PaymentCardModel> cards;
+
+  const CardsLoaded({required this.cards});
+
+  @override
+  List<Object> get props => [cards];
+}

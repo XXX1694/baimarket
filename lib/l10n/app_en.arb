@@ -759,5 +759,24 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "favoritesEmptyTitle": "Nothing here yet",
+    "favoritesEmptySubtitle": "Add items to favorites so you can easily come back to them later!",
+    "goShopping": "Go shopping",
+    "myCards": "My cards",
+    "paymentCard": "Payment card",
+    "addCard": "Add card",
+    "cardsEmptyTitle": "No cards",
+    "cardsEmptySubtitle": "You don't have any saved cards yet",
+    "contactsTitle": "Contacts",
+    "callCenter": "Call center",
+    "callCenterSubtitle": "We'll consult and help\nyou place an order",
+    "acceptCallsHours": "We accept calls from 10:00 to 20:00",
+    "respondHours": "We reply from 10:00 to 20:00",
+    "writeOnWhatsapp": "Message on Whatsapp",
+    "writeOnTelegram": "Message on Telegram",
+    "deliverySectionTitle": "Delivery",
+    "deliverySectionSubtitle": "Updates are posted in our Telegram channel",
+    "selfPickupSectionTitle": "Self-pickup address",
+    "branches": "Branches"
 }

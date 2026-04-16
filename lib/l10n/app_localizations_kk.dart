@@ -690,4 +690,61 @@ class AppLocalizationsKk extends AppLocalizations {
   String priceTenge(String price) {
     return '$price₸';
   }
+
+  @override
+  String get favoritesEmptyTitle => 'Әзірге бос';
+
+  @override
+  String get favoritesEmptySubtitle => 'Кейін оңай оралу үшін тауарларды таңдаулыға қосыңыз!';
+
+  @override
+  String get goShopping => 'Сатып алуға';
+
+  @override
+  String get myCards => 'Менің карталарым';
+
+  @override
+  String get paymentCard => 'Төлем картасы';
+
+  @override
+  String get addCard => 'Карта қосу';
+
+  @override
+  String get cardsEmptyTitle => 'Карта жоқ';
+
+  @override
+  String get cardsEmptySubtitle => 'Сізде әлі сақталған карталар жоқ';
+
+  @override
+  String get contactsTitle => 'Байланыстар';
+
+  @override
+  String get callCenter => 'Колл-орталық';
+
+  @override
+  String get callCenterSubtitle => 'Кеңес береміз және тапсырыс\nресімдеуге көмектесеміз';
+
+  @override
+  String get acceptCallsHours => 'Қоңырауларды 10:00-ден 20:00-ге дейін қабылдаймыз';
+
+  @override
+  String get respondHours => '10:00-ден 20:00-ге дейін жауап береміз';
+
+  @override
+  String get writeOnWhatsapp => 'Whatsapp-қа жазу';
+
+  @override
+  String get writeOnTelegram => 'Telegram-ға жазу';
+
+  @override
+  String get deliverySectionTitle => 'Жеткізу';
+
+  @override
+  String get deliverySectionSubtitle => 'Жаңартулар телеграм каналымызда';
+
+  @override
+  String get selfPickupSectionTitle => 'Өзі алу мекенжайы';
+
+  @override
+  String get branches => 'Филиалдар';
 }

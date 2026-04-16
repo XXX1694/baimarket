@@ -19,12 +19,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(FavoritesGetting());
     try {
       List<FavoriteModel> favorites = await _favoriteRepository.getFavorites();
-
-      if (favorites.isNotEmpty) {
-        emit(FavoritesGot(favorites: favorites));
-      } else {
-        emit(FavoritesGetError());
-      }
+      emit(FavoritesGot(favorites: favorites));
     } catch (e) {
       emit(FavoritesGetError());
     }

@@ -572,5 +572,24 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "favoritesEmptyTitle": "Әзірге бос",
+    "favoritesEmptySubtitle": "Кейін оңай оралу үшін тауарларды таңдаулыға қосыңыз!",
+    "goShopping": "Сатып алуға",
+    "myCards": "Менің карталарым",
+    "paymentCard": "Төлем картасы",
+    "addCard": "Карта қосу",
+    "cardsEmptyTitle": "Карта жоқ",
+    "cardsEmptySubtitle": "Сізде әлі сақталған карталар жоқ",
+    "contactsTitle": "Байланыстар",
+    "callCenter": "Колл-орталық",
+    "callCenterSubtitle": "Кеңес береміз және тапсырыс\nресімдеуге көмектесеміз",
+    "acceptCallsHours": "Қоңырауларды 10:00-ден 20:00-ге дейін қабылдаймыз",
+    "respondHours": "10:00-ден 20:00-ге дейін жауап береміз",
+    "writeOnWhatsapp": "Whatsapp-қа жазу",
+    "writeOnTelegram": "Telegram-ға жазу",
+    "deliverySectionTitle": "Жеткізу",
+    "deliverySectionSubtitle": "Жаңартулар телеграм каналымызда",
+    "selfPickupSectionTitle": "Өзі алу мекенжайы",
+    "branches": "Филиалдар"
 }
