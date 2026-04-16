@@ -1,14 +1,23 @@
 import 'package:bai_market/core/app_pallete.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/utils/translation_utils.dart';
 import '../../../get_slug_list/data/models/slug_model.dart';
 import '../../../get_slug_list/presentation/cubit/slug_cubit.dart';
 
+/// Reserved slug that indicates the raffles tab (not an API slug).
+const String raffleTabSlug = '__raffles__';
+
 class CatalogTabs extends StatefulWidget {
-  const CatalogTabs({super.key, required this.onTabChanged});
+  const CatalogTabs({
+    super.key,
+    required this.onTabChanged,
+    required this.rafflesLabel,
+  });
+
   final ValueChanged<String> onTabChanged;
+  final String rafflesLabel;
 
   @override
   State<CatalogTabs> createState() => _CatalogTabsState();
@@ -32,27 +41,42 @@ class _CatalogTabsState extends State<CatalogTabs> {
   }
 
   Widget _buildTabs(List<SlugModel> slugs) {
+    // Raffles is always the first tab, followed by API-driven slugs.
+    final totalCount = slugs.length + 1;
+
     return SizedBox(
       height: 30,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        itemCount: slugs.length,
+        itemCount: totalCount,
         itemBuilder: (context, index) {
+          final isRaffles = index == 0;
           final isSelected = _selectedIndex == index;
-          final name = TranslationUtils.getLocalizedDescription(
-            context: context,
-            descriptionKz: slugs[index].nameKz ?? '',
-            descriptionRu: slugs[index].nameRu ?? '',
-            descriptionEn: slugs[index].nameEn ?? '',
-          );
+
+          final String label;
+          final String tabSlug;
+          if (isRaffles) {
+            label = widget.rafflesLabel;
+            tabSlug = raffleTabSlug;
+          } else {
+            final slug = slugs[index - 1];
+            label = TranslationUtils.getLocalizedDescription(
+              context: context,
+              descriptionKz: slug.nameKz ?? '',
+              descriptionRu: slug.nameRu ?? '',
+              descriptionEn: slug.nameEn ?? '',
+            );
+            tabSlug = slug.slug ?? 'all';
+          }
 
           return Padding(
             padding: const EdgeInsets.only(right: 12),
             child: GestureDetector(
               onTap: () {
+                if (_selectedIndex == index) return;
                 setState(() => _selectedIndex = index);
-                widget.onTabChanged(slugs[index].slug ?? 'all');
+                widget.onTabChanged(tabSlug);
               },
               child: Container(
                 height: 30,
@@ -66,7 +90,7 @@ class _CatalogTabsState extends State<CatalogTabs> {
                 ),
                 child: Center(
                   child: Text(
-                    name,
+                    label,
                     style: TextStyle(
                       fontFamily: 'Gilroy',
                       fontSize: 14,

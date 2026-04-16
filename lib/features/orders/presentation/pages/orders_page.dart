@@ -1,15 +1,16 @@
-import 'package:bai_market/core/app_pallete.dart';
-import 'package:bai_market/core/urls.dart';
-import 'package:bai_market/core/widgets/show_image.dart';
-import 'package:bai_market/features/orders/presentation/cubit/orders_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
-import '../../../../core/utils/order_status_utils.dart';
+import '../../../../core/app_pallete.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../cubit/orders_cubit.dart';
+import '../widgets/order_card.dart';
+import '../widgets/order_filter.dart';
+import '../widgets/orders_empty_state.dart';
+import '../widgets/orders_filter_tabs.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({super.key});
@@ -19,219 +20,114 @@ class OrdersPage extends StatefulWidget {
 }
 
 class _OrdersPageState extends State<OrdersPage> {
-  late OrdersCubit cubit = OrdersCubit();
-
-  String _formatDate(String dateStr) {
-    final date = DateTime.parse(dateStr);
-    final formatter = DateFormat('dd.MM.yyyy');
-    return formatter.format(date);
-  }
+  late final OrdersCubit _cubit = OrdersCubit()..getOrders();
+  OrderFilter _filter = OrderFilter.all;
 
   @override
-  void initState() {
-    cubit.getOrders();
-    super.initState();
+  void dispose() {
+    _cubit.close();
+    super.dispose();
   }
+
+  void _goToShopping() => context.go('/catalog');
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: lightGray,
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
+        backgroundColor: const Color(0xFFF5F5F5),
         surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: CupertinoButton(
+            padding: EdgeInsets.zero,
+            minimumSize: const Size(32, 32),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/profile');
+              }
+            },
+            child: SvgPicture.asset(
+              'assets/icons/arrow_left.svg',
+              height: 20,
+              width: 20,
+            ),
+          ),
+        ),
         title: Text(
-          l10n.orderHistory,
-          style: TextStyle(
+          l10n.myOrders,
+          style: const TextStyle(
+            fontFamily: 'Gilroy',
             fontSize: 18,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             color: Colors.black,
           ),
         ),
       ),
       body: SafeArea(
-        child: BlocConsumer<OrdersCubit, OrdersState>(
-          bloc: cubit,
-          listener: (context, state) {
-            print(state);
-          },
+        top: false,
+        child: BlocBuilder<OrdersCubit, OrdersState>(
+          bloc: _cubit,
           builder: (context, state) {
-            if (state is OrdersGot) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ListView.builder(
-                  itemCount: state.orders.length,
-                  itemBuilder:
-                      (context, index) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: index == 0 ? 16 : 0),
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Text(
-                              _formatDate(state.orders[index].createdAt),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          CupertinoButton(
-                            padding: const EdgeInsets.all(0),
-                            onPressed: () {
-                              context.push(
-                                '/order',
-                                extra: state.orders[index],
-                              );
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 8),
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 2,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              statusColors[state
-                                                  .orders[index]
-                                                  .status] ??
-                                              Colors.grey,
-                                          borderRadius: BorderRadius.circular(
-                                            4,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            state.orders[index].status ==
-                                                    'PAYMENT_PENDING'
-                                                ? l10n.orderStatusPaymentPending
-                                                : state.orders[index].status ==
-                                                    'PROCESSING'
-                                                ? l10n.orderStatusProcessing
-                                                : state.orders[index].status ==
-                                                    'WAY'
-                                                ? l10n.orderStatusWay
-                                                : state.orders[index].status ==
-                                                    'PICKUP'
-                                                ? l10n.orderStatusPickup
-                                                : state.orders[index].status ==
-                                                    'DELIVERED'
-                                                ? l10n.orderStatusDelivered
-                                                : state.orders[index].status ==
-                                                    'CANCELED'
-                                                ? l10n.orderStatusCanceled
-                                                : state.orders[index].status ==
-                                                    'ASSEMBLING'
-                                                ? l10n.orderStatusAssembling
-                                                : state.orders[index].status ==
-                                                    'ABANDONED'
-                                                ? l10n.orderStatusAbandoned
-                                                : l10n.orderStatusPaymentFailed,
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        '${state.orders[index].totalPrice} ₸',
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      state.orders[index].status == 'PROCESSING'
-                                          ? l10n.paid
-                                          : l10n.unpaid,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    state
-                                            .orders[index]
-                                            .deliveryInfo?['deliveryAddress'] ??
-                                        l10n.noData,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  SizedBox(
-                                    height: 80,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount:
-                                          state.orders[index].cartItems.length,
-                                      itemBuilder:
-                                          (context, index1) => Container(
-                                            margin: const EdgeInsets.only(
-                                              right: 8,
-                                            ),
-                                            height: 80,
-                                            width: 80,
-                                            decoration: BoxDecoration(
-                                              color: lightGray,
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              child: NetworkImageWidget(
-                                                url:
-                                                    '$imgUrl${state.orders[index].cartItems[index1].model.photoUrls?[0]}',
-                                              ),
-                                            ),
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+            return Column(
+              children: [
+                const SizedBox(height: 8),
+                OrdersFilterTabs(
+                  selected: _filter,
+                  onSelected: (f) => setState(() => _filter = f),
                 ),
-              );
-            } else {
-              return const SizedBox();
-            }
+                const SizedBox(height: 16),
+                Expanded(child: _buildBody(state)),
+              ],
+            );
           },
         ),
       ),
     );
+  }
+
+  Widget _buildBody(OrdersState state) {
+    if (state is OrdersGetting) {
+      return const Center(
+        child: CircularProgressIndicator(color: mainColorLight),
+      );
+    }
+    if (state is OrdersGetError) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: OrdersEmptyState(onGoShopping: _goToShopping),
+      );
+    }
+    if (state is OrdersGot) {
+      final filtered = state.orders
+          .where((o) => orderMatchesFilter(_filter, o.status))
+          .toList();
+      if (filtered.isEmpty) {
+        return SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+          child: OrdersEmptyState(onGoShopping: _goToShopping),
+        );
+      }
+      return ListView.builder(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+        itemCount: filtered.length,
+        itemBuilder: (context, index) {
+          final order = filtered[index];
+          return OrderCard(
+            order: order,
+            onTap: () => context.push('/order', extra: order),
+            onLeaveReview: () {},
+          );
+        },
+      );
+    }
+    return const SizedBox.shrink();
   }
 }

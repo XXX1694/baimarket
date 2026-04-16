@@ -1,18 +1,23 @@
-import 'package:bai_market/core/urls.dart';
-import 'package:bai_market/core/widgets/main_button.dart';
-import 'package:bai_market/features/my_data/presentation/widgets/first_name_field.dart';
-import 'package:bai_market/features/my_data/presentation/widgets/last_name_field.dart';
-import 'package:bai_market/features/profile/data/models/profile_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/secure_token_storage.dart';
 
+import '../../../../core/secure_token_storage.dart';
+import '../../../../core/urls.dart';
+import '../../../../core/widgets/main_button.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../widgets/delete_account_button.dart';
-import '../widgets/select_avatar.dart';
+import '../../../profile/data/models/profile_model.dart';
+import '../../../profile/presentation/pages/profile_page.dart';
+import '../widgets/avatar_uploader.dart';
+import '../widgets/birth_date_field.dart';
+import '../widgets/delete_account_text_button.dart';
+import '../widgets/my_data_header.dart';
+import '../widgets/name_field.dart';
+import '../widgets/profile_phone_field.dart';
+import '../widgets/surname_field.dart';
 
 class MyDataPage extends StatefulWidget {
   const MyDataPage({super.key, required this.profileModel});
+
   final ProfileModel profileModel;
 
   @override
@@ -20,134 +25,149 @@ class MyDataPage extends StatefulWidget {
 }
 
 class _MyDataPageState extends State<MyDataPage> {
-  late TextEditingController firstNameController;
-  late TextEditingController lastNameController;
-  final Dio dio = Dio(); // Инициализация Dio
+  late final TextEditingController _firstName;
+  late final TextEditingController _lastName;
+  late final TextEditingController _birthDate;
+  late final TextEditingController _phone;
+  final Dio _dio = Dio();
+  bool _saving = false;
 
   @override
   void initState() {
-    firstNameController = TextEditingController(
-      text: widget.profileModel.firstName,
-    );
-    lastNameController = TextEditingController(
-      text: widget.profileModel.lastName,
-    );
     super.initState();
+    _firstName = TextEditingController(text: widget.profileModel.firstName);
+    _lastName = TextEditingController(text: widget.profileModel.lastName);
+    _birthDate = TextEditingController();
+    _phone = TextEditingController(
+      text: _stripLeadingCountry(widget.profileModel.phoneNumber),
+    );
   }
 
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    dio.close(); // Закрытие Dio для освобождения ресурсов
+    _firstName.dispose();
+    _lastName.dispose();
+    _birthDate.dispose();
+    _phone.dispose();
+    _dio.close();
     super.dispose();
   }
 
-  Future<void> _updateProfile() async {
-    final l10n = AppLocalizations.of(context)!;
-    const String baseUrl = mainUrl;
-    final url = Uri.parse('${baseUrl}profile');
-    String? token = await getAuthToken();
+  String _stripLeadingCountry(String? raw) {
+    if (raw == null) return '';
+    final digits = raw.replaceAll(RegExp(r'\D'), '');
+    if (digits.length > 10 && digits.startsWith('7')) {
+      return digits.substring(1);
+    }
+    return digits;
+  }
 
-    // Валидация полей
-    if (firstNameController.text.isEmpty || lastNameController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.fillAllFields),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 3),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-        ),
-      );
+  Future<void> _save() async {
+    final l10n = AppLocalizations.of(context)!;
+    if (_firstName.text.trim().isEmpty || _lastName.text.trim().isEmpty) {
+      _showError(l10n.fillAllFields);
       return;
     }
-
+    setState(() => _saving = true);
     try {
-      dio.options.headers["authorization"] = "Bearer $token";
-      final response = await dio.patch(
-        url.toString(),
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-            // Если требуется токен авторизации, добавьте его здесь
-            // 'Authorization': 'Bearer your_token_here',
-          },
-        ),
+      final token = await getAuthToken();
+      _dio.options.headers['authorization'] = 'Bearer $token';
+      final response = await _dio.patch(
+        '${mainUrl}profile',
         data: {
-          'firstName': firstNameController.text,
-          'lastName': lastNameController.text,
+          'firstName': _firstName.text.trim(),
+          'lastName': _lastName.text.trim(),
         },
+        options: Options(headers: {'Content-Type': 'application/json'}),
       );
-
+      if (!mounted) return;
       if (response.statusCode == 200) {
         profileCubitGlobal.getProfileData();
-        // Успешно обновлено, выполняем pop
         Navigator.pop(context);
-      } else {
-        // Ошибка, показываем SnackBar с деталями
-        final errorMessage = response.data['message'] ?? 'Unknown error';
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.profileUpdateError(errorMessage)),
-            backgroundColor: Colors.red,
-            duration: const Duration(seconds: 3),
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.all(16),
-          ),
-        );
+        return;
       }
+      final msg = response.data is Map && response.data['message'] != null
+          ? response.data['message'].toString()
+          : 'Unknown error';
+      _showError(l10n.profileUpdateError(msg));
     } catch (e) {
-      // Обработка исключений (например, нет интернета)
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.error(e.toString())),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 3),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-        ),
-      );
+      if (!mounted) return;
+      _showError(l10n.error(e.toString()));
+    } finally {
+      if (mounted) setState(() => _saving = false);
     }
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 3),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final initial = (widget.profileModel.firstName?.trim().isNotEmpty ?? false)
+        ? widget.profileModel.firstName!.trim()
+        : (widget.profileModel.lastName?.trim() ?? '');
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          l10n.myData,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
-        ),
-      ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              const SizedBox(height: 32),
-              SelectAvatar(imageUrl: widget.profileModel.avatarUrl ?? ''),
-              const SizedBox(height: 32),
-              FirstNameField(controller: firstNameController),
-              LastNameField(controller: lastNameController),
-              // PhoneNumberField(), // Раскомментируйте, если нужно
-              const SizedBox(height: 4),
-              MainButton(onPressed: _updateProfile, text: l10n.save),
-              const Spacer(),
-              DeleteAccountButton(text: l10n.deleteAccount, onPressed: () {}),
-            ],
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          behavior: HitTestBehavior.opaque,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyDataHeader(title: l10n.myData),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AvatarUploader(
+                          initial: initial,
+                          imageUrl: widget.profileModel.avatarUrl ?? '',
+                          baseLabel: l10n.baseAvatar,
+                          selectLabel: l10n.selectAvatar,
+                        ),
+                        const SizedBox(height: 24),
+                        SurnameField(controller: _lastName),
+                        const SizedBox(height: 16),
+                        NameField(controller: _firstName),
+                        const SizedBox(height: 16),
+                        BirthDateField(controller: _birthDate),
+                        const SizedBox(height: 16),
+                        ProfilePhoneField(controller: _phone),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                MainButton(
+                  onPressed: _saving ? null : _save,
+                  text: l10n.save,
+                ),
+                const SizedBox(height: 4),
+                Center(
+                  child: DeleteAccountTextButton(
+                    text: l10n.deleteAccount,
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

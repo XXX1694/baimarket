@@ -1,7 +1,7 @@
 name: bai_market
 description: "Cosmetics App"
 publish_to: "none"
-version: 1.0.0+3
+version: 1.0.0+4
 
 environment:
   sdk: ^3.7.0
@@ -33,6 +33,13 @@ dependencies:
   image_picker: ^1.0.7
   flutter_secure_storage: ^9.2.4
   google_fonts: ^6.2.1
+  share_plus: ^10.1.4
+
+# path_provider_foundation 2.6.0 pulls the objective_c FFI package, whose
+# dylib fails to load on the iOS simulator (runtime dlopen error). 2.5.1 is
+# the last version before that dependency and works fine for our usage.
+dependency_overrides:
+  path_provider_foundation: 2.5.1
 
 dev_dependencies:
   flutter_test:

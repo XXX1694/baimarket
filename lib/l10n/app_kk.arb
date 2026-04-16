@@ -479,5 +479,98 @@
     "noNotifications": "Хабарландырулар жоқ",
     "selectAddress": "Мекенжай таңдаңыз",
     "noSavedAddresses": "Сізде сақталған мекенжайлар жоқ",
-    "addAddress": "Мекенжай қосу"
+    "addAddress": "Мекенжай қосу",
+    "raffleTab": "Ұтыстар",
+    "raffleDefaultTitle": "Ұтыс",
+    "raffleDateLabel": "Күні: {date}",
+    "@raffleDateLabel": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "raffleDateTbd": "Күні: нақтыланады",
+    "raffleGiftsCount": "{count} сыйлық",
+    "@raffleGiftsCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "raffleGiftsAction": "Ұтыстарға шолу",
+    "raffleGiftsTitle": "Ұтыс сыйлықтары",
+    "raffleGiftsEmpty": "Сыйлықтар әзірге жоқ",
+    "raffleEmpty": "Белсенді ұтыстар әзірге жоқ",
+    "raffleLoadError": "Ұтысты жүктеу мүмкін болмады",
+    "raffleProductsEmpty": "Бұл ұтыста әзірге тауарлар жоқ",
+    "sortDiscount": "Жеңілдік",
+    "baseAvatar": "Негізгі",
+    "@baseAvatar": {
+        "description": "Label for the base avatar option (initial letter)"
+    },
+    "selectAvatar": "Таңдау",
+    "@selectAvatar": {
+        "description": "Label for the custom photo avatar option"
+    },
+    "dateOfBirth": "Туған күні",
+    "@dateOfBirth": {
+        "description": "Date of birth field label"
+    },
+    "birthDateHint": "кк-аа-жжжж",
+    "@birthDateHint": {
+        "description": "Date of birth placeholder"
+    },
+    "phoneNumberHint": "(000) - 00 - 00",
+    "@phoneNumberHint": {
+        "description": "Phone number field placeholder"
+    },
+    "addPhoto": "Фото қосу",
+    "@addPhoto": {
+        "description": "Add photo bottom sheet title"
+    },
+    "gallery": "Галерея",
+    "@gallery": {
+        "description": "Gallery option in the photo picker sheet"
+    },
+    "camera": "Камера",
+    "@camera": {
+        "description": "Camera option in the photo picker sheet"
+    },
+    "shareAppMessage": "Сәлем! Мен мына керемет қосымшаны қолданамын. Қосыл: {link}",
+    "@shareAppMessage": {
+        "description": "Message pre-filled in the system share sheet when inviting friends",
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "shareAppError": "\"Бөлісу\" терезесін ашу мүмкін болмады",
+    "@shareAppError": {
+        "description": "Error shown when the native share sheet fails to open"
+    },
+    "ordersTabAll": "Барлығы",
+    "ordersTabActive": "Белсенді",
+    "ordersTabCompleted": "Аяқталған",
+    "ordersTabReturn": "Қайтарылған",
+    "ordersEmptyTitle": "Тапсырыс жоқ",
+    "ordersEmptyMessage": "Тапсырыстар осында көрсетіледі",
+    "orderTagActive": "Белсенді",
+    "orderTagCompleted": "Аяқталды",
+    "orderTagReturn": "Қайтарылды",
+    "orderLeaveReview": "Пікір қалдыру",
+    "orderInTransitMessage": "Тапсырысыңыз жіберуге берілді. Сәл сабыр сақтаңыз, тауар жолда.",
+    "orderDeliveredMessage": "Құттықтаймыз! Курьер тапсырысты жеткізді. Жұмысымызды бағаласаңыз, қуанышты боламыз.",
+    "orderReturnMessage": "Тапсырыс қайтарылды немесе бас тартылды.",
+    "priceTenge": "{price}₸",
+    "@priceTenge": {
+        "description": "Price with tenge symbol (no space)",
+        "placeholders": {
+            "price": {
+                "type": "String"
+            }
+        }
+    }
 }

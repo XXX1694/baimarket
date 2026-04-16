@@ -20,6 +20,7 @@ import '../../features/order/presentation/pages/order_page.dart';
 import '../../features/orders/presentation/pages/orders_page.dart';
 import '../../features/prizes/presentation/pages/prizes_page.dart';
 import '../../features/product/presentation/pages/123.dart';
+import '../../features/raffle/presentation/pages/raffle_detail_page.dart';
 import '../../features/profile/data/models/profile_model.dart';
 import '../../features/tickets/presentation/pages/tickets_page.dart';
 
@@ -130,6 +131,16 @@ final router = GoRouter(
       builder:
           (context, state) =>
               CollectionPage(slug: state.pathParameters['slug']),
+    ),
+    GoRoute(
+      path: '/raffle/:id',
+      redirect: (context, state) {
+        final raw = state.pathParameters['id'];
+        return int.tryParse(raw ?? '') == null ? '/catalog' : null;
+      },
+      builder: (context, state) => RaffleDetailPage(
+        id: int.parse(state.pathParameters['id']!),
+      ),
     ),
   ],
 );

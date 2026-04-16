@@ -482,5 +482,98 @@
     "noNotifications": "Нет уведомлений",
     "selectAddress": "Выберите адрес",
     "noSavedAddresses": "У вас пока нет сохранённых адресов",
-    "addAddress": "Добавить адрес"
+    "raffleTab": "Розыгрыши",
+    "raffleDefaultTitle": "Розыгрыш",
+    "raffleDateLabel": "Дата: {date}",
+    "@raffleDateLabel": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "raffleDateTbd": "Дата: уточняется",
+    "raffleGiftsCount": "{count} подарков",
+    "@raffleGiftsCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "raffleGiftsAction": "Обзор подарков",
+    "raffleGiftsTitle": "Подарки розыгрыша",
+    "raffleGiftsEmpty": "Подарков пока нет",
+    "raffleEmpty": "Активных розыгрышей пока нет",
+    "raffleLoadError": "Не удалось загрузить розыгрыш",
+    "raffleProductsEmpty": "В этом розыгрыше пока нет товаров",
+    "sortDiscount": "Скидка",
+    "addAddress": "Добавить адрес",
+    "baseAvatar": "Базовый",
+    "@baseAvatar": {
+        "description": "Label for the base avatar option (initial letter)"
+    },
+    "selectAvatar": "Выбрать",
+    "@selectAvatar": {
+        "description": "Label for the custom photo avatar option"
+    },
+    "dateOfBirth": "Дата рождения",
+    "@dateOfBirth": {
+        "description": "Date of birth field label"
+    },
+    "birthDateHint": "дд-мм-гггг",
+    "@birthDateHint": {
+        "description": "Date of birth placeholder"
+    },
+    "phoneNumberHint": "(000) - 00 - 00",
+    "@phoneNumberHint": {
+        "description": "Phone number field placeholder"
+    },
+    "addPhoto": "Добавить фото",
+    "@addPhoto": {
+        "description": "Add photo bottom sheet title"
+    },
+    "gallery": "Галлерея",
+    "@gallery": {
+        "description": "Gallery option in the photo picker sheet"
+    },
+    "camera": "Камера",
+    "@camera": {
+        "description": "Camera option in the photo picker sheet"
+    },
+    "shareAppMessage": "Привет! Я использую это крутое приложение. Присоединяйся: {link}",
+    "@shareAppMessage": {
+        "description": "Message pre-filled in the system share sheet when inviting friends",
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "shareAppError": "Не удалось открыть окно \"Поделиться\"",
+    "@shareAppError": {
+        "description": "Error shown when the native share sheet fails to open"
+    },
+    "ordersTabAll": "Все",
+    "ordersTabActive": "Активные",
+    "ordersTabCompleted": "Завершенные",
+    "ordersTabReturn": "Возврат",
+    "ordersEmptyTitle": "Нет заказов",
+    "ordersEmptyMessage": "Заказы будут отображаться тут",
+    "orderTagActive": "Активный",
+    "orderTagCompleted": "Завершен",
+    "orderTagReturn": "Возврат",
+    "orderLeaveReview": "Оставить отзыв",
+    "orderInTransitMessage": "Ваш заказ передан на отправку. Немного терпения, товар уже в пути.",
+    "orderDeliveredMessage": "Поздравляем! Курьер доставил заказ. Будем рады, если оцените нашу работу.",
+    "orderReturnMessage": "Заказ был возвращен или отменен.",
+    "priceTenge": "{price}₸",
+    "@priceTenge": {
+        "description": "Price with tenge symbol (no space)",
+        "placeholders": {
+            "price": {
+                "type": "String"
+            }
+        }
+    }
 }

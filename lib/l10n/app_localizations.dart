@@ -1182,6 +1182,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add address'**
   String get addAddress;
+
+  /// Catalog tab label for raffles
+  ///
+  /// In en, this message translates to:
+  /// **'Raffles'**
+  String get raffleTab;
+
+  /// Fallback title when a raffle has no seller
+  ///
+  /// In en, this message translates to:
+  /// **'Raffle'**
+  String get raffleDefaultTitle;
+
+  /// Raffle draw date label
+  ///
+  /// In en, this message translates to:
+  /// **'Date: {date}'**
+  String raffleDateLabel(String date);
+
+  /// Raffle date placeholder when unknown
+  ///
+  /// In en, this message translates to:
+  /// **'Date: TBD'**
+  String get raffleDateTbd;
+
+  /// Number of gifts in a raffle
+  ///
+  /// In en, this message translates to:
+  /// **'{count} gifts'**
+  String raffleGiftsCount(int count);
+
+  /// Header button that opens the gifts sheet
+  ///
+  /// In en, this message translates to:
+  /// **'View gifts'**
+  String get raffleGiftsAction;
+
+  /// Title of the gifts bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Raffle gifts'**
+  String get raffleGiftsTitle;
+
+  /// Empty state for raffle gifts sheet
+  ///
+  /// In en, this message translates to:
+  /// **'No gifts yet'**
+  String get raffleGiftsEmpty;
+
+  /// Empty state for raffles list
+  ///
+  /// In en, this message translates to:
+  /// **'No active raffles yet'**
+  String get raffleEmpty;
+
+  /// Raffle load error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load raffle'**
+  String get raffleLoadError;
+
+  /// Empty state for raffle products grid
+  ///
+  /// In en, this message translates to:
+  /// **'No products in this raffle yet'**
+  String get raffleProductsEmpty;
+
+  /// Sort by discount option
+  ///
+  /// In en, this message translates to:
+  /// **'Biggest discount'**
+  String get sortDiscount;
+
+  /// Label for the base avatar option (initial letter)
+  ///
+  /// In en, this message translates to:
+  /// **'Base'**
+  String get baseAvatar;
+
+  /// Label for the custom photo avatar option
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get selectAvatar;
+
+  /// Date of birth field label
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth'**
+  String get dateOfBirth;
+
+  /// Date of birth placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'dd-mm-yyyy'**
+  String get birthDateHint;
+
+  /// Phone number field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'(000) - 00 - 00'**
+  String get phoneNumberHint;
+
+  /// Add photo bottom sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Add photo'**
+  String get addPhoto;
+
+  /// Gallery option in the photo picker sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// Camera option in the photo picker sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
+
+  /// Message pre-filled in the system share sheet when inviting friends
+  ///
+  /// In en, this message translates to:
+  /// **'Hi! I\'m using this awesome app. Join me: {link}'**
+  String shareAppMessage(String link);
+
+  /// Error shown when the native share sheet fails to open
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the share sheet'**
+  String get shareAppError;
+
+  /// No description provided for @ordersTabAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get ordersTabAll;
+
+  /// No description provided for @ordersTabActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get ordersTabActive;
+
+  /// No description provided for @ordersTabCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get ordersTabCompleted;
+
+  /// No description provided for @ordersTabReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Returns'**
+  String get ordersTabReturn;
+
+  /// No description provided for @ordersEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No orders'**
+  String get ordersEmptyTitle;
+
+  /// No description provided for @ordersEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your orders will appear here'**
+  String get ordersEmptyMessage;
+
+  /// No description provided for @orderTagActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get orderTagActive;
+
+  /// No description provided for @orderTagCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get orderTagCompleted;
+
+  /// No description provided for @orderTagReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get orderTagReturn;
+
+  /// No description provided for @orderLeaveReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave a review'**
+  String get orderLeaveReview;
+
+  /// No description provided for @orderInTransitMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your order has been handed over for shipping. A little patience, your item is on its way.'**
+  String get orderInTransitMessage;
+
+  /// No description provided for @orderDeliveredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations! The courier delivered your order. We\'d appreciate it if you rated our work.'**
+  String get orderDeliveredMessage;
+
+  /// No description provided for @orderReturnMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The order was returned or canceled.'**
+  String get orderReturnMessage;
+
+  /// Price with tenge symbol (no space)
+  ///
+  /// In en, this message translates to:
+  /// **'{price}₸'**
+  String priceTenge(String price);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

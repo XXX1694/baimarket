@@ -574,4 +574,120 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get addAddress => 'Добавить адрес';
+
+  @override
+  String get raffleTab => 'Розыгрыши';
+
+  @override
+  String get raffleDefaultTitle => 'Розыгрыш';
+
+  @override
+  String raffleDateLabel(String date) {
+    return 'Дата: $date';
+  }
+
+  @override
+  String get raffleDateTbd => 'Дата: уточняется';
+
+  @override
+  String raffleGiftsCount(int count) {
+    return '$count подарков';
+  }
+
+  @override
+  String get raffleGiftsAction => 'Обзор подарков';
+
+  @override
+  String get raffleGiftsTitle => 'Подарки розыгрыша';
+
+  @override
+  String get raffleGiftsEmpty => 'Подарков пока нет';
+
+  @override
+  String get raffleEmpty => 'Активных розыгрышей пока нет';
+
+  @override
+  String get raffleLoadError => 'Не удалось загрузить розыгрыш';
+
+  @override
+  String get raffleProductsEmpty => 'В этом розыгрыше пока нет товаров';
+
+  @override
+  String get sortDiscount => 'Скидка';
+
+  @override
+  String get baseAvatar => 'Базовый';
+
+  @override
+  String get selectAvatar => 'Выбрать';
+
+  @override
+  String get dateOfBirth => 'Дата рождения';
+
+  @override
+  String get birthDateHint => 'дд-мм-гггг';
+
+  @override
+  String get phoneNumberHint => '(000) - 00 - 00';
+
+  @override
+  String get addPhoto => 'Добавить фото';
+
+  @override
+  String get gallery => 'Галлерея';
+
+  @override
+  String get camera => 'Камера';
+
+  @override
+  String shareAppMessage(String link) {
+    return 'Привет! Я использую это крутое приложение. Присоединяйся: $link';
+  }
+
+  @override
+  String get shareAppError => 'Не удалось открыть окно \"Поделиться\"';
+
+  @override
+  String get ordersTabAll => 'Все';
+
+  @override
+  String get ordersTabActive => 'Активные';
+
+  @override
+  String get ordersTabCompleted => 'Завершенные';
+
+  @override
+  String get ordersTabReturn => 'Возврат';
+
+  @override
+  String get ordersEmptyTitle => 'Нет заказов';
+
+  @override
+  String get ordersEmptyMessage => 'Заказы будут отображаться тут';
+
+  @override
+  String get orderTagActive => 'Активный';
+
+  @override
+  String get orderTagCompleted => 'Завершен';
+
+  @override
+  String get orderTagReturn => 'Возврат';
+
+  @override
+  String get orderLeaveReview => 'Оставить отзыв';
+
+  @override
+  String get orderInTransitMessage => 'Ваш заказ передан на отправку. Немного терпения, товар уже в пути.';
+
+  @override
+  String get orderDeliveredMessage => 'Поздравляем! Курьер доставил заказ. Будем рады, если оцените нашу работу.';
+
+  @override
+  String get orderReturnMessage => 'Заказ был возвращен или отменен.';
+
+  @override
+  String priceTenge(String price) {
+    return '$price₸';
+  }
 }
