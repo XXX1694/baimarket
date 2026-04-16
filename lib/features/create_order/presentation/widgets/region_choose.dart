@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../core/app_pallete.dart';
 import '../../../../core/urls.dart';
+import '../../../../core/widgets/platform_picker_sheet.dart';
 
 class RegionModel {
   final int id;
@@ -49,7 +49,7 @@ class _RegionChooseState extends State<RegionChoose> {
   List<RegionModel> regions = [];
   bool isLoading = true;
   String? error;
-  String? selectedRegion;
+  RegionModel? selectedRegion;
 
   @override
   void initState() {
@@ -58,16 +58,22 @@ class _RegionChooseState extends State<RegionChoose> {
   }
 
   Future<void> _loadRegions() async {
+    setState(() {
+      isLoading = true;
+      error = null;
+    });
     try {
       final response = await Dio().get('${mainUrl}region');
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
+        if (!mounted) return;
         setState(() {
           regions = data.map((json) => RegionModel.fromJson(json)).toList();
           isLoading = false;
         });
       }
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         error = 'Ошибка загрузки регионов';
         isLoading = false;
@@ -75,141 +81,31 @@ class _RegionChooseState extends State<RegionChoose> {
     }
   }
 
-  void _showRegionSelectionModal() {
-    showModalBottomSheet(
+  Future<void> _openPicker() async {
+    if (isLoading) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Загрузка регионов...')),
+      );
+      return;
+    }
+    if (error != null) {
+      await _loadRegions();
+      return;
+    }
+    if (regions.isEmpty) return;
+
+    final picked = await showPlatformItemPicker<RegionModel>(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-      ),
-      isScrollControlled: false,
-      builder: (context) {
-        return SafeArea(
-          child: Container(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.9,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  height: 4,
-                  width: 40,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[600],
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Выберите регион',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: mainColorLight,
-                        ),
-                      ),
-                      CupertinoButton(
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/icons/cancel.svg',
-                              height: 24,
-                              width: 24,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (isLoading)
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(),
-                  )
-                else if (error != null)
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Text(error!, style: const TextStyle(color: Colors.red)),
-                        ElevatedButton(
-                          onPressed: _loadRegions,
-                          child: const Text('Попробовать снова'),
-                        ),
-                      ],
-                    ),
-                  )
-                else if (regions.isEmpty)
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('Список регионов пуст'),
-                  )
-                else
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(30),
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 8,
-                      ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: regions.length,
-                        itemBuilder: (context, index) {
-                          final region = regions[index];
-                          return ListTile(
-                            title: Text(
-                              region.nameRu,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15,
-                              ),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                selectedRegion = region.nameRu;
-                              });
-                              widget.controller.text = region.id.toString();
-                              widget.onRegionSelected(region.id);
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        );
-      },
-      backgroundColor: Color(0xFFF7F7F7),
+      title: 'Выберите регион',
+      items: regions,
+      itemLabel: (r) => r.nameRu,
+      selected: selectedRegion,
+      equals: (a, b) => a.id == b.id,
     );
+    if (picked == null || !mounted) return;
+    setState(() => selectedRegion = picked);
+    widget.controller.text = picked.id.toString();
+    widget.onRegionSelected(picked.id);
   }
 
   @override
@@ -230,7 +126,7 @@ class _RegionChooseState extends State<RegionChoose> {
         ),
         const SizedBox(height: 8),
         GestureDetector(
-          onTap: _showRegionSelectionModal,
+          onTap: _openPicker,
           child: Container(
             height: 56,
             width: double.infinity,
@@ -242,16 +138,19 @@ class _RegionChooseState extends State<RegionChoose> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  selectedRegion ?? 'Например: Акмолинская область',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color:
-                        selectedRegion != null ? Colors.black : Colors.black38,
-                    fontWeight:
-                        selectedRegion != null
-                            ? FontWeight.w500
-                            : FontWeight.w400,
+                Expanded(
+                  child: Text(
+                    selectedRegion?.nameRu ?? 'Например: Акмолинская область',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: selectedRegion != null
+                          ? Colors.black
+                          : Colors.black38,
+                      fontWeight: selectedRegion != null
+                          ? FontWeight.w500
+                          : FontWeight.w400,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const Icon(Icons.arrow_drop_down, color: Colors.black38),

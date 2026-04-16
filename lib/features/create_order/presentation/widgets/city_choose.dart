@@ -1,21 +1,22 @@
 import 'package:bai_market/features/create_order/data/models/city_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/app_pallete.dart';
 import '../../../../core/urls.dart';
+import '../../../../core/widgets/platform_picker_sheet.dart';
 
 class CityChoose extends StatefulWidget {
   final TextEditingController controller;
   final int? selectedRegionId;
+  final ValueChanged<String>? onCitySelected;
 
   const CityChoose({
     super.key,
     required this.controller,
     this.selectedRegionId,
+    this.onCitySelected,
   });
 
   @override
@@ -26,7 +27,7 @@ class _CityChooseState extends State<CityChoose> {
   List<CityModel> cities = [];
   bool isLoading = false;
   String? error;
-  String? selectedCity;
+  CityModel? selectedCity;
 
   @override
   void initState() {
@@ -39,9 +40,16 @@ class _CityChooseState extends State<CityChoose> {
   @override
   void didUpdateWidget(CityChoose oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.selectedRegionId != widget.selectedRegionId &&
-        widget.selectedRegionId != null) {
-      _loadCities();
+    if (oldWidget.selectedRegionId != widget.selectedRegionId) {
+      selectedCity = null;
+      if (widget.selectedRegionId != null) {
+        _loadCities();
+      } else {
+        setState(() {
+          cities = [];
+          isLoading = false;
+        });
+      }
     }
   }
 
@@ -67,6 +75,7 @@ class _CityChooseState extends State<CityChoose> {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
+        if (!mounted) return;
         setState(() {
           cities = data.map((json) => CityModel.fromJson(json)).toList();
           isLoading = false;
@@ -78,9 +87,8 @@ class _CityChooseState extends State<CityChoose> {
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Ошибка загрузки городов: $e');
-      }
+      if (kDebugMode) print('Ошибка загрузки городов: $e');
+      if (!mounted) return;
       setState(() {
         error = 'Ошибка загрузки городов';
         isLoading = false;
@@ -88,7 +96,7 @@ class _CityChooseState extends State<CityChoose> {
     }
   }
 
-  void _showCitySelectionModal() {
+  Future<void> _openPicker() async {
     if (widget.selectedRegionId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -98,140 +106,30 @@ class _CityChooseState extends State<CityChoose> {
       );
       return;
     }
+    if (isLoading) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Загрузка городов...')),
+      );
+      return;
+    }
+    if (error != null) {
+      await _loadCities();
+      return;
+    }
+    if (cities.isEmpty) return;
 
-    showModalBottomSheet(
+    final picked = await showPlatformItemPicker<CityModel>(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-      ),
-      isScrollControlled: false,
-      builder: (context) {
-        return SafeArea(
-          child: Container(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.9,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  height: 4,
-                  width: 40,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[600],
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Выберите город',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: mainColorLight,
-                        ),
-                      ),
-                      CupertinoButton(
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/icons/cancel.svg',
-                              height: 24,
-                              width: 24,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (isLoading)
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(),
-                  )
-                else if (error != null)
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Text(error!, style: const TextStyle(color: Colors.red)),
-                        ElevatedButton(
-                          onPressed: _loadCities,
-                          child: const Text('Попробовать снова'),
-                        ),
-                      ],
-                    ),
-                  )
-                else if (cities.isEmpty)
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('Список городов пуст'),
-                  )
-                else
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(30),
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 8,
-                      ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: cities.length,
-                        itemBuilder: (context, index) {
-                          final city = cities[index];
-                          return ListTile(
-                            title: Text(
-                              city.nameRu ?? 'Город без названия',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15,
-                              ),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                selectedCity = city.nameRu;
-                              });
-                              widget.controller.text = city.id.toString();
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        );
-      },
-      backgroundColor: Color(0xFFF7F7F7),
+      title: 'Выберите город',
+      items: cities,
+      itemLabel: (c) => c.nameRu ?? 'Без названия',
+      selected: selectedCity,
+      equals: (a, b) => a.id == b.id,
     );
+    if (picked == null || !mounted) return;
+    setState(() => selectedCity = picked);
+    widget.controller.text = picked.id.toString();
+    widget.onCitySelected?.call(picked.nameRu ?? '');
   }
 
   @override
@@ -262,7 +160,7 @@ class _CityChooseState extends State<CityChoose> {
         ),
         const SizedBox(height: 8),
         GestureDetector(
-          onTap: _showCitySelectionModal,
+          onTap: _openPicker,
           child: Container(
             height: 56,
             width: double.infinity,
@@ -274,15 +172,18 @@ class _CityChooseState extends State<CityChoose> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  selectedCity ?? 'Например: Алматы',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: selectedCity != null ? Colors.black : Colors.black38,
-                    fontWeight:
-                        selectedCity != null
-                            ? FontWeight.w500
-                            : FontWeight.w400,
+                Expanded(
+                  child: Text(
+                    selectedCity?.nameRu ?? 'Например: Алматы',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color:
+                          selectedCity != null ? Colors.black : Colors.black38,
+                      fontWeight: selectedCity != null
+                          ? FontWeight.w500
+                          : FontWeight.w400,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const Icon(Icons.arrow_drop_down, color: Colors.black38),

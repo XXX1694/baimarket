@@ -634,5 +634,130 @@
     "noNotifications": "No notifications",
     "selectAddress": "Select address",
     "noSavedAddresses": "You don't have any saved addresses yet",
-    "addAddress": "Add address"
+    "addAddress": "Add address",
+    "raffleTab": "Raffles",
+    "@raffleTab": {
+        "description": "Catalog tab label for raffles"
+    },
+    "raffleDefaultTitle": "Raffle",
+    "@raffleDefaultTitle": {
+        "description": "Fallback title when a raffle has no seller"
+    },
+    "raffleDateLabel": "Date: {date}",
+    "@raffleDateLabel": {
+        "description": "Raffle draw date label",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "raffleDateTbd": "Date: TBD",
+    "@raffleDateTbd": {
+        "description": "Raffle date placeholder when unknown"
+    },
+    "raffleGiftsCount": "{count} gifts",
+    "@raffleGiftsCount": {
+        "description": "Number of gifts in a raffle",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "raffleGiftsAction": "View gifts",
+    "@raffleGiftsAction": {
+        "description": "Header button that opens the gifts sheet"
+    },
+    "raffleGiftsTitle": "Raffle gifts",
+    "@raffleGiftsTitle": {
+        "description": "Title of the gifts bottom sheet"
+    },
+    "raffleGiftsEmpty": "No gifts yet",
+    "@raffleGiftsEmpty": {
+        "description": "Empty state for raffle gifts sheet"
+    },
+    "raffleEmpty": "No active raffles yet",
+    "@raffleEmpty": {
+        "description": "Empty state for raffles list"
+    },
+    "raffleLoadError": "Failed to load raffle",
+    "@raffleLoadError": {
+        "description": "Raffle load error"
+    },
+    "raffleProductsEmpty": "No products in this raffle yet",
+    "@raffleProductsEmpty": {
+        "description": "Empty state for raffle products grid"
+    },
+    "sortDiscount": "Biggest discount",
+    "@sortDiscount": {
+        "description": "Sort by discount option"
+    },
+    "baseAvatar": "Base",
+    "@baseAvatar": {
+        "description": "Label for the base avatar option (initial letter)"
+    },
+    "selectAvatar": "Select",
+    "@selectAvatar": {
+        "description": "Label for the custom photo avatar option"
+    },
+    "dateOfBirth": "Date of birth",
+    "@dateOfBirth": {
+        "description": "Date of birth field label"
+    },
+    "birthDateHint": "dd-mm-yyyy",
+    "@birthDateHint": {
+        "description": "Date of birth placeholder"
+    },
+    "phoneNumberHint": "(000) - 00 - 00",
+    "@phoneNumberHint": {
+        "description": "Phone number field placeholder"
+    },
+    "addPhoto": "Add photo",
+    "@addPhoto": {
+        "description": "Add photo bottom sheet title"
+    },
+    "gallery": "Gallery",
+    "@gallery": {
+        "description": "Gallery option in the photo picker sheet"
+    },
+    "camera": "Camera",
+    "@camera": {
+        "description": "Camera option in the photo picker sheet"
+    },
+    "shareAppMessage": "Hi! I'm using this awesome app. Join me: {link}",
+    "@shareAppMessage": {
+        "description": "Message pre-filled in the system share sheet when inviting friends",
+        "placeholders": {
+            "link": {
+                "type": "String"
+            }
+        }
+    },
+    "shareAppError": "Couldn't open the share sheet",
+    "@shareAppError": {
+        "description": "Error shown when the native share sheet fails to open"
+    },
+    "ordersTabAll": "All",
+    "ordersTabActive": "Active",
+    "ordersTabCompleted": "Completed",
+    "ordersTabReturn": "Returns",
+    "ordersEmptyTitle": "No orders",
+    "ordersEmptyMessage": "Your orders will appear here",
+    "orderTagActive": "Active",
+    "orderTagCompleted": "Completed",
+    "orderTagReturn": "Return",
+    "orderLeaveReview": "Leave a review",
+    "orderInTransitMessage": "Your order has been handed over for shipping. A little patience, your item is on its way.",
+    "orderDeliveredMessage": "Congratulations! The courier delivered your order. We'd appreciate it if you rated our work.",
+    "orderReturnMessage": "The order was returned or canceled.",
+    "priceTenge": "{price}₸",
+    "@priceTenge": {
+        "description": "Price with tenge symbol (no space)",
+        "placeholders": {
+            "price": {
+                "type": "String"
+            }
+        }
+    }
 }

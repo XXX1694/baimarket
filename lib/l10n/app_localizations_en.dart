@@ -574,4 +574,120 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addAddress => 'Add address';
+
+  @override
+  String get raffleTab => 'Raffles';
+
+  @override
+  String get raffleDefaultTitle => 'Raffle';
+
+  @override
+  String raffleDateLabel(String date) {
+    return 'Date: $date';
+  }
+
+  @override
+  String get raffleDateTbd => 'Date: TBD';
+
+  @override
+  String raffleGiftsCount(int count) {
+    return '$count gifts';
+  }
+
+  @override
+  String get raffleGiftsAction => 'View gifts';
+
+  @override
+  String get raffleGiftsTitle => 'Raffle gifts';
+
+  @override
+  String get raffleGiftsEmpty => 'No gifts yet';
+
+  @override
+  String get raffleEmpty => 'No active raffles yet';
+
+  @override
+  String get raffleLoadError => 'Failed to load raffle';
+
+  @override
+  String get raffleProductsEmpty => 'No products in this raffle yet';
+
+  @override
+  String get sortDiscount => 'Biggest discount';
+
+  @override
+  String get baseAvatar => 'Base';
+
+  @override
+  String get selectAvatar => 'Select';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
+
+  @override
+  String get birthDateHint => 'dd-mm-yyyy';
+
+  @override
+  String get phoneNumberHint => '(000) - 00 - 00';
+
+  @override
+  String get addPhoto => 'Add photo';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String shareAppMessage(String link) {
+    return 'Hi! I\'m using this awesome app. Join me: $link';
+  }
+
+  @override
+  String get shareAppError => 'Couldn\'t open the share sheet';
+
+  @override
+  String get ordersTabAll => 'All';
+
+  @override
+  String get ordersTabActive => 'Active';
+
+  @override
+  String get ordersTabCompleted => 'Completed';
+
+  @override
+  String get ordersTabReturn => 'Returns';
+
+  @override
+  String get ordersEmptyTitle => 'No orders';
+
+  @override
+  String get ordersEmptyMessage => 'Your orders will appear here';
+
+  @override
+  String get orderTagActive => 'Active';
+
+  @override
+  String get orderTagCompleted => 'Completed';
+
+  @override
+  String get orderTagReturn => 'Return';
+
+  @override
+  String get orderLeaveReview => 'Leave a review';
+
+  @override
+  String get orderInTransitMessage => 'Your order has been handed over for shipping. A little patience, your item is on its way.';
+
+  @override
+  String get orderDeliveredMessage => 'Congratulations! The courier delivered your order. We\'d appreciate it if you rated our work.';
+
+  @override
+  String get orderReturnMessage => 'The order was returned or canceled.';
+
+  @override
+  String priceTenge(String price) {
+    return '$price₸';
+  }
 }
