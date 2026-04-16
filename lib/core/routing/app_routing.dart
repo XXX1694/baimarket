@@ -6,6 +6,7 @@ import 'package:bai_market/features/payment/presentation/pages/payment_page.dart
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/auth_page.dart';
+import '../../features/cards/presentation/pages/my_cards_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
 import '../../features/main/data/models/banner_model.dart';
 import '../../features/main/presentation/pages/banner_page.dart';
@@ -19,7 +20,9 @@ import '../../features/notification/presentation/pages/notification_page.dart';
 import '../../features/order/presentation/pages/order_page.dart';
 import '../../features/orders/presentation/pages/orders_page.dart';
 import '../../features/prizes/presentation/pages/prizes_page.dart';
+import '../../features/product/data/models/product_model.dart';
 import '../../features/product/presentation/pages/product_page.dart';
+import '../../features/product/presentation/pages/product_reviews_page.dart';
 import '../../features/raffle/presentation/pages/raffle_detail_page.dart';
 import '../../features/profile/data/models/profile_model.dart';
 import '../../features/tickets/presentation/pages/tickets_page.dart';
@@ -68,6 +71,15 @@ final router = GoRouter(
       builder: (context, state) => ProductPage(id: state.pathParameters['id']),
     ),
     GoRoute(
+      path: '/product/:id/reviews',
+      redirect: (context, state) => state.extra is ProductModel
+          ? null
+          : '/product/${state.pathParameters['id']}',
+      builder: (context, state) => ProductReviewsPage(
+        product: state.extra as ProductModel,
+      ),
+    ),
+    GoRoute(
       path: '/notification',
       builder: (context, state) => NotificationList(),
     ),
@@ -96,6 +108,7 @@ final router = GoRouter(
       },
     ),
     GoRoute(path: '/my_address', builder: (context, state) => MyAddressPage()),
+    GoRoute(path: '/my_cards', builder: (context, state) => const MyCardsPage()),
     GoRoute(
       path: '/make_order',
       redirect: (context, state) =>

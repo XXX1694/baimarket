@@ -1,50 +1,13 @@
-import 'package:bai_market/core/app_pallete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../l10n/app_localizations.dart';
-
-class _MockReview {
-  final String name;
-  final String initials;
-  final String date;
-  final String text;
-  final Color avatarColor;
-
-  const _MockReview({
-    required this.name,
-    required this.initials,
-    required this.date,
-    required this.text,
-    required this.avatarColor,
-  });
-}
-
-const _mockReviews = [
-  _MockReview(
-    name: 'Асылбек Д',
-    initials: 'АД',
-    date: '10 февраля 2026 г.',
-    text: 'Отличные пакетики, прочные, легко открывается защитная лента',
-    avatarColor: mainColorLight,
-  ),
-  _MockReview(
-    name: 'Асылбек Д',
-    initials: 'АД',
-    date: '10 февраля 2026 г.',
-    text: 'Отличные пакетики, прочные, легко открывается защитная лента',
-    avatarColor: mainColorLight,
-  ),
-  _MockReview(
-    name: 'Асылбек Д',
-    initials: 'АД',
-    date: '10 февраля 2026 г.',
-    text: 'Отличные пакетики, прочные, легко открывается защитная лента',
-    avatarColor: mainColorLight,
-  ),
-];
+import '../../data/models/product_model.dart';
+import 'review_item.dart';
 
 class ProductReviewsSection extends StatelessWidget {
-  const ProductReviewsSection({super.key});
+  const ProductReviewsSection({super.key, required this.product});
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -69,19 +32,21 @@ class ProductReviewsSection extends StatelessWidget {
             const Spacer(),
             Text(
               l10n.reviewsCount(reviewCount.toString()),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: Colors.black54,
-                 fontFamily: 'Gilroy',
+                fontFamily: 'Gilroy',
               ),
             ),
           ],
         ),
         const SizedBox(height: 16),
 
-        // Review list
-        ..._mockReviews.map((review) => _ReviewItem(review: review)),
+        // Review list (preview)
+        ...mockReviews
+            .take(3)
+            .map((review) => ReviewItem(review: review)),
 
         const SizedBox(height: 16),
 
@@ -90,11 +55,11 @@ class ProductReviewsSection extends StatelessWidget {
           width: double.infinity,
           child: CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () => context.push('/product/${product.id}/reviews', extra: product),
             child: Container(
               height: 42,
               decoration: BoxDecoration(
-                color:  Colors.black.withAlpha(5),
+                color: Colors.black.withAlpha(5),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -112,72 +77,6 @@ class ProductReviewsSection extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _ReviewItem extends StatelessWidget {
-  const _ReviewItem({required this.review});
-  final _MockReview review;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 15,
-            backgroundColor: review.avatarColor,
-            child: Text(
-              review.initials,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Gilroy'
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  review.name,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                         fontFamily: 'Gilroy'
-                  ),
-                ),
-                Text(
-                  review.date,
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black54,
-                         fontFamily: 'Gilroy'
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  review.text,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-  fontFamily: 'Gilroy'
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

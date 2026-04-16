@@ -79,6 +79,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       children: [
                         ProfileMenuItem(
+                          svgAsset: 'assets/icons/like.svg',
+                          title: l10n.favorites,
+                          subtitle:
+                              '${state.profile.favoritesCount ?? 0} ${l10n.products}',
+                          onTap: () => context.push('/favorites'),
+                          showDivider: true,
+                        ),
+                        ProfileMenuItem(
                           svgAsset: 'assets/icons/profile_page/profile_page_tickets.svg',
                           title: l10n.myTickets,
                           subtitle: l10n.specifyDeliveryAddress,
@@ -103,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           svgAsset: 'assets/icons/profile_page/profile_page_card.svg',
                           title: l10n.myCard,
                           subtitle: l10n.orderStatus,
-                          onTap: () {},
+                          onTap: () => context.push('/my_cards'),
                           showDivider: true,
                         ),
                         ProfileMenuItem(
