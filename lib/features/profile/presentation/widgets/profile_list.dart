@@ -321,7 +321,10 @@ class ProfileList extends StatelessWidget {
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/icons/exit.svg',
-                      color: Colors.white,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.white,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),

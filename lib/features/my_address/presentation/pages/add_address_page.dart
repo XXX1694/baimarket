@@ -89,6 +89,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             label: labelController.text,
                           ),
                         );
+                        if (!context.mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Адрес успешно добавлен'),
@@ -97,6 +98,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         );
                         Navigator.pop(context, true);
                       } catch (e) {
+                        if (!context.mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Ошибка: $e'),

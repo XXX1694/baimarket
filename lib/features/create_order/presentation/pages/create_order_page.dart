@@ -220,6 +220,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                   ),
                                 );
                                 await cubit.loadAddresses();
+                                if (!context.mounted) return;
                                 final address = await showModalBottomSheet<
                                   UserAddressModel
                                 >(
@@ -308,6 +309,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                   },
                                 );
                                 if (address != null) {
+                                  if (!context.mounted) return;
                                   setState(() {
                                     selectedRegionId = address.regionId;
                                     regionController.text =

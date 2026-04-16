@@ -26,27 +26,31 @@ void showSortingSelectionModal(
     selectedIndex = 2;
   }
 
-  Widget getPlatformRadio(
-    int index,
-    int groupValue,
-    Function(dynamic) onChanged,
-  ) {
+  Widget getPlatformRadio(int index) {
     final radio =
         Platform.isIOS
-            ? CupertinoRadio<int>(
-              value: index,
-              groupValue: groupValue,
-              activeColor: mainColorLight,
-              onChanged: onChanged,
-            )
-            : Radio<int>(
-              value: index,
-              groupValue: groupValue,
-              activeColor: mainColorLight,
-              onChanged: onChanged,
-            );
+            ? CupertinoRadio<int>(value: index, activeColor: mainColorLight)
+            : Radio<int>(value: index, activeColor: mainColorLight);
 
     return Transform.scale(scale: 1.2, child: radio);
+  }
+
+  String sortTextFor(int index) {
+    switch (index) {
+      case 0:
+        return l10n.sortPopular;
+      case 1:
+        return l10n.sortCheap;
+      case 2:
+        return l10n.sortExpensive;
+    }
+    return '';
+  }
+
+  void applySort(BuildContext ctx, int index) {
+    controller.text = sortTextFor(index);
+    globalCollectionCubit.getCollection(slug: slug, sort: sorting[index]);
+    Navigator.pop(ctx);
   }
 
   showModalBottomSheet(
@@ -124,59 +128,39 @@ void showSortingSelectionModal(
                     vertical: 12,
                     horizontal: 8,
                   ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: sorting.length,
-                    itemBuilder: (context, index) {
-                      String sortText = '';
-                      switch (index) {
-                        case 0:
-                          sortText = l10n.sortPopular;
-                          break;
-                        case 1:
-                          sortText = l10n.sortCheap;
-                          break;
-                        case 2:
-                          sortText = l10n.sortExpensive;
-                          break;
-                      }
-
-                      return ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        title: Text(
-                          sortText,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                          ),
-                        ),
-                        trailing: Container(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: getPlatformRadio(index, selectedIndex, (
-                            value,
-                          ) {
-                            controller.text = sortText;
-                            globalCollectionCubit.getCollection(
-                              slug: slug,
-                              sort: sorting[index],
-                            );
-                            Navigator.pop(context);
-                          }),
-                        ),
-                        onTap: () {
-                          controller.text = sortText;
-                          globalCollectionCubit.getCollection(
-                            slug: slug,
-                            sort: sorting[index],
-                          );
-                          Navigator.pop(context);
-                        },
-                      );
+                  child: RadioGroup<int>(
+                    groupValue: selectedIndex,
+                    onChanged: (value) {
+                      if (value == null) return;
+                      applySort(context, value);
                     },
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: sorting.length,
+                      itemBuilder: (context, index) {
+                        final sortText = sortTextFor(index);
+
+                        return ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          title: Text(
+                            sortText,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
+                          trailing: Container(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: getPlatformRadio(index),
+                          ),
+                          onTap: () => applySort(context, index),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

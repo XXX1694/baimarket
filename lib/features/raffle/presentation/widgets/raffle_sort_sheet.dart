@@ -160,16 +160,21 @@ class _PlatformRadio extends StatelessWidget {
     final radio = Platform.isIOS
         ? CupertinoRadio<bool>(
             value: true,
-            groupValue: selected ? true : null,
             activeColor: mainColorLight,
-            onChanged: (_) {},
           )
         : Radio<bool>(
             value: true,
-            groupValue: selected ? true : null,
             activeColor: mainColorLight,
-            onChanged: (_) {},
           );
-    return IgnorePointer(child: Transform.scale(scale: 1.15, child: radio));
+    return IgnorePointer(
+      child: Transform.scale(
+        scale: 1.15,
+        child: RadioGroup<bool>(
+          groupValue: selected ? true : null,
+          onChanged: (_) {},
+          child: radio,
+        ),
+      ),
+    );
   }
 }

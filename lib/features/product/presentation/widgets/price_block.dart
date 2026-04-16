@@ -14,7 +14,7 @@ class PriceBlock extends StatelessWidget {
       height: 54,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: seconColor.withOpacity(0.5),
+        color: seconColor.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
