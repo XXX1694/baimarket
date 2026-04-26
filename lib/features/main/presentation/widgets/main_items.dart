@@ -10,7 +10,7 @@ import '../../../../core/widgets/show_image.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../catalog/data/models/category_product_model.dart';
 import '../../../favorites/presentation/cubit/favorites_cubit.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
+import '../../../profile/presentation/cubit/profile_cubit.dart';
 import 'favorite_button.dart';
 
 class MainItems extends StatelessWidget {
@@ -190,7 +190,7 @@ class MainItems extends StatelessWidget {
                               listener: (context, state) {
                                 if (state is FavoritesAdded ||
                                     state is FavoritesDeleted) {
-                                  profileCubitGlobal.getProfileData();
+                                  context.read<ProfileCubit>().getProfileData();
                                 }
                               },
                               child: FavoriteButton(

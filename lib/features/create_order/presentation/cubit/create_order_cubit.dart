@@ -10,6 +10,8 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
   CreateOrderCubit({CreateOrderRepository? createOrderRepository})
     : _createOrderRepository = createOrderRepository ?? CreateOrderServices(),
       super(CreateOrderInitial());
+
+  void reset() => emit(CreateOrderInitial());
   Future<void> createOrder({
     required int cartId,
     required String fullName,

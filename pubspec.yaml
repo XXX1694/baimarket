@@ -1,7 +1,7 @@
 name: bai_market
 description: "Cosmetics App"
 publish_to: "none"
-version: 1.0.0+5
+version: 1.0.0+9
 
 environment:
   sdk: ^3.7.0
@@ -66,6 +66,8 @@ flutter:
     - assets/icons/profile_page/
     - assets/icons/cart_page/
     - assets/icons/contact/
+    - assets/icons/create_order/
+    - assets/icons/main/
 
   fonts:
     - family: Gilroy

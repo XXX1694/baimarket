@@ -19,6 +19,8 @@ import '../../features/notification/presentation/pages/notification_list.dart';
 import '../../features/notification/presentation/pages/notification_page.dart';
 import '../../features/order/presentation/pages/order_page.dart';
 import '../../features/orders/presentation/pages/orders_page.dart';
+import '../../features/plus/presentation/pages/plus_history_page.dart';
+import '../../features/plus/presentation/pages/plus_page.dart';
 import '../../features/prizes/presentation/pages/prizes_page.dart';
 import '../../features/product/data/models/product_model.dart';
 import '../../features/product/presentation/pages/product_page.dart';
@@ -27,17 +29,41 @@ import '../../features/raffle/presentation/pages/raffle_detail_page.dart';
 import '../../features/profile/data/models/profile_model.dart';
 import '../../features/tickets/presentation/pages/tickets_page.dart';
 
+const _protectedPaths = <String>{
+  '/profile',
+  '/cart',
+  '/make_order',
+  '/payment',
+  '/orders',
+  '/order',
+  '/my_data',
+  '/my_address',
+  '/my_cards',
+  '/favorites',
+  '/tickets',
+  '/plus',
+  '/plus/history',
+  '/notification',
+  '/prizes',
+};
+
+bool _isProtected(String path) {
+  if (_protectedPaths.contains(path)) return true;
+  return path.startsWith('/notification/');
+}
+
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/main',
   redirect: (context, state) async {
+    final loc = state.matchedLocation;
+    if (loc == '/') return '/main';
     final token = await getAuthToken();
-    final isOnAuth = state.matchedLocation == '/' ||
-        state.matchedLocation == '/auth';
+    final isOnAuth = loc == '/auth' || loc.startsWith('/auth/');
     if (token != null && isOnAuth) return '/main';
+    if (token == null && !isOnAuth && _isProtected(loc)) return '/auth';
     return null;
   },
   routes: [
-    GoRoute(path: '/', builder: (context, state) => AuthPage()),
     GoRoute(path: '/auth', builder: (context, state) => AuthPage()),
     GoRoute(
       path: '/auth/otp/:phoneNumber',
@@ -128,7 +154,19 @@ final router = GoRouter(
         return BannerPage(banner: banner);
       },
     ),
+    GoRoute(path: '/plus', builder: (context, state) => const PlusPage()),
+    GoRoute(
+      path: '/plus/history',
+      builder: (context, state) => const PlusHistoryPage(),
+    ),
     GoRoute(path: '/prizes', builder: (context, state) => PrizesPage()),
+    GoRoute(
+      path: '/shop',
+      builder: (context, state) => const RaffleDetailPage(
+        id: -1,
+        titleOverride: 'Ырысбала\nИкрамбай',
+      ),
+    ),
     GoRoute(path: '/tickets', builder: (context, state) => TicketsPage()),
     GoRoute(
       path: '/payment',

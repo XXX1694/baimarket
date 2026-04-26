@@ -3,10 +3,11 @@ import 'package:bai_market/features/collection/presentation/cubit/collection_cub
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/auth/auth_gate.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../cart/presentation/pages/cart_page.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
+import '../../../cart/presentation/cubit/cart_cubit.dart';
+import '../../../profile/presentation/cubit/profile_cubit.dart';
 import '../cubit/product_cubit.dart';
 import '../widgets/product_app_bar.dart';
 import '../widgets/product_bottom_bar.dart';
@@ -36,17 +37,34 @@ class _ProductPageState extends State<ProductPage> {
     super.initState();
     _productCubit.getProductDetail(id: int.parse(widget.id ?? '0'));
     _relatedCubit.getCollection(slug: 'all', sort: 'popular');
-    globalCartCubit.getCart();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<CartCubit>().getCart();
+    });
   }
 
-  void _toggleFavorite(int productId) {
-    setState(() => _isFavorite = !_isFavorite);
-    if (_isFavorite) {
+  Future<void> _toggleFavorite(int productId) async {
+    final profileCubit = context.read<ProfileCubit>();
+    final wantsFavorite = !_isFavorite;
+    final ok = await ensureAuthenticated(
+      context,
+      pendingAction: () {
+        if (wantsFavorite) {
+          _favCubit.addfavorite(id: productId);
+        } else {
+          _favCubit.removeFromFavoritesById(id: productId);
+        }
+        profileCubit.getProfileData();
+      },
+    );
+    if (!ok) return;
+    setState(() => _isFavorite = wantsFavorite);
+    if (wantsFavorite) {
       _favCubit.addfavorite(id: productId);
     } else {
       _favCubit.removeFromFavoritesById(id: productId);
     }
-    profileCubitGlobal.getProfileData();
+    profileCubit.getProfileData();
   }
 
   Widget _block(Widget child, {bool noRadius = false}) {

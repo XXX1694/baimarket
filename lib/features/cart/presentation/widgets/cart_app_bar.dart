@@ -12,53 +12,62 @@ class CartAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final canPop = Navigator.of(context).canPop();
     return Padding(
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 8,
         left: 8,
-        right: 16,
+        right: 8,
         bottom: 8,
       ),
-      child: Row(
-        children: [
-          CupertinoButton(
-            padding: const EdgeInsets.all(8),
-            onPressed: () => Navigator.of(context).maybePop(),
-            child: SvgPicture.asset(
-              'assets/icons/arrow_left.svg',
-              width: 24,
-              height: 24,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              l10n.cart,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-                fontFamily: 'Gilroy',
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          if (showClear)
-            CupertinoButton(
-              padding: EdgeInsets.zero,
-              onPressed: onClear,
+      child: SizedBox(
+        height: 44,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Center(
               child: Text(
-                l10n.clearCart,
+                l10n.cart,
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  color: mainColorLight,
+                  color: Colors.black,
                   fontFamily: 'Gilroy',
                 ),
               ),
-            )
-          else
-            const SizedBox(width: 60),
-        ],
+            ),
+            if (canPop)
+              Positioned(
+                left: 0,
+                child: CupertinoButton(
+                  padding: const EdgeInsets.all(8),
+                  onPressed: () => Navigator.of(context).maybePop(),
+                  child: SvgPicture.asset(
+                    'assets/icons/arrow_left.svg',
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+              ),
+            if (showClear)
+              Positioned(
+                right: 8,
+                child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: onClear,
+                  child: Text(
+                    l10n.clearCart,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: mainColorLight,
+                      fontFamily: 'Gilroy',
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

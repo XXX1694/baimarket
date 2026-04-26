@@ -7,7 +7,6 @@ import '../../../../core/urls.dart';
 import '../../../../core/widgets/show_image.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../cart/presentation/cubit/cart_cubit.dart';
-import '../../../cart/presentation/pages/cart_page.dart';
 
 class ProfileCartBanner extends StatelessWidget {
   const ProfileCartBanner({super.key});
@@ -16,7 +15,6 @@ class ProfileCartBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return BlocBuilder<CartCubit, CartState>(
-      bloc: globalCartCubit,
       builder: (context, state) {
         if (state is CartGot &&
             state.cart.cartItems != null &&

@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:bai_market/core/app_pallete.dart';
+import 'package:bai_market/core/auth/auth_gate.dart';
 import 'package:bai_market/features/cart/presentation/pages/cart_page.dart';
 import 'package:bai_market/features/catalog/presentation/pages/catalog_page.dart';
 import 'package:bai_market/features/profile/presentation/pages/profile_page.dart';
@@ -56,10 +57,15 @@ class _MainScreenState extends State<MenuPage> {
   }) {
     final activeColor = darkMode ? Colors.white : mainColorLight;
     final inactiveColor = darkMode ? Colors.white38 : Colors.black54;
+    final requiresAuth = index == 3 || index == 4;
     return CupertinoButton(
       padding: const EdgeInsets.all(0),
-      onPressed: () {
+      onPressed: () async {
         HapticFeedback.selectionClick();
+        if (requiresAuth) {
+          final ok = await ensureAuthenticated(context);
+          if (!ok) return;
+        }
         ref.read(bottomNavIndexProvider.notifier).update((state) => index);
       },
       child: Column(

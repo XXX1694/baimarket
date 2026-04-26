@@ -60,7 +60,7 @@ class NotificationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => NotificationCubit(),
+      create: (_) => NotificationCubit()..getNotifications(),
       child: const _NotificationListContent(),
     );
   }

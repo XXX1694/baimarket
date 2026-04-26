@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bai_market/core/app_pallete.dart';
+import 'package:bai_market/core/auth/pending_action.dart';
+import 'package:bai_market/core/auth/sign_out.dart';
 import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +97,9 @@ class _OtpPageContentState extends State<_OtpPageContent> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is CodeVerified) {
+          resetUserCubits(context);
           context.go('/main');
+          PendingAuthAction.runAndClear();
         }
         if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(

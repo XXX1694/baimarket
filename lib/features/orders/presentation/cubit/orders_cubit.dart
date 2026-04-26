@@ -12,6 +12,8 @@ class OrdersCubit extends Cubit<OrdersState> {
     : _orderRepository = orderRepository ?? OrderServices(),
       super(OrdersInitial());
 
+  void reset() => emit(OrdersInitial());
+
   Future<void> getOrders() async {
     emit(OrdersGetting());
     try {

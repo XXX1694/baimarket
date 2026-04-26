@@ -15,6 +15,8 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     : _favoriteRepository = favoriteRepository ?? FavoritesServices(),
       super(FavoritesInitial());
 
+  void reset() => emit(FavoritesInitial());
+
   Future<void> getFavorites() async {
     emit(FavoritesGetting());
     try {

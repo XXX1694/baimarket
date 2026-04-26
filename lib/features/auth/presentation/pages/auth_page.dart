@@ -3,8 +3,10 @@ import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/auth/pending_action.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../widgets/phone_number_input.dart';
 
@@ -67,7 +69,29 @@ class _AuthPageState extends State<AuthPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 82),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, top: 4),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: CupertinoButton(
+                      padding: const EdgeInsets.all(12),
+                      onPressed: () {
+                        PendingAuthAction.clear();
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/main');
+                        }
+                      },
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow_left.svg',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
 
                 // Title
                 Padding(

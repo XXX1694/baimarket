@@ -92,7 +92,7 @@ class _CatalogAppBarState extends State<CatalogAppBar>
           const Spacer(),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () => context.push('/plus'),
             child: SvgPicture.asset(
               'assets/icons/main_plus_big.svg',
               height: 30,

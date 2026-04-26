@@ -16,8 +16,33 @@
               "icon": "lucide-git-fork",
               "title": "Graph view"
             }
+          },
+          {
+            "id": "ecf8ca816ef0e39d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Prompt.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Prompt"
+            }
+          },
+          {
+            "id": "eb8bb04a040bf1d2",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -176,9 +201,13 @@
       "bases:Create new base": false
     }
   },
-  "active": "2683065e0014535b",
+  "active": "eb8bb04a040bf1d2",
   "lastOpenFiles": [
+    "Prompt.md",
     "GRAPH_REPORT.md",
+    "GovTech ↔ Flutter InLink Bridge.md",
+    "a.md",
+    "фыв.md",
     "_COMMUNITY_Community 34.md",
     "cost.json",
     "manifest.json",

@@ -14,23 +14,26 @@ class RaffleDetailHeader extends StatelessWidget {
     super.key,
     required this.raffle,
     required this.onGiftsTap,
+    this.titleOverride,
   });
 
   final RaffleModel raffle;
   final VoidCallback onGiftsTap;
+  final String? titleOverride;
 
   @override
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.of(context).padding.top;
     final seller = raffle.seller;
-    final title = seller == null
-        ? ''
-        : TranslationUtils.getLocalizedName(
-            context: context,
-            nameKz: seller.nameKz,
-            nameRu: seller.nameRu,
-            nameEn: seller.nameEn,
-          );
+    final title = titleOverride ??
+        (seller == null
+            ? ''
+            : TranslationUtils.getLocalizedName(
+                context: context,
+                nameKz: seller.nameKz,
+                nameRu: seller.nameRu,
+                nameEn: seller.nameEn,
+              ));
 
     return Container(
       color: mainColorLight,

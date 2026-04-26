@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../core/secure_token_storage.dart';
+import '../../../../core/network/app_dio.dart';
 import '../../../../core/urls.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
+import '../../../profile/presentation/cubit/profile_cubit.dart';
 import 'add_photo_bottom_sheet.dart';
 import 'avatar_selector_section.dart';
 
@@ -29,7 +30,7 @@ class AvatarUploader extends StatefulWidget {
 
 class _AvatarUploaderState extends State<AvatarUploader> {
   final ImagePicker _picker = ImagePicker();
-  final Dio _dio = Dio();
+  final Dio _dio = appDio;
   File? _local;
   bool _uploading = false;
 
@@ -55,18 +56,15 @@ class _AvatarUploaderState extends State<AvatarUploader> {
   Future<void> _upload() async {
     if (_local == null) return;
     try {
-      final token = await getAuthToken();
-      if (token == null) throw Exception('no token');
       final form = FormData.fromMap({
         'file': await MultipartFile.fromFile(_local!.path),
       });
       final res = await _dio.post(
         '${mainUrl}profile/avatar',
         data: form,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
       if (res.statusCode == 201 || res.statusCode == 200) {
-        profileCubitGlobal.getProfileData();
+        if (mounted) context.read<ProfileCubit>().getProfileData();
       }
     } catch (_) {
       // silently ignore — the local preview still reflects the pick

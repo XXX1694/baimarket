@@ -10,7 +10,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../catalog/data/models/category_product_model.dart';
 import '../../../collection/presentation/cubit/collection_cubit.dart';
 import '../../../product/data/models/product_model.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
+import '../../../profile/presentation/cubit/profile_cubit.dart';
 import '../cubit/favorites_cubit.dart';
 import '../widgets/favorites_empty_state.dart';
 
@@ -81,7 +81,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     if (state is FavoritesDeleted ||
                         state is FavoritesAdded) {
                       _favCubit.getFavorites();
-                      profileCubitGlobal.getProfileData();
+                      context.read<ProfileCubit>().getProfileData();
                     }
                   },
                   builder: (context, state) {

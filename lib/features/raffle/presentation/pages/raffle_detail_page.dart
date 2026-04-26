@@ -12,9 +12,10 @@ import '../widgets/raffle_gifts_sheet.dart';
 import '../widgets/raffle_products_section.dart';
 
 class RaffleDetailPage extends StatefulWidget {
-  const RaffleDetailPage({super.key, required this.id});
+  const RaffleDetailPage({super.key, required this.id, this.titleOverride});
 
   final int id;
+  final String? titleOverride;
 
   @override
   State<RaffleDetailPage> createState() => _RaffleDetailPageState();
@@ -52,7 +53,11 @@ class _RaffleDetailPageState extends State<RaffleDetailPage> {
               if (state.raffle == null) {
                 return const _LoadingView();
               }
-              return _Loaded(id: widget.id, state: state);
+              return _Loaded(
+                id: widget.id,
+                state: state,
+                titleOverride: widget.titleOverride,
+              );
             },
           ),
         ),
@@ -62,10 +67,11 @@ class _RaffleDetailPageState extends State<RaffleDetailPage> {
 }
 
 class _Loaded extends StatelessWidget {
-  const _Loaded({required this.id, required this.state});
+  const _Loaded({required this.id, required this.state, this.titleOverride});
 
   final int id;
   final RaffleDetailState state;
+  final String? titleOverride;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +84,7 @@ class _Loaded extends StatelessWidget {
         SliverToBoxAdapter(
           child: RaffleDetailHeader(
             raffle: raffle,
+            titleOverride: titleOverride,
             onGiftsTap: () => showRaffleGiftsSheet(
               context: context,
               gifts: raffle.gifts,

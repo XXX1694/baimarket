@@ -1,11 +1,14 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import '../../../../core/secure_token_storage.dart';
+
+import '../../../../core/network/app_dio.dart';
 import '../../../../core/urls.dart';
 import '../../domain/repositories/create_order_repository.dart';
 
 class CreateOrderServices implements CreateOrderRepository {
-  final Dio _dio = Dio();
+  final Dio _dio = appDio;
+
   @override
   Future<String?> createOrder({
     required int cartId,
@@ -20,15 +23,11 @@ class CreateOrderServices implements CreateOrderRepository {
     required String? selfPickDate,
     required int? filialId,
   }) async {
-    final url = mainUrl;
-    String finalUrl = '${url}delivery';
-    String finalUrl1 = '${url}order/new/';
-    String? token = await getAuthToken();
-    if (token == null) return null;
-    _dio.options.headers["authorization"] = "Bearer $token";
+    final deliveryUrl = '${mainUrl}delivery';
+    final orderUrl = '${mainUrl}order/new/';
     try {
       final response = await _dio.post(
-        finalUrl,
+        deliveryUrl,
         data: jsonEncode({
           "cartId": cartId,
           "fullName": fullName,
@@ -43,22 +42,14 @@ class CreateOrderServices implements CreateOrderRepository {
           "filialId": filialId,
         }),
       );
-      if (response.statusCode == 201) {
-        final response1 = await _dio.post(
-          finalUrl1,
-          data: jsonEncode({"paymentTypeSlug": "ONEV"}),
-        );
-        print(response1.statusCode);
-        if (response1.statusCode == 201) {
-          return response1.data['redirectUrl'].toString();
-        } else {
-          return null;
-        }
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print(e);
+      if (response.statusCode != 201) return null;
+      final orderResponse = await _dio.post(
+        orderUrl,
+        data: jsonEncode({"paymentTypeSlug": "ONEV"}),
+      );
+      if (orderResponse.statusCode != 201) return null;
+      return orderResponse.data['redirectUrl'].toString();
+    } catch (_) {
       return null;
     }
   }

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:bai_market/core/app_pallete.dart';
+import 'package:bai_market/core/auth/sign_out.dart';
 import 'package:bai_market/core/providers/language_provider.dart';
-import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bai_market/features/support/presentation/pages/support_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '../../../../l10n/app_localizations.dart';
-
-final AuthCubit authCubit = AuthCubit();
 
 class ProfileList extends StatelessWidget {
   const ProfileList({super.key});
@@ -372,8 +370,7 @@ class ProfileList extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                authCubit.logOut();
-                context.go('/auth');
+                signOutAndCleanup(context);
               },
               child: Text(l10n.logout),
             ),
@@ -402,8 +399,7 @@ class ProfileList extends StatelessWidget {
             CupertinoDialogAction(
               onPressed: () {
                 Navigator.of(context).pop();
-                authCubit.logOut();
-                context.go('/auth');
+                signOutAndCleanup(context);
               },
               isDestructiveAction: true,
               child: Text(l10n.logout),

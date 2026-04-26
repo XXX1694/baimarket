@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/secure_token_storage.dart';
+import '../../../../core/network/app_dio.dart';
 import '../../../../core/urls.dart';
 import '../../../../core/widgets/main_button.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../profile/data/models/profile_model.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
+import '../../../profile/presentation/cubit/profile_cubit.dart';
 import '../widgets/avatar_uploader.dart';
 import '../widgets/birth_date_field.dart';
 import '../widgets/delete_account_text_button.dart';
@@ -29,7 +30,7 @@ class _MyDataPageState extends State<MyDataPage> {
   late final TextEditingController _lastName;
   late final TextEditingController _birthDate;
   late final TextEditingController _phone;
-  final Dio _dio = Dio();
+  final Dio _dio = appDio;
   bool _saving = false;
 
   @override
@@ -49,7 +50,6 @@ class _MyDataPageState extends State<MyDataPage> {
     _lastName.dispose();
     _birthDate.dispose();
     _phone.dispose();
-    _dio.close();
     super.dispose();
   }
 
@@ -70,8 +70,6 @@ class _MyDataPageState extends State<MyDataPage> {
     }
     setState(() => _saving = true);
     try {
-      final token = await getAuthToken();
-      _dio.options.headers['authorization'] = 'Bearer $token';
       final response = await _dio.patch(
         '${mainUrl}profile',
         data: {
@@ -82,7 +80,7 @@ class _MyDataPageState extends State<MyDataPage> {
       );
       if (!mounted) return;
       if (response.statusCode == 200) {
-        profileCubitGlobal.getProfileData();
+        context.read<ProfileCubit>().getProfileData();
         Navigator.pop(context);
         return;
       }

@@ -13,9 +13,9 @@ class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit({NotificationRepository? notificationRepository})
     : _notificationRepository =
           notificationRepository ?? NotificationServices(),
-      super(NotificationInitial()) {
-    getNotifications();
-  }
+      super(NotificationInitial());
+
+  void reset() => emit(NotificationInitial());
 
   Future<void> getNotifications() async {
     emit(NotificationGetting());

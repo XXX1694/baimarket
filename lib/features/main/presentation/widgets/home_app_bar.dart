@@ -24,13 +24,11 @@ class HomeAppBar extends StatelessWidget {
           const Spacer(),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {
-              // Plus subscription action
-            },
+            onPressed: () => context.push('/plus'),
             child: SvgPicture.asset(
-            'assets/icons/main_page/main_page_plus_icon.svg',
-            height: 30,
-          ),
+              'assets/icons/main_page/main_page_plus_icon.svg',
+              height: 30,
+            ),
           ),
           const SizedBox(width: 10),
           CupertinoButton(

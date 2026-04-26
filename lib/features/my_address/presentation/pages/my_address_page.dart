@@ -1,10 +1,10 @@
 import 'package:bai_market/core/app_pallete.dart';
 import 'package:bai_market/core/widgets/main_button.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../core/network/app_dio.dart';
 import '../../../../core/urls.dart';
 import '../../data/datasources/user_address_remote_datasource.dart';
 import '../../data/repositories/user_address_repository_impl.dart';
@@ -20,7 +20,7 @@ class MyAddressPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => MyAddressCubit(
         UserAddressRepositoryImpl(
-          UserAddressRemoteDatasource(Dio(), mainUrl),
+          UserAddressRemoteDatasource(appDio, mainUrl),
         ),
       )..loadAddresses(),
       child: const _MyAddressView(),

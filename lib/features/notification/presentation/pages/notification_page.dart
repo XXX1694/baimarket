@@ -15,7 +15,7 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => NotificationCubit(),
+      create: (_) => NotificationCubit()..getNotifications(),
       child: _NotificationPageContent(categorySlug: id ?? ''),
     );
   }

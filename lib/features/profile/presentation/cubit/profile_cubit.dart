@@ -11,9 +11,9 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileCubit({ProfileRepository? profileRepository})
     : _profileRepository = profileRepository ?? ProfileServices(),
-      super(ProfileInitial()) {
-    getProfileData();
-  }
+      super(ProfileInitial());
+
+  void reset() => emit(ProfileInitial());
 
   Future<void> getProfileData() async {
     emit(ProfileGetting());
