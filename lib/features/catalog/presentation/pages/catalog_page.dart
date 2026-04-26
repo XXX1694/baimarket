@@ -1,8 +1,11 @@
 import 'package:bai_market/features/collection/presentation/cubit/collection_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/widgets/app_refresh_indicator.dart';
 import '../../../../core/widgets/product_card.dart';
 import '../../../../core/widgets/shimmer.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -10,6 +13,7 @@ import '../../../raffle/presentation/cubit/raffle_list_cubit.dart';
 import '../../../raffle/presentation/widgets/raffles_list_view.dart';
 import '../widgets/catalog_app_bar.dart';
 import '../widgets/catalog_tabs.dart';
+import '../widgets/catalog_top_switcher.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
@@ -22,6 +26,7 @@ class _CatalogPageState extends State<CatalogPage> {
   final CollectionCubit _collectionCubit = CollectionCubit();
   final RaffleListCubit _raffleListCubit = RaffleListCubit();
   String _currentSlug = raffleTabSlug;
+  CatalogTopTab _topTab = CatalogTopTab.allShops;
 
   @override
   void initState() {
@@ -49,6 +54,17 @@ class _CatalogPageState extends State<CatalogPage> {
     }
   }
 
+  Future<void> _onRefresh() async {
+    if (_topTab == CatalogTopTab.allShops || _currentSlug == raffleTabSlug) {
+      await _raffleListCubit.load();
+    } else {
+      await _collectionCubit.getCollection(
+        slug: _currentSlug,
+        sort: 'popular',
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -58,20 +74,39 @@ class _CatalogPageState extends State<CatalogPage> {
         backgroundColor: const Color(0xFFF5F5F5),
         body: BlocProvider.value(
           value: _raffleListCubit,
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              const SliverToBoxAdapter(child: CatalogAppBar()),
-              SliverToBoxAdapter(
-                child: CatalogTabs(
-                  onTabChanged: _onTabChanged,
-                  rafflesLabel: l10n.raffleTab,
-                ),
+          child: AppRefreshIndicator(
+            onRefresh: _onRefresh,
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
               ),
-              const SliverToBoxAdapter(child: SizedBox(height: 12)),
-              SliverToBoxAdapter(child: _body()),
-              const SliverToBoxAdapter(child: SizedBox(height: 20)),
-            ],
+              slivers: [
+                const SliverToBoxAdapter(child: CatalogAppBar()),
+                SliverToBoxAdapter(
+                  child: CatalogTopSwitcher(
+                    selected: _topTab,
+                    onChanged: (tab) {
+                      if (_topTab == tab) return;
+                      setState(() => _topTab = tab);
+                    },
+                    allShopsLabel: l10n.allShopsTab,
+                    wholeCatalogLabel: l10n.wholeCatalogTab,
+                  ),
+                ),
+                if (_topTab == CatalogTopTab.wholeCatalog) ...[
+                  const SliverToBoxAdapter(child: SizedBox(height: 12)),
+                  SliverToBoxAdapter(
+                    child: CatalogTabs(
+                      onTabChanged: _onTabChanged,
+                      rafflesLabel: l10n.raffleTab,
+                    ),
+                  ),
+                ],
+                const SliverToBoxAdapter(child: SizedBox(height: 12)),
+                SliverToBoxAdapter(child: _body()),
+                const SliverToBoxAdapter(child: SizedBox(height: 20)),
+              ],
+            ),
           ),
         ),
       ),
@@ -80,7 +115,16 @@ class _CatalogPageState extends State<CatalogPage> {
 
   Widget _body() {
     final Widget child;
-    if (_currentSlug == raffleTabSlug) {
+    if (_topTab == CatalogTopTab.allShops) {
+      final raffleState = _raffleListCubit.state;
+      final firstId = raffleState is RaffleListLoaded && raffleState.raffles.isNotEmpty
+          ? raffleState.raffles.first.id
+          : -1;
+      child = KeyedSubtree(
+        key: const ValueKey('allShops'),
+        child: _AllShopsPlaceholder(firstRaffleId: firstId),
+      );
+    } else if (_currentSlug == raffleTabSlug) {
       child = const KeyedSubtree(
         key: ValueKey(raffleTabSlug),
         child: RafflesListView(),
@@ -95,6 +139,45 @@ class _CatalogPageState extends State<CatalogPage> {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 220),
       child: child,
+    );
+  }
+}
+
+class _AllShopsPlaceholder extends StatelessWidget {
+  const _AllShopsPlaceholder({required this.firstRaffleId});
+
+  final int firstRaffleId;
+
+  static const List<Color> _colors = [
+    Color(0xFF3DBFAD),
+    Color(0xFF8FD9F0),
+    Color(0xFFB6B5F2),
+    Color(0xFFFAC678),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          for (final color in _colors)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: () => context.push('/raffle/$firstRaffleId'),
+                child: Container(
+                  height: 160,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

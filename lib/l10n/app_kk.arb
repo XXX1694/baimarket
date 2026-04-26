@@ -481,6 +481,8 @@
     "noSavedAddresses": "Сізде сақталған мекенжайлар жоқ",
     "addAddress": "Мекенжай қосу",
     "raffleTab": "Ұтыстар",
+    "allShopsTab": "Барлық дүкендер",
+    "wholeCatalogTab": "Барлық каталог",
     "raffleDefaultTitle": "Ұтыс",
     "raffleDateLabel": "Күні: {date}",
     "@raffleDateLabel": {
@@ -591,5 +593,11 @@
     "deliverySectionTitle": "Жеткізу",
     "deliverySectionSubtitle": "Жаңартулар телеграм каналымызда",
     "selfPickupSectionTitle": "Өзі алу мекенжайы",
-    "branches": "Филиалдар"
+    "branches": "Филиалдар",
+    "loginRequired": "Аккаунтқа кіріңіз",
+    "loginRequiredHint": "Жалғастыру үшін аккаунтыңызға кіріңіз",
+    "addToCartFailed": "Себетке қосу мүмкін болмады",
+    "pullToRefresh": "Жаңарту үшін төмен тартыңыз",
+    "refreshing": "Жаңартылуда…",
+    "removeFromCartFailed": "Себеттен жою мүмкін болмады"
 }

@@ -5,19 +5,34 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../collection/presentation/cubit/collection_cubit.dart';
 
 class CartRecommended extends StatefulWidget {
-  const CartRecommended({super.key});
+  const CartRecommended({super.key, this.cubit});
+
+  final CollectionCubit? cubit;
 
   @override
   State<CartRecommended> createState() => _CartRecommendedState();
 }
 
 class _CartRecommendedState extends State<CartRecommended> {
-  final CollectionCubit _cubit = CollectionCubit();
+  late final CollectionCubit _cubit;
+  late final bool _ownsCubit;
 
   @override
   void initState() {
     super.initState();
-    _cubit.getCollection(slug: 'new', sort: 'popular');
+    _ownsCubit = widget.cubit == null;
+    _cubit = widget.cubit ?? CollectionCubit();
+    if (_ownsCubit) {
+      _cubit.getCollection(slug: 'new', sort: 'popular');
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_ownsCubit) {
+      _cubit.close();
+    }
+    super.dispose();
   }
 
   @override

@@ -483,6 +483,8 @@
     "selectAddress": "Выберите адрес",
     "noSavedAddresses": "У вас пока нет сохранённых адресов",
     "raffleTab": "Розыгрыши",
+    "allShopsTab": "Все магазины",
+    "wholeCatalogTab": "Весь каталог",
     "raffleDefaultTitle": "Розыгрыш",
     "raffleDateLabel": "Дата: {date}",
     "@raffleDateLabel": {
@@ -594,5 +596,11 @@
     "deliverySectionTitle": "Доставка",
     "deliverySectionSubtitle": "Победитли будеть на наш телеграм каналы",
     "selfPickupSectionTitle": "Адрес самавывоз",
-    "branches": "Филиалы"
+    "branches": "Филиалы",
+    "loginRequired": "Войдите в аккаунт",
+    "loginRequiredHint": "Чтобы продолжить, войдите в свой аккаунт",
+    "addToCartFailed": "Не удалось добавить в корзину",
+    "pullToRefresh": "Потяните вниз, чтобы обновить",
+    "refreshing": "Обновление…",
+    "removeFromCartFailed": "Не удалось удалить из корзины"
 }

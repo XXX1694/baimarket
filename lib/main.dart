@@ -1,6 +1,7 @@
 import 'package:bai_market/core/providers/language_provider.dart';
 import 'package:bai_market/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bai_market/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:bai_market/features/cart/presentation/widgets/cart_event_listener.dart';
 import 'package:bai_market/features/catalog/presentation/cubit/catalog_cubit.dart';
 import 'package:bai_market/features/collection/presentation/cubit/collection_cubit.dart';
 import 'package:bai_market/features/create_order/presentation/cubit/create_order_cubit.dart';
@@ -121,6 +122,8 @@ class _MainAppState extends State<MainApp> {
                 fontFamily: 'Inter',
               ),
               routerConfig: router,
+              builder: (context, child) =>
+                  CartEventListener(child: child ?? const SizedBox.shrink()),
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,

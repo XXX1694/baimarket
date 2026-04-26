@@ -1189,6 +1189,18 @@ abstract class AppLocalizations {
   /// **'Raffles'**
   String get raffleTab;
 
+  /// Catalog top switcher label for shops view
+  ///
+  /// In en, this message translates to:
+  /// **'All shops'**
+  String get allShopsTab;
+
+  /// Catalog top switcher label for catalog view
+  ///
+  /// In en, this message translates to:
+  /// **'Whole catalog'**
+  String get wholeCatalogTab;
+
   /// Fallback title when a raffle has no seller
   ///
   /// In en, this message translates to:
@@ -1512,6 +1524,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Branches'**
   String get branches;
+
+  /// No description provided for @loginRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get loginRequired;
+
+  /// No description provided for @loginRequiredHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to your account to continue'**
+  String get loginRequiredHint;
+
+  /// No description provided for @addToCartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t add to cart'**
+  String get addToCartFailed;
+
+  /// No description provided for @pullToRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull down to refresh'**
+  String get pullToRefresh;
+
+  /// No description provided for @refreshing.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing…'**
+  String get refreshing;
+
+  /// No description provided for @removeFromCartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t remove from cart'**
+  String get removeFromCartFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

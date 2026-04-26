@@ -639,6 +639,14 @@
     "@raffleTab": {
         "description": "Catalog tab label for raffles"
     },
+    "allShopsTab": "All shops",
+    "@allShopsTab": {
+        "description": "Catalog top switcher label for shops view"
+    },
+    "wholeCatalogTab": "Whole catalog",
+    "@wholeCatalogTab": {
+        "description": "Catalog top switcher label for catalog view"
+    },
     "raffleDefaultTitle": "Raffle",
     "@raffleDefaultTitle": {
         "description": "Fallback title when a raffle has no seller"
@@ -778,5 +786,11 @@
     "deliverySectionTitle": "Delivery",
     "deliverySectionSubtitle": "Updates are posted in our Telegram channel",
     "selfPickupSectionTitle": "Self-pickup address",
-    "branches": "Branches"
+    "branches": "Branches",
+    "loginRequired": "Sign in",
+    "loginRequiredHint": "Sign in to your account to continue",
+    "addToCartFailed": "Couldn't add to cart",
+    "pullToRefresh": "Pull down to refresh",
+    "refreshing": "Refreshing…",
+    "removeFromCartFailed": "Couldn't remove from cart"
 }

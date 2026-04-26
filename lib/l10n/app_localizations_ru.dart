@@ -579,6 +579,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get raffleTab => 'Розыгрыши';
 
   @override
+  String get allShopsTab => 'Все магазины';
+
+  @override
+  String get wholeCatalogTab => 'Весь каталог';
+
+  @override
   String get raffleDefaultTitle => 'Розыгрыш';
 
   @override
@@ -747,4 +753,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get branches => 'Филиалы';
+
+  @override
+  String get loginRequired => 'Войдите в аккаунт';
+
+  @override
+  String get loginRequiredHint => 'Чтобы продолжить, войдите в свой аккаунт';
+
+  @override
+  String get addToCartFailed => 'Не удалось добавить в корзину';
+
+  @override
+  String get pullToRefresh => 'Потяните вниз, чтобы обновить';
+
+  @override
+  String get refreshing => 'Обновление…';
+
+  @override
+  String get removeFromCartFailed => 'Не удалось удалить из корзины';
 }

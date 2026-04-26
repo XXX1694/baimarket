@@ -13,11 +13,25 @@ class CartGetting extends CartState {}
 
 class CartGot extends CartState {
   final CartModel cart;
+  final List<Object?> _signature;
 
-  const CartGot({required this.cart});
+  CartGot({required this.cart}) : _signature = _snapshot(cart);
+
+  static List<Object?> _snapshot(CartModel cart) {
+    final items = cart.cartItems ?? const <CartItemModel>[];
+    final entries = <Object?>[
+      cart.id,
+      cart.totalPrice,
+      items.length,
+    ];
+    for (final item in items) {
+      entries.add('${item.model?.id ?? 0}:${item.quantity}');
+    }
+    return entries;
+  }
 
   @override
-  List<Object?> get props => [cart];
+  List<Object?> get props => _signature;
 }
 
 class CartGetError extends CartState {}
@@ -28,27 +42,5 @@ class CartGotAgain extends CartState {
   const CartGotAgain({required this.cart});
 
   @override
-  List<Object?> get props => [cart];
+  List<Object?> get props => [identityHashCode(cart)];
 }
-
-class CartAdded extends CartState {
-  final int id;
-
-  const CartAdded({required this.id});
-
-  @override
-  List<Object?> get props => [id];
-}
-
-class CartAddError extends CartState {}
-
-class CartRemoved extends CartState {
-  final int id;
-
-  const CartRemoved({required this.id});
-
-  @override
-  List<Object?> get props => [id];
-}
-
-class CartRemoveError extends CartState {}

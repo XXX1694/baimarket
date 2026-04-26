@@ -3,28 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/app_pallete.dart';
+import '../../../../core/auth/auth_gate.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../cart/presentation/cubit/cart_cubit.dart';
-import '../../../cart/presentation/pages/cart_page.dart';
-import '../../../cart/data/models/cart_item_model.dart';
 import '../../data/models/product_model.dart';
 
-class ProductBottomBar extends StatefulWidget {
+class ProductBottomBar extends StatelessWidget {
   const ProductBottomBar({super.key, required this.model});
   final ProductModel model;
 
-  @override
-  State<ProductBottomBar> createState() => _ProductBottomBarState();
-}
-
-class _ProductBottomBarState extends State<ProductBottomBar> {
-  int? count;
-  CartItemModel? item;
+  Future<void> _addToCart(BuildContext context) async {
+    final cartCubit = context.read<CartCubit>();
+    final ok = await ensureAuthenticated(
+      context,
+      pendingAction: () => cartCubit.addCart(id: model.id, product: model),
+    );
+    if (!ok) return;
+    cartCubit.addCart(id: model.id, product: model);
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    if (widget.model.inStockCount == null || widget.model.inStockCount! <= 0) {
+    if (model.inStockCount != null && model.inStockCount! <= 0) {
       return const SizedBox.shrink();
     }
 
@@ -40,61 +41,29 @@ class _ProductBottomBarState extends State<ProductBottomBar> {
           ),
         ],
       ),
-      child: BlocConsumer<CartCubit, CartState>(
-        bloc: globalCartCubit,
-        listener: (context, state) {
-          if (state is CartAdded) {
-            count != null ? count = count! + 1 : null;
-            globalCartCubit.getCart();
-          }
-          if (state is CartRemoved) {
-            count != null ? count = count! - 1 : null;
-            globalCartCubit.getCart();
-          } else if (state is CartAddError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(l10n.productOutOfStock),
-                backgroundColor: Colors.red.shade700,
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            );
-          } else if (state is CartGot) {
-            final cart = state.cart;
-            if (cart.cartItems != null) {
-              for (final e in cart.cartItems!) {
-                if (e.model!.id == widget.model.id) {
-                  item = e;
-                  count = e.quantity;
-                  break;
-                }
-              }
-            }
-          }
-        },
-        builder: (context, state) {
-          if (count != null && item != null && count != 0) {
-            // Counter mode
+      child: BlocBuilder<CartCubit, CartState>(
+        builder: (context, _) {
+          final cubit = context.read<CartCubit>();
+          final count = cubit.quantityOf(model.id);
+
+          if (count > 0) {
             return Row(
               children: [
-                // Price display
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      l10n.price((widget.model.price! * count!).toString()),
+                      l10n.price(((model.price ?? 0) * count).toString()),
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         color: Colors.black,
                       ),
                     ),
-                    if (widget.model.oldPrice != null)
+                    if (model.oldPrice != null)
                       Text(
-                        l10n.oldPrice(widget.model.oldPrice.toString()),
+                        l10n.oldPrice(model.oldPrice.toString()),
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.grey.shade500,
@@ -104,7 +73,6 @@ class _ProductBottomBarState extends State<ProductBottomBar> {
                   ],
                 ),
                 const Spacer(),
-                // Counter
                 Container(
                   height: 48,
                   decoration: BoxDecoration(
@@ -115,11 +83,7 @@ class _ProductBottomBarState extends State<ProductBottomBar> {
                     children: [
                       CupertinoButton(
                         padding: const EdgeInsets.symmetric(horizontal: 14),
-                        onPressed: () {
-                          if (count! > 0) {
-                            globalCartCubit.removeCart(id: widget.model.id);
-                          }
-                        },
+                        onPressed: () => cubit.removeCart(id: model.id),
                         child: SvgPicture.asset('assets/icons/minus_gray.svg'),
                       ),
                       Text(
@@ -132,9 +96,7 @@ class _ProductBottomBarState extends State<ProductBottomBar> {
                       ),
                       CupertinoButton(
                         padding: const EdgeInsets.symmetric(horizontal: 14),
-                        onPressed: () {
-                          globalCartCubit.addCart(id: widget.model.id);
-                        },
+                        onPressed: () => _addToCart(context),
                         child: SvgPicture.asset('assets/icons/plus_gray.svg'),
                       ),
                     ],
@@ -144,25 +106,23 @@ class _ProductBottomBarState extends State<ProductBottomBar> {
             );
           }
 
-          // Buy button mode
           return Row(
             children: [
-              // Price
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    l10n.price(widget.model.price?.toString() ?? '0'),
+                    l10n.price(model.price?.toString() ?? '0'),
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                       color: Colors.black,
                     ),
                   ),
-                  if (widget.model.oldPrice != null)
+                  if (model.oldPrice != null)
                     Text(
-                      l10n.oldPrice(widget.model.oldPrice.toString()),
+                      l10n.oldPrice(model.oldPrice.toString()),
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey.shade500,
@@ -172,12 +132,9 @@ class _ProductBottomBarState extends State<ProductBottomBar> {
                 ],
               ),
               const Spacer(),
-              // Buy button
               CupertinoButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {
-                  globalCartCubit.addCart(id: widget.model.id);
-                },
+                onPressed: () => _addToCart(context),
                 child: Container(
                   height: 48,
                   padding: const EdgeInsets.symmetric(horizontal: 40),

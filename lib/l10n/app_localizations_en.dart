@@ -579,6 +579,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get raffleTab => 'Raffles';
 
   @override
+  String get allShopsTab => 'All shops';
+
+  @override
+  String get wholeCatalogTab => 'Whole catalog';
+
+  @override
   String get raffleDefaultTitle => 'Raffle';
 
   @override
@@ -747,4 +753,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get branches => 'Branches';
+
+  @override
+  String get loginRequired => 'Sign in';
+
+  @override
+  String get loginRequiredHint => 'Sign in to your account to continue';
+
+  @override
+  String get addToCartFailed => 'Couldn\'t add to cart';
+
+  @override
+  String get pullToRefresh => 'Pull down to refresh';
+
+  @override
+  String get refreshing => 'Refreshing…';
+
+  @override
+  String get removeFromCartFailed => 'Couldn\'t remove from cart';
 }

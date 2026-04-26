@@ -3,6 +3,7 @@ import 'package:bai_market/features/main/presentation/cubit/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/widgets/app_refresh_indicator.dart';
 import '../../../../core/widgets/shimmer.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/home_banner_carousel.dart';
@@ -21,15 +22,24 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final MainCubit _bannerCubit = MainCubit();
   final CollectionCubit _collectionCubit = CollectionCubit();
+  String _currentSlug = 'all';
 
   @override
   void initState() {
     super.initState();
-    _collectionCubit.getCollection(slug: 'all', sort: 'popular');
+    _collectionCubit.getCollection(slug: _currentSlug, sort: 'popular');
   }
 
   void _onTabChanged(String slug) {
+    _currentSlug = slug;
     _collectionCubit.getCollection(slug: slug, sort: 'popular');
+  }
+
+  Future<void> _onRefresh() async {
+    await Future.wait([
+      _bannerCubit.getBanners(),
+      _collectionCubit.getCollection(slug: _currentSlug, sort: 'popular'),
+    ]);
   }
 
   @override
@@ -42,8 +52,12 @@ class _MainPageState extends State<MainPage> {
           children: [
             const HomeAppBar(),
             Expanded(
-              child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
+              child: AppRefreshIndicator(
+                onRefresh: _onRefresh,
+                child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics(),
+          ),
           slivers: [
 
             // Banner Carousel
@@ -125,6 +139,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ],
         ),
+              ),
             ),
           ],
         ),

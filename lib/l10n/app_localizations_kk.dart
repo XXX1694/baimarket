@@ -579,6 +579,12 @@ class AppLocalizationsKk extends AppLocalizations {
   String get raffleTab => 'Ұтыстар';
 
   @override
+  String get allShopsTab => 'Барлық дүкендер';
+
+  @override
+  String get wholeCatalogTab => 'Барлық каталог';
+
+  @override
   String get raffleDefaultTitle => 'Ұтыс';
 
   @override
@@ -747,4 +753,22 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get branches => 'Филиалдар';
+
+  @override
+  String get loginRequired => 'Аккаунтқа кіріңіз';
+
+  @override
+  String get loginRequiredHint => 'Жалғастыру үшін аккаунтыңызға кіріңіз';
+
+  @override
+  String get addToCartFailed => 'Себетке қосу мүмкін болмады';
+
+  @override
+  String get pullToRefresh => 'Жаңарту үшін төмен тартыңыз';
+
+  @override
+  String get refreshing => 'Жаңартылуда…';
+
+  @override
+  String get removeFromCartFailed => 'Себеттен жою мүмкін болмады';
 }

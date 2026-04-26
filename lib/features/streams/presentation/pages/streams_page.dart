@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../../core/widgets/app_refresh_indicator.dart';
 import '../widgets/streams_app_bar.dart';
 import '../widgets/streams_avatar_list.dart';
 import '../widgets/streams_live_card.dart';
@@ -50,6 +51,12 @@ class _StreamsPageState extends State<StreamsPage> {
   StreamInfo get _activeStream =>
       _mockStreams.firstWhere((s) => s.id == _activeId);
 
+  Future<void> _onRefresh() async {
+    await Future<void>.delayed(const Duration(milliseconds: 600));
+    if (!mounted) return;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -68,9 +75,26 @@ class _StreamsPageState extends State<StreamsPage> {
               ),
               const SizedBox(height: 16),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: StreamsLiveCard(stream: _activeStream),
+                child: AppRefreshIndicator(
+                  onRefresh: _onRefresh,
+                  dark: true,
+                  displacement: 24,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics(),
+                        ),
+                        child: SizedBox(
+                          height: constraints.maxHeight,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: StreamsLiveCard(stream: _activeStream),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
