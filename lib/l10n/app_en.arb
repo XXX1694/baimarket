@@ -584,7 +584,7 @@
     "market": "Market",
     "streams": "Streams",
     "orders": "Orders",
-    "searchHint": "What were you looking for?",
+    "searchHomeHint": "What were you looking for?",
     "all": "All",
     "plusPrice": "With Plus",
     "sellerOrders": "{count} orders",
@@ -792,5 +792,48 @@
     "addToCartFailed": "Couldn't add to cart",
     "pullToRefresh": "Pull down to refresh",
     "refreshing": "Refreshing…",
-    "removeFromCartFailed": "Couldn't remove from cart"
+    "removeFromCartFailed": "Couldn't remove from cart",
+    "paymentAmountTitle": "Payment amount:",
+    "paymentSumLabel": "Amount:",
+    "paymentCommissionLabel": "Commission:",
+    "paymentTermsPart1": "By proceeding with the payment, you automatically",
+    "paymentTermsLinkText": "agree",
+    "paymentTermsPart2": "to the terms",
+    "payButton": "Pay",
+    "fromTitle": "From",
+    "fromOtherCard": "From another card",
+    "removeCardTitle": "Remove card?",
+    "removeCardSubtitle": "Are you sure you want to remove this card",
+    "removeAction": "Remove",
+    "enterCardDataTitle": "Enter card details",
+    "cardExpiryLabel": "Expiry date",
+    "cardExpiryHint": "MM/YY",
+    "cardCvvLabel": "CVV code",
+    "saveCardData": "Save card details",
+    "cardWarning": "Make sure the card allows online transactions and has sufficient limit",
+    "orderAcceptedTitle": "Your order is accepted!",
+    "orderIdLabel": "Order ID: {id}",
+    "@orderIdLabel": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "receiptItemsLabel": "Items:",
+    "receiptSavedLabel": "Saved:",
+    "receiptTicketsLabel": "Tickets:",
+    "receiptPaymentMethodLabel": "Payment method:",
+    "viewOrderStatus": "View status",
+    "viewersLabel": "Viewers",
+    "streamInactiveTitle": "Stream is currently inactive",
+    "streamInactiveSubtitle": "Wait for the broadcast to start",
+    "searchHint": "Search products…",
+    "searchPrompt": "Start typing to find a product",
+    "searchEmpty": "Nothing found",
+    "searchError": "Search failed. Please try again",
+    "onAirNow": "On air now",
+    "giftButton": "Gift",
+    "commentInputHint": "Type a comment...",
+    "inCart": "In Cart"
 }

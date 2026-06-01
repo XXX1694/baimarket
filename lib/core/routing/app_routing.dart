@@ -1,8 +1,15 @@
 import 'package:bai_market/core/secure_token_storage.dart';
+import 'package:bai_market/core/services/app_logger.dart';
 import 'package:bai_market/features/cart/data/models/cart_model.dart';
 import 'package:bai_market/features/create_order/presentation/pages/create_order_page.dart';
 import 'package:bai_market/features/orders/data/models/order_model.dart';
+import 'package:bai_market/features/live/presentation/pages/live_page.dart';
+import 'package:bai_market/features/order_success/data/models/order_success_args.dart';
+import 'package:bai_market/features/order_success/presentation/pages/order_success_page.dart';
+import 'package:bai_market/features/payment/data/models/payment_args.dart';
 import 'package:bai_market/features/payment/presentation/pages/payment_page.dart';
+import 'package:bai_market/features/payment/presentation/pages/payment_webview_page.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/auth_page.dart';
@@ -26,6 +33,7 @@ import '../../features/product/data/models/product_model.dart';
 import '../../features/product/presentation/pages/product_page.dart';
 import '../../features/product/presentation/pages/product_reviews_page.dart';
 import '../../features/raffle/presentation/pages/raffle_detail_page.dart';
+import '../../features/search/presentation/pages/search_page.dart';
 import '../../features/profile/data/models/profile_model.dart';
 import '../../features/tickets/presentation/pages/tickets_page.dart';
 
@@ -34,6 +42,8 @@ const _protectedPaths = <String>{
   '/cart',
   '/make_order',
   '/payment',
+  '/payment_webview',
+  '/order_success',
   '/orders',
   '/order',
   '/my_data',
@@ -45,6 +55,7 @@ const _protectedPaths = <String>{
   '/plus/history',
   '/notification',
   '/prizes',
+  '/live',
 };
 
 bool _isProtected(String path) {
@@ -56,11 +67,20 @@ final router = GoRouter(
   initialLocation: '/main',
   redirect: (context, state) async {
     final loc = state.matchedLocation;
-    if (loc == '/') return '/main';
+    if (loc == '/') {
+      routerLog.nav('/ → /main');
+      return '/main';
+    }
     final token = await getAuthToken();
     final isOnAuth = loc == '/auth' || loc.startsWith('/auth/');
-    if (token != null && isOnAuth) return '/main';
-    if (token == null && !isOnAuth && _isProtected(loc)) return '/auth';
+    if (token != null && isOnAuth) {
+      routerLog.nav('authed user on $loc → /main');
+      return '/main';
+    }
+    if (token == null && !isOnAuth && _isProtected(loc)) {
+      routerLog.nav('guest on protected $loc → /auth');
+      return '/auth';
+    }
     return null;
   },
   routes: [
@@ -162,26 +182,73 @@ final router = GoRouter(
     GoRoute(path: '/prizes', builder: (context, state) => PrizesPage()),
     GoRoute(
       path: '/shop',
-      builder: (context, state) => const RaffleDetailPage(
-        id: -1,
-        titleOverride: 'Ырысбала\nИкрамбай',
-      ),
+      builder: (context, state) {
+        // Параметризован через extra: {title: 'Имя\nФамилия'}.
+        // Если ничего не передано — открываем дефолтный shop (mock id=-1).
+        final extra = state.extra;
+        String title = 'Ырысбала\nИкрамбай';
+        if (extra is Map && extra['title'] is String) {
+          title = extra['title'] as String;
+        }
+        return RaffleDetailPage(id: -1, titleOverride: title);
+      },
     ),
     GoRoute(path: '/tickets', builder: (context, state) => TicketsPage()),
     GoRoute(
       path: '/payment',
-      redirect: (context, state) =>
-          state.extra is String ? null : '/main',
+      redirect: (context, state) {
+        final extra = state.extra;
+        if (extra is PaymentArgs) return null;
+        if (extra is String) return null;
+        return '/main';
+      },
       builder: (context, state) {
-        final url = state.extra as String;
-        return PaymentPage(paymentUrl: url);
+        final extra = state.extra;
+        if (extra is PaymentArgs) return PaymentPage(args: extra);
+        // Совместимость со старым вызовом — оборачиваем URL.
+        return PaymentPage(
+          args: PaymentArgs(amount: 0, paymentUrl: extra as String),
+        );
       },
     ),
     GoRoute(
+      path: '/payment_webview',
+      redirect: (context, state) =>
+          state.extra is PaymentArgs ? null : '/main',
+      builder: (context, state) =>
+          PaymentWebViewPage(args: state.extra as PaymentArgs),
+    ),
+    GoRoute(
+      path: '/order_success',
+      redirect: (context, state) =>
+          state.extra is OrderSuccessArgs ? null : '/main',
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        opaque: false,
+        barrierDismissible: false,
+        fullscreenDialog: true,
+        child: OrderSuccessPage(args: state.extra as OrderSuccessArgs),
+        transitionsBuilder: (_, animation, __, child) =>
+            FadeTransition(opacity: animation, child: child),
+      ),
+    ),
+    GoRoute(path: '/live', builder: (context, state) => const LivePage()),
+    GoRoute(path: '/search', builder: (context, state) => const SearchPage()),
+    GoRoute(
       path: '/collection/:slug',
-      builder:
-          (context, state) =>
-              CollectionPage(slug: state.pathParameters['slug']),
+      builder: (context, state) {
+        // extra: {title: 'Парфюмерия'} прокидывается из плиток каталога,
+        // чтобы шапка показывала имя категории, а не дефолт от бэка.
+        String? titleOverride;
+        final extra = state.extra;
+        if (extra is Map && extra['title'] is String) {
+          titleOverride = extra['title'] as String;
+        }
+        return CollectionPage(
+          slug: state.pathParameters['slug'],
+          titleOverride: titleOverride,
+        );
+      },
     ),
     GoRoute(
       path: '/raffle/:id',

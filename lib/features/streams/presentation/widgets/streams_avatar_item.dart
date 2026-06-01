@@ -18,57 +18,54 @@ class StreamsAvatarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      behavior: HitTestBehavior.opaque,
       child: SizedBox(
-        width: 72,
+        width: 70,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 64,
-              height: 64,
-              padding: const EdgeInsets.all(2.5),
+              width: 65,
+              height: 65,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: isActive
-                    ? const LinearGradient(
-                        colors: [Color(0xFF117DAA), Color(0xFF1EA396)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : const LinearGradient(
-                        colors: [Color(0xFF444444), Color(0xFF444444)],
-                      ),
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xFF1A1A1A),
+                border: Border.all(
+                  color: isActive
+                      ? const Color(0xFF21C7A3)
+                      : Colors.white.withValues(alpha: 0.25),
+                  width: 2,
                 ),
-                padding: const EdgeInsets.all(2),
-                child: ClipOval(
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
-                      color: const Color(0xFF2A2A2A),
-                      child: const Icon(Icons.person, color: Colors.white54, size: 28),
+              ),
+              child: ClipOval(
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    color: const Color(0xFF2A2A2A),
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.white54,
+                      size: 28,
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 6),
-            Text(
-              name,
-              style: const TextStyle(
-                fontFamily: 'Gilroy',
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
-                color: Colors.white70,
+            const SizedBox(height: 4),
+            Flexible(
+              child: Text(
+                name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontFamily: 'Gilroy',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                  height: 1.1,
+                ),
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
             ),
           ],
         ),

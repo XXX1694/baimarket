@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../catalog/presentation/widgets/catalog_top_switcher.dart';
 import '../../../main/presentation/pages/main_page.dart';
 import '../../../streams/presentation/pages/streams_page.dart';
 
@@ -99,7 +100,19 @@ class _MainScreenState extends State<MenuPage> {
           return IndexedStack(
             index: currentIndex,
             children: [
-              MainPage(),
+              MainPage(
+                onAllCatalog: () {
+                  // Плитка «Весь Каталог» на главной → переключаем
+                  // bottom-nav на таб «Каталог» и сразу открываем
+                  // подвкладку «Весь каталог» (frame 16271).
+                  ref
+                      .read(catalogTopTabProvider.notifier)
+                      .state = CatalogTopTab.wholeCatalog;
+                  ref
+                      .read(bottomNavIndexProvider.notifier)
+                      .update((state) => 2);
+                },
+              ),
               const StreamsPage(),
               CatalogPage(),
               CartPage(

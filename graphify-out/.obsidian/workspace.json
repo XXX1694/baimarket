@@ -35,10 +35,14 @@
             "id": "eb8bb04a040bf1d2",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "_COMMUNITY_Community 2.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "_COMMUNITY_Community 2"
             }
           }
         ],
@@ -203,12 +207,12 @@
   },
   "active": "eb8bb04a040bf1d2",
   "lastOpenFiles": [
-    "Prompt.md",
+    "_COMMUNITY_Community 34.md",
     "GRAPH_REPORT.md",
+    "Prompt.md",
     "GovTech ↔ Flutter InLink Bridge.md",
     "a.md",
     "фыв.md",
-    "_COMMUNITY_Community 34.md",
     "cost.json",
     "manifest.json",
     "graph.html",

@@ -31,9 +31,9 @@ class _Tile {
   }
 }
 
-// Призы — подарок чуть повёрнут влево (CCW), размер ~70% высоты карточки
+// Призы — на бэке коллекция `lottery` (аукционные призы).
 const _prizeTile = _Tile(
-  slug: 'prize',
+  slug: 'lottery',
   background: Color(0xFF3FE0DE),
   iconAsset: 'assets/icons/main/prize.svg',
   iconSize: 50,
@@ -42,7 +42,7 @@ const _prizeTile = _Tile(
   labels: {'ru': 'Призы', 'kk': 'Сыйлықтар', 'en': 'Prizes'},
 );
 
-// Новинки — широкий текст NEW занимает дно карточки, без доп. поворота
+// Новинки — на бэке коллекция `new`.
 const _newTile = _Tile(
   slug: 'new',
   background: Color(0xFF22923C),
@@ -53,9 +53,9 @@ const _newTile = _Tile(
   labels: {'ru': 'Новинки', 'kk': 'Жаңалықтар', 'en': 'New'},
 );
 
-// Хиты — пламя внизу справа, чуть повёрнуто по часовой
+// Хиты — отдельной коллекции `hit` на бэке нет, кидаем во весь каталог `all`.
 const _hitTile = _Tile(
-  slug: 'hit',
+  slug: 'all',
   background: Color(0xFFB6B4F0),
   iconAsset: 'assets/icons/main/hit.svg',
   iconSize: 61,
@@ -64,9 +64,9 @@ const _hitTile = _Tile(
   labels: {'ru': 'Хиты', 'kk': 'Хиттер', 'en': 'Hits'},
 );
 
-// Скидки — большие ценники, повёрнуты по часовой ~22°
+// Скидки — на бэке коллекция `discount`.
 const _salesTile = _Tile(
-  slug: 'sales',
+  slug: 'discount',
   background: Color(0xFFEF5746),
   iconAsset: 'assets/icons/main/sales.svg',
   iconSize: 78,
@@ -92,12 +92,20 @@ const _allTile = _Tile(
 );
 
 class HomeCategoryGrid extends StatelessWidget {
-  const HomeCategoryGrid({super.key});
+  const HomeCategoryGrid({super.key, this.onAllCatalog});
+
+  /// Когда указан — плитка «Весь Каталог» вызывает этот колбэк
+  /// (переключение на таб «Каталог» внутри `MenuPage`) вместо пуша
+  /// на `/collection/all`.
+  final VoidCallback? onAllCatalog;
 
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
 
+    // Бэк отдаёт 3 коллекции (`new`, `discount`, `lottery`) + спец-slug
+    // `all` (весь каталог). Тайл «Хиты» отдельной коллекции не имеет —
+    // кидаем туда же, что и «Весь Каталог», чтобы тап не открывал пусто.
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -153,6 +161,7 @@ class HomeCategoryGrid extends StatelessWidget {
                   tile: _allTile,
                   height: 80,
                   locale: locale,
+                  onTapOverride: onAllCatalog,
                 ),
               ),
             ],
@@ -168,18 +177,33 @@ class _CategoryCard extends StatelessWidget {
     required this.tile,
     required this.locale,
     this.height = 80,
+    this.onTapOverride,
   });
 
   final _Tile tile;
   final String locale;
   final double height;
 
+  /// Если задан — берётся вместо стандартного перехода на /collection.
+  /// Используется для «Весь Каталог», чтобы остаться внутри MenuPage и
+  /// переключиться на таб «Каталог» (frame 16271).
+  final VoidCallback? onTapOverride;
+
   @override
   Widget build(BuildContext context) {
     final label = tile.labelFor(locale);
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      onPressed: () => context.push('/collection/${tile.slug}'),
+      onPressed: () {
+        if (onTapOverride != null) {
+          onTapOverride!();
+          return;
+        }
+        context.push(
+          '/collection/${tile.slug}',
+          extra: {'title': tile.labelFor(locale)},
+        );
+      },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Container(

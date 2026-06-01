@@ -461,7 +461,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get orders => 'Заказы';
 
   @override
-  String get searchHint => 'Что вы искали?';
+  String get searchHomeHint => 'Что вы искали?';
 
   @override
   String get all => 'Все';
@@ -771,4 +771,114 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get removeFromCartFailed => 'Не удалось удалить из корзины';
+
+  @override
+  String get paymentAmountTitle => 'Сумма платежа:';
+
+  @override
+  String get paymentSumLabel => 'Сумма:';
+
+  @override
+  String get paymentCommissionLabel => 'Комиссия:';
+
+  @override
+  String get paymentTermsPart1 => 'Совершая платёж, вы автоматически';
+
+  @override
+  String get paymentTermsLinkText => 'соглашаетесь';
+
+  @override
+  String get paymentTermsPart2 => 'с условиями';
+
+  @override
+  String get payButton => 'Оплатить';
+
+  @override
+  String get fromTitle => 'Откуда';
+
+  @override
+  String get fromOtherCard => 'С другой карты';
+
+  @override
+  String get removeCardTitle => 'Удалить карту?';
+
+  @override
+  String get removeCardSubtitle => 'Вы точно хотите удалить эту карту';
+
+  @override
+  String get removeAction => 'Удалить';
+
+  @override
+  String get enterCardDataTitle => 'Введите данные карты';
+
+  @override
+  String get cardExpiryLabel => 'Срок действия';
+
+  @override
+  String get cardExpiryHint => 'Срок';
+
+  @override
+  String get cardCvvLabel => 'CVV-код';
+
+  @override
+  String get saveCardData => 'Сохранить данные карты';
+
+  @override
+  String get cardWarning => 'Убедитесь, что карта открыта для интернет-транзакций и лимита достаточно';
+
+  @override
+  String get orderAcceptedTitle => 'Ваш заказ принят!';
+
+  @override
+  String orderIdLabel(String id) {
+    return 'ID заказа: $id';
+  }
+
+  @override
+  String get receiptItemsLabel => 'Товары:';
+
+  @override
+  String get receiptSavedLabel => 'Сэкономлено:';
+
+  @override
+  String get receiptTicketsLabel => 'Билеты:';
+
+  @override
+  String get receiptPaymentMethodLabel => 'Способ оплаты:';
+
+  @override
+  String get viewOrderStatus => 'Посмотреть статус';
+
+  @override
+  String get viewersLabel => 'Зрителей';
+
+  @override
+  String get streamInactiveTitle => 'Стрим сейчас неактивен';
+
+  @override
+  String get streamInactiveSubtitle => 'Ожидайте начала трансляции';
+
+  @override
+  String get searchHint => 'Поиск товара…';
+
+  @override
+  String get searchPrompt => 'Начните вводить, чтобы найти товар';
+
+  @override
+  String get searchEmpty => 'Ничего не найдено';
+
+  @override
+  String get searchError => 'Не удалось выполнить поиск. Попробуйте ещё раз';
+
+  @override
+  String get onAirNow => 'Сейчас в эфире';
+
+  @override
+  String get giftButton => 'Подарок';
+
+  @override
+  String get commentInputHint => 'Введите комментарии...';
+
+  @override
+  String get inCart => 'В корзине';
 }

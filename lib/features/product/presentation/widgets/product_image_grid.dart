@@ -24,115 +24,35 @@ class ProductImageGrid extends StatelessWidget {
     final urls = model.photoUrls ?? [];
     if (urls.isEmpty) {
       return const SizedBox(
-        height: 240,
+        height: 260,
         child: Center(child: Icon(Icons.image_not_supported, size: 48, color: Colors.grey)),
       );
     }
 
-    if (urls.length == 1) {
-      return Padding(
+    return SizedBox(
+      height: 260,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: GestureDetector(
-          onTap: () => _openFullScreen(context, 0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: SizedBox(
-              height: 280,
-              width: double.infinity,
-              child: NetworkImageWidget(
-                url: '$imgUrl${urls[0]}',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        height: 240,
-        child: Row(
-          children: [
-            Expanded(
-              flex: 3,
-              child: GestureDetector(
-                onTap: () => _openFullScreen(context, 0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: SizedBox(
-                    height: 240,
-                    child: NetworkImageWidget(
-                      url: '$imgUrl${urls[0]}',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+        itemCount: urls.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () => _openFullScreen(context, index),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: SizedBox(
+                width: 260,
+                height: 260,
+                child: NetworkImageWidget(
+                  url: '$imgUrl${urls[index]}',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => _openFullScreen(context, 1),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: NetworkImageWidget(
-                            url: '$imgUrl${urls[1]}',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (urls.length > 2) ...[
-                    const SizedBox(height: 8),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => _openFullScreen(context, 2),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              NetworkImageWidget(
-                                url: '$imgUrl${urls[2]}',
-                                fit: BoxFit.cover,
-                              ),
-                              if (urls.length > 3)
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black38,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '+${urls.length - 3}',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -167,7 +87,7 @@ class _FullScreenViewerState extends State<_FullScreenViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFFB9B9B9),
       body: Stack(
         children: [
           PageView.builder(

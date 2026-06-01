@@ -961,11 +961,11 @@ abstract class AppLocalizations {
   /// **'Orders'**
   String get orders;
 
-  /// No description provided for @searchHint.
+  /// No description provided for @searchHomeHint.
   ///
   /// In en, this message translates to:
   /// **'What were you looking for?'**
-  String get searchHint;
+  String get searchHomeHint;
 
   /// No description provided for @all.
   ///
@@ -1560,6 +1560,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t remove from cart'**
   String get removeFromCartFailed;
+
+  /// No description provided for @paymentAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment amount:'**
+  String get paymentAmountTitle;
+
+  /// No description provided for @paymentSumLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount:'**
+  String get paymentSumLabel;
+
+  /// No description provided for @paymentCommissionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Commission:'**
+  String get paymentCommissionLabel;
+
+  /// No description provided for @paymentTermsPart1.
+  ///
+  /// In en, this message translates to:
+  /// **'By proceeding with the payment, you automatically'**
+  String get paymentTermsPart1;
+
+  /// No description provided for @paymentTermsLinkText.
+  ///
+  /// In en, this message translates to:
+  /// **'agree'**
+  String get paymentTermsLinkText;
+
+  /// No description provided for @paymentTermsPart2.
+  ///
+  /// In en, this message translates to:
+  /// **'to the terms'**
+  String get paymentTermsPart2;
+
+  /// No description provided for @payButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get payButton;
+
+  /// No description provided for @fromTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get fromTitle;
+
+  /// No description provided for @fromOtherCard.
+  ///
+  /// In en, this message translates to:
+  /// **'From another card'**
+  String get fromOtherCard;
+
+  /// No description provided for @removeCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove card?'**
+  String get removeCardTitle;
+
+  /// No description provided for @removeCardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this card'**
+  String get removeCardSubtitle;
+
+  /// No description provided for @removeAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeAction;
+
+  /// No description provided for @enterCardDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter card details'**
+  String get enterCardDataTitle;
+
+  /// No description provided for @cardExpiryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry date'**
+  String get cardExpiryLabel;
+
+  /// No description provided for @cardExpiryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'MM/YY'**
+  String get cardExpiryHint;
+
+  /// No description provided for @cardCvvLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'CVV code'**
+  String get cardCvvLabel;
+
+  /// No description provided for @saveCardData.
+  ///
+  /// In en, this message translates to:
+  /// **'Save card details'**
+  String get saveCardData;
+
+  /// No description provided for @cardWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Make sure the card allows online transactions and has sufficient limit'**
+  String get cardWarning;
+
+  /// No description provided for @orderAcceptedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your order is accepted!'**
+  String get orderAcceptedTitle;
+
+  /// No description provided for @orderIdLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Order ID: {id}'**
+  String orderIdLabel(String id);
+
+  /// No description provided for @receiptItemsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Items:'**
+  String get receiptItemsLabel;
+
+  /// No description provided for @receiptSavedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved:'**
+  String get receiptSavedLabel;
+
+  /// No description provided for @receiptTicketsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Tickets:'**
+  String get receiptTicketsLabel;
+
+  /// No description provided for @receiptPaymentMethodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment method:'**
+  String get receiptPaymentMethodLabel;
+
+  /// No description provided for @viewOrderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'View status'**
+  String get viewOrderStatus;
+
+  /// No description provided for @viewersLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Viewers'**
+  String get viewersLabel;
+
+  /// No description provided for @streamInactiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stream is currently inactive'**
+  String get streamInactiveTitle;
+
+  /// No description provided for @streamInactiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait for the broadcast to start'**
+  String get streamInactiveSubtitle;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search products…'**
+  String get searchHint;
+
+  /// No description provided for @searchPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to find a product'**
+  String get searchPrompt;
+
+  /// No description provided for @searchEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing found'**
+  String get searchEmpty;
+
+  /// No description provided for @searchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Search failed. Please try again'**
+  String get searchError;
+
+  /// No description provided for @onAirNow.
+  ///
+  /// In en, this message translates to:
+  /// **'On air now'**
+  String get onAirNow;
+
+  /// No description provided for @giftButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Gift'**
+  String get giftButton;
+
+  /// No description provided for @commentInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a comment...'**
+  String get commentInputHint;
+
+  /// No description provided for @inCart.
+  ///
+  /// In en, this message translates to:
+  /// **'In Cart'**
+  String get inCart;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -51,11 +51,13 @@ class _CatalogAppBarState extends State<CatalogAppBar>
   @override
   Widget build(BuildContext context) {
     return Padding(
+      // Figma frame 16271: header сидит на y=70 от верха экрана
+      // (статусбар iPhone 15 = 47), внизу до табов остаётся ~23px.
       padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top + 8,
-        left: 16,
-        right: 16,
-        bottom: 8,
+        top: MediaQuery.of(context).padding.top + 23,
+        left: 20,
+        right: 20,
+        bottom: 23,
       ),
       child: Row(
         children: [

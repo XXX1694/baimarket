@@ -5,7 +5,7 @@ import 'dart:io' show Platform;
 
 import '../../../../core/app_pallete.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../pages/collection_page.dart';
+import '../cubit/collection_cubit.dart';
 
 List<String> sorting = ['popular', 'cheap', 'expensive'];
 
@@ -13,6 +13,7 @@ void showSortingSelectionModal(
   BuildContext context,
   TextEditingController controller,
   String slug,
+  CollectionCubit cubit,
 ) {
   final l10n = AppLocalizations.of(context)!;
 
@@ -49,7 +50,7 @@ void showSortingSelectionModal(
 
   void applySort(BuildContext ctx, int index) {
     controller.text = sortTextFor(index);
-    globalCollectionCubit.getCollection(slug: slug, sort: sorting[index]);
+    cubit.getCollection(slug: slug, sort: sorting[index]);
     Navigator.pop(ctx);
   }
 

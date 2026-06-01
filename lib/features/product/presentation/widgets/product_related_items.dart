@@ -31,7 +31,7 @@ class ProductRelatedItems extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: 320,
+          height: 339,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),

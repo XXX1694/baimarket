@@ -461,7 +461,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get orders => 'Тапсырыстар';
 
   @override
-  String get searchHint => 'Не іздедіңіз?';
+  String get searchHomeHint => 'Не іздедіңіз?';
 
   @override
   String get all => 'Барлығы';
@@ -771,4 +771,114 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get removeFromCartFailed => 'Себеттен жою мүмкін болмады';
+
+  @override
+  String get paymentAmountTitle => 'Төлем сомасы:';
+
+  @override
+  String get paymentSumLabel => 'Сома:';
+
+  @override
+  String get paymentCommissionLabel => 'Комиссия:';
+
+  @override
+  String get paymentTermsPart1 => 'Төлем жүргізе, сіз автоматты түрде';
+
+  @override
+  String get paymentTermsLinkText => 'шарттармен';
+
+  @override
+  String get paymentTermsPart2 => 'келісесіз';
+
+  @override
+  String get payButton => 'Төлем жасау';
+
+  @override
+  String get fromTitle => 'Қайдан';
+
+  @override
+  String get fromOtherCard => 'Басқа картадан';
+
+  @override
+  String get removeCardTitle => 'Картаны жою керек пе?';
+
+  @override
+  String get removeCardSubtitle => 'Осы картаны жоюды шынымен қалайсыз ба';
+
+  @override
+  String get removeAction => 'Жою';
+
+  @override
+  String get enterCardDataTitle => 'Карта деректерін енгізіңіз';
+
+  @override
+  String get cardExpiryLabel => 'Жарамдылық мерзімі';
+
+  @override
+  String get cardExpiryHint => 'Мерзім';
+
+  @override
+  String get cardCvvLabel => 'CVV-код';
+
+  @override
+  String get saveCardData => 'Карта деректерін сақтау';
+
+  @override
+  String get cardWarning => 'Карта интернет-транзакцияларға ашық және лимит жеткілікті екеніне көз жеткізіңіз';
+
+  @override
+  String get orderAcceptedTitle => 'Сіздің заказыңыз қабылданды!';
+
+  @override
+  String orderIdLabel(String id) {
+    return 'Тапсырыс ID: $id';
+  }
+
+  @override
+  String get receiptItemsLabel => 'Тауарлар:';
+
+  @override
+  String get receiptSavedLabel => 'Үнемделді:';
+
+  @override
+  String get receiptTicketsLabel => 'Билеттер:';
+
+  @override
+  String get receiptPaymentMethodLabel => 'Төлем тәсілі:';
+
+  @override
+  String get viewOrderStatus => 'Күйді көру';
+
+  @override
+  String get viewersLabel => 'Көрермендер';
+
+  @override
+  String get streamInactiveTitle => 'Стрим қазір белсенді емес';
+
+  @override
+  String get streamInactiveSubtitle => 'Тарату басталуын күтіңіз';
+
+  @override
+  String get searchHint => 'Тауар іздеу…';
+
+  @override
+  String get searchPrompt => 'Тауар табу үшін теруді бастаңыз';
+
+  @override
+  String get searchEmpty => 'Ештеңе табылмады';
+
+  @override
+  String get searchError => 'Іздеу орындалмады. Қайталап көріңіз';
+
+  @override
+  String get onAirNow => 'Қазір эфирде';
+
+  @override
+  String get giftButton => 'Сыйлық';
+
+  @override
+  String get commentInputHint => 'Пікір жазыңыз...';
+
+  @override
+  String get inCart => 'Себетте';
 }

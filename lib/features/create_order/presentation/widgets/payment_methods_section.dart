@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/app_pallete.dart';
 import 'section_card.dart';
 
-enum PaymentMethod { card, kaspi, halyk }
+enum PaymentMethod { card, kaspi, halyk, cash }
 
 class PaymentMethodsSection extends StatelessWidget {
   const PaymentMethodsSection({
@@ -41,35 +40,13 @@ class PaymentMethodsSection extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: [
                 _MethodCard(
-                  isSelected: selected == PaymentMethod.card,
-                  onTap: () => onChanged(PaymentMethod.card),
-                  label: 'Картой онлайн',
-                  icon: SvgPicture.asset(
-                    'assets/icons/create_order/create_order_card.svg',
-                    height: 28,
-                    width: 28,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                _MethodCard(
-                  isSelected: selected == PaymentMethod.kaspi,
-                  onTap: () => onChanged(PaymentMethod.kaspi),
-                  label: 'Kaspi Bank',
-                  icon: SvgPicture.asset(
-                    'assets/icons/create_order/kaspi.svg',
-                    height: 28,
-                    width: 28,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                _MethodCard(
-                  isSelected: selected == PaymentMethod.halyk,
-                  onTap: () => onChanged(PaymentMethod.halyk),
-                  label: 'Halyk Bank',
-                  icon: SvgPicture.asset(
-                    'assets/icons/create_order/halyk.svg',
-                    height: 28,
-                    width: 28,
+                  isSelected: selected == PaymentMethod.cash,
+                  onTap: () => onChanged(PaymentMethod.cash),
+                  label: 'Наличными',
+                  icon: const Icon(
+                    Icons.payments_outlined,
+                    size: 28,
+                    color: Colors.black,
                   ),
                 ),
               ],

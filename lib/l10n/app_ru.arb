@@ -432,7 +432,7 @@
     "market": "Маркет",
     "streams": "Эфиры",
     "orders": "Заказы",
-    "searchHint": "Что вы искали?",
+    "searchHomeHint": "Что вы искали?",
     "all": "Все",
     "plusPrice": "Plus пен алсаңыз",
     "sellerOrders": "{count} заказа",
@@ -602,5 +602,48 @@
     "addToCartFailed": "Не удалось добавить в корзину",
     "pullToRefresh": "Потяните вниз, чтобы обновить",
     "refreshing": "Обновление…",
-    "removeFromCartFailed": "Не удалось удалить из корзины"
+    "removeFromCartFailed": "Не удалось удалить из корзины",
+    "paymentAmountTitle": "Сумма платежа:",
+    "paymentSumLabel": "Сумма:",
+    "paymentCommissionLabel": "Комиссия:",
+    "paymentTermsPart1": "Совершая платёж, вы автоматически",
+    "paymentTermsLinkText": "соглашаетесь",
+    "paymentTermsPart2": "с условиями",
+    "payButton": "Оплатить",
+    "fromTitle": "Откуда",
+    "fromOtherCard": "С другой карты",
+    "removeCardTitle": "Удалить карту?",
+    "removeCardSubtitle": "Вы точно хотите удалить эту карту",
+    "removeAction": "Удалить",
+    "enterCardDataTitle": "Введите данные карты",
+    "cardExpiryLabel": "Срок действия",
+    "cardExpiryHint": "Срок",
+    "cardCvvLabel": "CVV-код",
+    "saveCardData": "Сохранить данные карты",
+    "cardWarning": "Убедитесь, что карта открыта для интернет-транзакций и лимита достаточно",
+    "orderAcceptedTitle": "Ваш заказ принят!",
+    "orderIdLabel": "ID заказа: {id}",
+    "@orderIdLabel": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "receiptItemsLabel": "Товары:",
+    "receiptSavedLabel": "Сэкономлено:",
+    "receiptTicketsLabel": "Билеты:",
+    "receiptPaymentMethodLabel": "Способ оплаты:",
+    "viewOrderStatus": "Посмотреть статус",
+    "viewersLabel": "Зрителей",
+    "streamInactiveTitle": "Стрим сейчас неактивен",
+    "streamInactiveSubtitle": "Ожидайте начала трансляции",
+    "searchHint": "Поиск товара…",
+    "searchPrompt": "Начните вводить, чтобы найти товар",
+    "searchEmpty": "Ничего не найдено",
+    "searchError": "Не удалось выполнить поиск. Попробуйте ещё раз",
+    "onAirNow": "Сейчас в эфире",
+    "giftButton": "Подарок",
+    "commentInputHint": "Введите комментарии...",
+    "inCart": "В корзине"
 }

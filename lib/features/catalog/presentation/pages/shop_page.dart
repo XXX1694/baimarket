@@ -176,7 +176,7 @@ class _ProductsSection extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                mainAxisExtent: 320,
+                mainAxisExtent: 339,
               ),
               itemBuilder: (_, __) => const SimpleShimmer(borderRadius: 16),
             )
@@ -190,7 +190,7 @@ class _ProductsSection extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                mainAxisExtent: 320,
+                mainAxisExtent: 339,
               ),
               itemBuilder: (_, i) => ProductCard(product: products![i]),
             ),

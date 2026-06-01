@@ -7,6 +7,7 @@ import 'package:bai_market/features/collection/presentation/cubit/collection_cub
 import 'package:bai_market/features/create_order/presentation/cubit/create_order_cubit.dart';
 import 'package:bai_market/features/favorites/presentation/cubit/favorites_cubit.dart';
 import 'package:bai_market/features/get_slug_list/presentation/cubit/slug_cubit.dart';
+import 'package:bai_market/features/live/presentation/cubit/live_cubit.dart';
 import 'package:bai_market/features/notification/presentation/cubit/notification_cubit.dart';
 import 'package:bai_market/features/orders/presentation/cubit/orders_cubit.dart';
 import 'package:bai_market/features/product/presentation/cubit/product_cubit.dart';
@@ -107,6 +108,7 @@ class _MainAppState extends State<MainApp> {
         BlocProvider(create: (context) => CreateOrderCubit()),
         BlocProvider(create: (context) => OrdersCubit()),
         BlocProvider(create: (context) => NotificationCubit()),
+        BlocProvider(create: (context) => LiveCubit()..connect()),
       ],
       child: Consumer<LanguageProvider>(
         builder: (context, languageProvider, child) {

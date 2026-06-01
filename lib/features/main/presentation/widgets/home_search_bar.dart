@@ -15,9 +15,7 @@ class HomeSearchBar extends StatelessWidget {
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: () {
-                context.push('/catalog');
-              },
+              onTap: () => context.push('/search'),
               child: Container(
                 height: 50,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -30,7 +28,7 @@ class HomeSearchBar extends StatelessWidget {
                     SvgPicture.asset('assets/icons/main_page/main_page_search.svg', height: 24, width: 24),
                     const SizedBox(width: 12),
                     Text(
-                      l10n.searchHint,
+                      l10n.searchHomeHint,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w300,

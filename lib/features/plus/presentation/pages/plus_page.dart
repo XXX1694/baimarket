@@ -164,8 +164,9 @@ class _UserBadge extends StatelessWidget {
     final raw = (profile.phoneNumber ?? '').trim();
     if (raw.isEmpty) return '';
     final digits = raw.replaceAll(RegExp(r'\D'), '');
-    if (digits.length == 11 && digits.startsWith('7'))
+    if (digits.length == 11 && digits.startsWith('7')) {
       return '8${digits.substring(1)}';
+    }
     if (digits.length == 10) return '8$digits';
     return digits;
   }

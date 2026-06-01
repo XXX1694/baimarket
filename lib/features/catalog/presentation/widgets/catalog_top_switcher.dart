@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum CatalogTopTab { allShops, wholeCatalog }
+
+/// Глобальный провайдер для текущей вкладки внутри CatalogPage.
+/// Внешние экраны (например, плитка «Весь Каталог» на главной) могут
+/// записать сюда нужное значение, чтобы при переходе на таб «Каталог»
+/// сразу открывалась нужная подвкладка.
+final catalogTopTabProvider =
+    StateProvider<CatalogTopTab>((_) => CatalogTopTab.allShops);
 
 class CatalogTopSwitcher extends StatelessWidget {
   const CatalogTopSwitcher({
@@ -87,7 +95,6 @@ class _Tab extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
       child: Stack(
-        alignment: Alignment.bottomCenter,
         children: [
           Center(
             child: Row(
@@ -107,10 +114,16 @@ class _Tab extends StatelessWidget {
               ],
             ),
           ),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            height: 2,
-            color: isSelected ? Colors.black : Colors.transparent,
+          // Подчёркивание во всю ширину вкладки (Rectangle 2821/2822 в Figma).
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              height: 2,
+              color: isSelected ? Colors.black : const Color(0xFFEDEDED),
+            ),
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/widgets/app_refresh_indicator.dart';
 import '../../../collection/presentation/cubit/collection_cubit.dart';
+import '../../../live/presentation/widgets/live_shopping_scope.dart';
 import '../../data/models/cart_item_model.dart';
 import '../../data/models/cart_model.dart';
 import '../widgets/cart_app_bar.dart';
@@ -74,7 +75,18 @@ class _CartPageState extends State<CartPage> {
         body: BlocConsumer<CartCubit, CartState>(
           listener: (context, state) {
             if (state is CartGotAgain) {
-              context.push('/make_order', extra: state.cart);
+              // CartPage живёт сразу в двух местах: в IndexedStack /main и
+              // в боттом-шите поверх /live. Оба инстанса слушают глобальный
+              // CartCubit, поэтому без isCurrent-гарда мы пушили /make_order
+              // и из шита, и из спрятанной за стримом MenuPage.
+              final isCurrent = ModalRoute.of(context)?.isCurrent ?? true;
+              if (!isCurrent) return;
+              final scope = LiveShoppingScope.maybeOf(context);
+              if (scope != null) {
+                scope.openCreateOrder(context, state.cart);
+              } else {
+                context.push('/make_order', extra: state.cart);
+              }
             }
           },
           builder: (context, state) {
@@ -86,14 +98,7 @@ class _CartPageState extends State<CartPage> {
               children: [
                 CartAppBar(
                   showClear: hasItems,
-                  onClear: () {
-                    final snapshot = List<CartItemModel>.from(items);
-                    for (final item in snapshot) {
-                      for (int i = 0; i < item.quantity; i++) {
-                        cartCubit.removeCart(id: item.model!.id);
-                      }
-                    }
-                  },
+                  onClear: () => cartCubit.clearCart(),
                 ),
                 Expanded(
                   child: hasItems

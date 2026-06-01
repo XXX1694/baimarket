@@ -7,6 +7,7 @@ import '../../../../core/urls.dart';
 import '../../../../core/utils/translation_utils.dart';
 import '../../../../core/widgets/show_image.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../live/presentation/widgets/live_shopping_scope.dart';
 import '../../data/models/cart_item_model.dart';
 
 class CartItemCard extends StatelessWidget {
@@ -49,7 +50,16 @@ class CartItemCard extends StatelessWidget {
           // Product image
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () => context.push('/product/${product?.id}'),
+            onPressed: () {
+              final id = product?.id;
+              if (id == null) return;
+              final scope = LiveShoppingScope.maybeOf(context);
+              if (scope != null) {
+                scope.openProduct(context, id);
+              } else {
+                context.push('/product/$id');
+              }
+            },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: SizedBox(

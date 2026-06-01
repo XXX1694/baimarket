@@ -7,59 +7,62 @@ class PlusPriceBadge extends StatelessWidget {
   const PlusPriceBadge({super.key, required this.plusPrice});
   final int plusPrice;
 
+  static const _gradient = LinearGradient(
+    colors: [Color(0xFF117DAA), Color(0xFF1EA396)],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
+  Widget _gradientText(String text, TextStyle style) {
+    return ShaderMask(
+      shaderCallback: (bounds) => _gradient.createShader(bounds),
+      blendMode: BlendMode.srcIn,
+      child: Text(text, style: style.copyWith(color: Colors.white)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
       decoration: BoxDecoration(
         color: const Color(0xFFE8FEFE),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SvgPicture.asset(
-            'assets/icons/main_plus.svg',
-            height: 18,
-            width: 18,
-          ),
-          const SizedBox(width: 4),
-          Flexible(
-            child: ShaderMask(
-              shaderCallback: (bounds) => const LinearGradient(
-                colors: [Color(0xFF117DAA), Color(0xFF1EA396)],
-              ).createShader(bounds),
-              blendMode: BlendMode.srcIn,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: Text(
-                      l10n.plusPrice,
-                      style: const TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Gilroy',
-                        color: Colors.white,
-                         height: 8 / 9,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    l10n.price(plusPrice.toString()),
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: GoogleFonts.inter().fontFamily,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                'assets/icons/main_plus.svg',
+                height: 22,
+                width: 22,
               ),
+              const SizedBox(width: 4),
+              SizedBox(
+                width: 52,
+                child: _gradientText(
+                  l10n.plusPrice,
+                  const TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Gilroy',
+                    height: 1.1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          _gradientText(
+            l10n.price(plusPrice.toString()),
+            TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              fontFamily: GoogleFonts.inter().fontFamily,
             ),
           ),
         ],

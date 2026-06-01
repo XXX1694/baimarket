@@ -1,7 +1,7 @@
 name: bai_market
 description: "Cosmetics App"
 publish_to: "none"
-version: 1.0.0+9
+version: 1.0.0+15
 
 environment:
   sdk: ^3.7.0
@@ -35,6 +35,8 @@ dependencies:
   google_fonts: ^6.2.1
   share_plus: ^10.1.4
   provider: ^6.1.2
+  youtube_player_flutter: ^9.1.1
+  socket_io_client: ^3.1.2
 
 # path_provider_foundation 2.6.0 pulls the objective_c FFI package, whose
 # dylib fails to load on the iOS simulator (runtime dlopen error). 2.5.1 is
@@ -68,6 +70,8 @@ flutter:
     - assets/icons/contact/
     - assets/icons/create_order/
     - assets/icons/main/
+    - assets/icons/stream/
+    - assets/images/catalog/
 
   fonts:
     - family: Gilroy
@@ -89,9 +93,17 @@ flutter:
 
 flutter_native_splash:
   color: "#3DBFAD"
+  image: assets/images/bai_splash.png
+  # PNG горизонтальный (1024×456), Android 12+ требует квадратную icon-zone
+  # внутри круглой маски — без `fullscreen: true` система обрезала бы лого
+  # по бокам. Включаем fullscreen + увеличиваем поле вокруг лого.
+  fullscreen: true
+  android_gravity: center
+  ios_content_mode: center
   android_12:
     color: "#3DBFAD"
     icon_background_color: "#3DBFAD"
+    image: assets/images/bai_splash.png
 
   android: true
   ios: true

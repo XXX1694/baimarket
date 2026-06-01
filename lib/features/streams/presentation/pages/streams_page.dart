@@ -1,42 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/widgets/app_refresh_indicator.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../live/presentation/cubit/live_cubit.dart';
 import '../widgets/streams_app_bar.dart';
 import '../widgets/streams_avatar_list.dart';
 import '../widgets/streams_live_card.dart';
-
-const _mockStreams = [
-  StreamInfo(
-    id: '1',
-    imageUrl: 'https://picsum.photos/seed/s1/400/600',
-    name: 'Irysbala Ikrambay',
-    description: 'Автокөлік ойнатамыз!',
-  ),
-  StreamInfo(
-    id: '2',
-    imageUrl: 'https://picsum.photos/seed/s2/400/600',
-    name: 'Irysbala Ikramba...',
-    description: 'Жаңа коллекция!',
-  ),
-  StreamInfo(
-    id: '3',
-    imageUrl: 'https://picsum.photos/seed/s3/400/600',
-    name: 'Irysbala Ikramba...',
-    description: 'Арнайы жеңілдіктер!',
-  ),
-  StreamInfo(
-    id: '4',
-    imageUrl: 'https://picsum.photos/seed/s4/400/600',
-    name: 'Irysbala Ikramba...',
-    description: 'Косметика шолу',
-  ),
-  StreamInfo(
-    id: '5',
-    imageUrl: 'https://picsum.photos/seed/s5/400/600',
-    name: 'Irysbala Ikramba...',
-    description: 'Live Q&A',
-  ),
-];
 
 class StreamsPage extends StatefulWidget {
   const StreamsPage({super.key});
@@ -46,15 +17,27 @@ class StreamsPage extends StatefulWidget {
 }
 
 class _StreamsPageState extends State<StreamsPage> {
-  String _activeId = _mockStreams.first.id;
-
-  StreamInfo get _activeStream =>
-      _mockStreams.firstWhere((s) => s.id == _activeId);
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<LiveCubit>().connect();
+    });
+  }
 
   Future<void> _onRefresh() async {
-    await Future<void>.delayed(const Duration(milliseconds: 600));
-    if (!mounted) return;
-    setState(() {});
+    await context.read<LiveCubit>().refreshNow();
+  }
+
+  StreamInfo _activeStreamInfo(LiveState live) {
+    final info = live.streamInfo!;
+    return StreamInfo(
+      id: 'live',
+      imageUrl: info.thumbnailUrl ?? '',
+      name: info.channelTitle,
+      description: '',
+    );
   }
 
   @override
@@ -62,46 +45,120 @@ class _StreamsPageState extends State<StreamsPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: const Color(0xFF111111),
+        backgroundColor: const Color(0xFF1E1E1E),
         body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const StreamsAppBar(),
-              StreamsAvatarList(
-                streams: _mockStreams,
-                activeId: _activeId,
-                onSelect: (stream) => setState(() => _activeId = stream.id),
-              ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: AppRefreshIndicator(
-                  onRefresh: _onRefresh,
-                  dark: true,
-                  displacement: 24,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return SingleChildScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics(),
-                        ),
-                        child: SizedBox(
-                          height: constraints.maxHeight,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: StreamsLiveCard(stream: _activeStream),
-                          ),
-                        ),
-                      );
-                    },
+          bottom: false,
+          child: BlocBuilder<LiveCubit, LiveState>(
+            builder: (context, live) {
+              final hasLive =
+                  live.isStreamActive && live.streamInfo != null;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const StreamsAppBar(),
+                  if (hasLive) ...[
+                    StreamsAvatarList(
+                      streams: [_activeStreamInfo(live)],
+                      activeId: 'live',
+                      onSelect: (_) {},
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                  Expanded(
+                    child: AppRefreshIndicator(
+                      onRefresh: _onRefresh,
+                      dark: true,
+                      displacement: 24,
+                      child: hasLive
+                          ? _ActiveStreamBody(
+                              stream: _activeStreamInfo(live),
+                              live: live,
+                            )
+                          : const _NoStreamBody(),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 16),
-            ],
+                ],
+              );
+            },
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ActiveStreamBody extends StatelessWidget {
+  const _ActiveStreamBody({required this.stream, required this.live});
+  final StreamInfo stream;
+  final LiveState live;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      physics: const AlwaysScrollableScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+      children: [
+        StreamsLiveCard(stream: stream, live: live),
+      ],
+    );
+  }
+}
+
+class _NoStreamBody extends StatelessWidget {
+  const _NoStreamBody();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListView(
+      physics: const AlwaysScrollableScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.55,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.live_tv_rounded,
+                    color: Colors.white24,
+                    size: 72,
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    l10n.streamInactiveTitle,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: 'Gilroy',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.streamInactiveSubtitle,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: 'Gilroy',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white60,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

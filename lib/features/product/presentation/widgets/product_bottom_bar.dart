@@ -2,15 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../../core/app_pallete.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/auth/auth_gate.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../cart/presentation/cubit/cart_cubit.dart';
+import '../../../live/presentation/widgets/live_shopping_scope.dart';
 import '../../data/models/product_model.dart';
 
 class ProductBottomBar extends StatelessWidget {
   const ProductBottomBar({super.key, required this.model});
   final ProductModel model;
+
+  static const _teal = Color(0xFF21C7A3);
+  static const _radius = BorderRadius.all(Radius.circular(14));
 
   Future<void> _addToCart(BuildContext context) async {
     final cartCubit = context.read<CartCubit>();
@@ -24,13 +29,12 @@ class ProductBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     if (model.inStockCount != null && model.inStockCount! <= 0) {
       return const SizedBox.shrink();
     }
 
     return Container(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 32),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 32),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -42,122 +46,252 @@ class ProductBottomBar extends StatelessWidget {
         ],
       ),
       child: BlocBuilder<CartCubit, CartState>(
+        buildWhen: (prev, next) {
+          int qty(CartState s) =>
+              s is CartGot
+                  ? (s.cart.cartItems
+                              ?.where((i) => i.model?.id == model.id)
+                              .firstOrNull
+                              ?.quantity ??
+                          0)
+                  : 0;
+          return qty(prev) != qty(next);
+        },
         builder: (context, _) {
           final cubit = context.read<CartCubit>();
           final count = cubit.quantityOf(model.id);
 
-          if (count > 0) {
-            return Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      l10n.price(((model.price ?? 0) * count).toString()),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ),
-                    if (model.oldPrice != null)
-                      Text(
-                        l10n.oldPrice(model.oldPrice.toString()),
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey.shade500,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
-                  ],
-                ),
-                const Spacer(),
-                Container(
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF5F5F5),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Row(
-                    children: [
-                      CupertinoButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 14),
-                        onPressed: () => cubit.removeCart(id: model.id),
-                        child: SvgPicture.asset('assets/icons/minus_gray.svg'),
-                      ),
-                      Text(
-                        '$count',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                        ),
-                      ),
-                      CupertinoButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 14),
-                        onPressed: () => _addToCart(context),
-                        child: SvgPicture.asset('assets/icons/plus_gray.svg'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          }
+          final child = count > 0
+              ? _InCartRow(
+                  key: const ValueKey('in-cart'),
+                  count: count,
+                  unitPrice: model.price ?? 0,
+                  onRemove: () => cubit.removeCart(id: model.id),
+                  onAdd: () => _addToCart(context),
+                  onGoToCart: () {
+                    final scope = LiveShoppingScope.maybeOf(context);
+                    if (scope != null) {
+                      scope.openCart(context);
+                    } else {
+                      context.push('/cart');
+                    }
+                  },
+                )
+              : _BuyRow(
+                  key: const ValueKey('buy'),
+                  price: model.price ?? 0,
+                  oldPrice: model.oldPrice,
+                  onBuy: () => _addToCart(context),
+                );
 
-          return Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    l10n.price(model.price?.toString() ?? '0'),
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                  ),
-                  if (model.oldPrice != null)
-                    Text(
-                      l10n.oldPrice(model.oldPrice.toString()),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey.shade500,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                ],
-              ),
-              const Spacer(),
-              CupertinoButton(
-                padding: EdgeInsets.zero,
-                onPressed: () => _addToCart(context),
-                child: Container(
-                  height: 48,
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  decoration: BoxDecoration(
-                    color: mainColorLight,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Center(
-                    child: Text(
-                      l10n.buy,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 250),
+            child: child,
           );
         },
       ),
+    );
+  }
+}
+
+// ── State: 0 items ──────────────────────────────────────────────────────────
+
+class _BuyRow extends StatelessWidget {
+  const _BuyRow({
+    super.key,
+    required this.price,
+    required this.oldPrice,
+    required this.onBuy,
+  });
+  final int price;
+  final int? oldPrice;
+  final VoidCallback onBuy;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              l10n.price(price.toString()),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
+                fontFamily: GoogleFonts.inter().fontFamily,
+              ),
+            ),
+            if (oldPrice != null)
+              Text(
+                l10n.oldPrice(oldPrice.toString()),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey.shade500,
+                  decoration: TextDecoration.lineThrough,
+                  fontFamily: GoogleFonts.inter().fontFamily,
+                ),
+              ),
+          ],
+        ),
+        const Spacer(),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: onBuy,
+          child: Container(
+            height: 48,
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            decoration: const BoxDecoration(
+              color: ProductBottomBar._teal,
+              borderRadius: ProductBottomBar._radius,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/cart.svg',
+                  width: 20,
+                  height: 20,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.buy,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontFamily: 'Gilroy',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ── State: ≥1 items ─────────────────────────────────────────────────────────
+
+class _InCartRow extends StatelessWidget {
+  const _InCartRow({
+    super.key,
+    required this.count,
+    required this.unitPrice,
+    required this.onRemove,
+    required this.onAdd,
+    required this.onGoToCart,
+  });
+  final int count;
+  final int unitPrice;
+  final VoidCallback onRemove;
+  final VoidCallback onAdd;
+  final VoidCallback onGoToCart;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final total = l10n.price((count * unitPrice).toString());
+    return Row(
+      children: [
+        // Counter pill: [— count × price +]
+        Expanded(
+          child: Container(
+            height: 48,
+            decoration: BoxDecoration(
+              color: const Color(0xFFF0F0F0),
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Row(
+              children: [
+                CupertinoButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  onPressed: onRemove,
+                  child: const Text(
+                    '−',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    '$count × $total',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      fontFamily: GoogleFonts.inter().fontFamily,
+                    ),
+                  ),
+                ),
+                CupertinoButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  onPressed: onAdd,
+                  child: const Text(
+                    '+',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        // Go-to-cart button
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: onGoToCart,
+          child: Container(
+            height: 48,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: const BoxDecoration(
+              color: ProductBottomBar._teal,
+              borderRadius: ProductBottomBar._radius,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/cart.svg',
+                  width: 20,
+                  height: 20,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.goToCart,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontFamily: 'Gilroy',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

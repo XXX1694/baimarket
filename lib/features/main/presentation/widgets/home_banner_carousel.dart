@@ -1,19 +1,26 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../core/urls.dart';
-import '../../../../core/widgets/show_image.dart';
-import '../../data/models/banner_model.dart';
 
+/// Карусель промо-баннеров на главной. Использует локальные ассеты
+/// `assets/images/baner{1,2,3}.png` — сетевая загрузка через
+/// `MainCubit/banners` больше не используется (но cubit оставлен,
+/// чтобы не ломать другие места). Размер баннера фиксированный 350×320,
+/// центрирован, шире не растягивается даже на широких экранах.
 class HomeBannerCarousel extends StatefulWidget {
-  const HomeBannerCarousel({super.key, required this.banners});
-  final List<BannerModel> banners;
+  const HomeBannerCarousel({super.key});
 
   @override
   State<HomeBannerCarousel> createState() => _HomeBannerCarouselState();
 }
 
 class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
+  static const _assets = [
+    'assets/images/baner1.png',
+    'assets/images/baner2.png',
+    'assets/images/baner3.png',
+  ];
+  static const _height = 350.0;
+
   late final PageController _pageController;
   Timer? _autoSlideTimer;
   int _currentIndex = 0;
@@ -21,7 +28,7 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 1000);
+    _pageController = PageController(initialPage: 1000, viewportFraction: 1.0);
     _startAutoSlide();
   }
 
@@ -34,6 +41,7 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
 
   void _startAutoSlide() {
     _autoSlideTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+      if (!mounted) return;
       _pageController.nextPage(
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
@@ -43,37 +51,38 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.banners.isEmpty) return const SizedBox.shrink();
-
-    return Stack(
+    return SizedBox(
+      height: _height,
+      child: Stack(
         children: [
-          SizedBox(
-            height: 200,
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentIndex = index % widget.banners.length;
-                });
-              },
-              itemBuilder: (context, index) {
-                final bannerIndex = index % widget.banners.length;
-                final banner = widget.banners[bannerIndex];
-                return GestureDetector(
-                  onTap: () => context.push('/banner', extra: banner),
+          PageView.builder(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() => _currentIndex = index % _assets.length);
+            },
+            itemBuilder: (context, index) {
+              final asset = _assets[index % _assets.length];
+              return Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: double.infinity,
+                    maxHeight: _height,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: NetworkImageWidget(
-                        url: '$imgUrl${banner.photoUrl ?? ''}',
+                      child: Image.asset(
+                        asset,
                         fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
           Positioned(
             bottom: 16,
@@ -82,7 +91,7 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                widget.banners.length,
+                _assets.length,
                 (i) => AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   margin: const EdgeInsets.symmetric(horizontal: 3),
@@ -90,15 +99,17 @@ class _HomeBannerCarouselState extends State<HomeBannerCarousel> {
                   height: 10,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: _currentIndex == i
-                        ? Colors.white
-                        : Colors.white.withValues(alpha: 0.5),
+                    color:
+                        _currentIndex == i
+                            ? Colors.white
+                            : Colors.white.withValues(alpha: 0.5),
                   ),
                 ),
               ),
             ),
           ),
         ],
+      ),
     );
   }
 }

@@ -461,7 +461,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orders => 'Orders';
 
   @override
-  String get searchHint => 'What were you looking for?';
+  String get searchHomeHint => 'What were you looking for?';
 
   @override
   String get all => 'All';
@@ -771,4 +771,114 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get removeFromCartFailed => 'Couldn\'t remove from cart';
+
+  @override
+  String get paymentAmountTitle => 'Payment amount:';
+
+  @override
+  String get paymentSumLabel => 'Amount:';
+
+  @override
+  String get paymentCommissionLabel => 'Commission:';
+
+  @override
+  String get paymentTermsPart1 => 'By proceeding with the payment, you automatically';
+
+  @override
+  String get paymentTermsLinkText => 'agree';
+
+  @override
+  String get paymentTermsPart2 => 'to the terms';
+
+  @override
+  String get payButton => 'Pay';
+
+  @override
+  String get fromTitle => 'From';
+
+  @override
+  String get fromOtherCard => 'From another card';
+
+  @override
+  String get removeCardTitle => 'Remove card?';
+
+  @override
+  String get removeCardSubtitle => 'Are you sure you want to remove this card';
+
+  @override
+  String get removeAction => 'Remove';
+
+  @override
+  String get enterCardDataTitle => 'Enter card details';
+
+  @override
+  String get cardExpiryLabel => 'Expiry date';
+
+  @override
+  String get cardExpiryHint => 'MM/YY';
+
+  @override
+  String get cardCvvLabel => 'CVV code';
+
+  @override
+  String get saveCardData => 'Save card details';
+
+  @override
+  String get cardWarning => 'Make sure the card allows online transactions and has sufficient limit';
+
+  @override
+  String get orderAcceptedTitle => 'Your order is accepted!';
+
+  @override
+  String orderIdLabel(String id) {
+    return 'Order ID: $id';
+  }
+
+  @override
+  String get receiptItemsLabel => 'Items:';
+
+  @override
+  String get receiptSavedLabel => 'Saved:';
+
+  @override
+  String get receiptTicketsLabel => 'Tickets:';
+
+  @override
+  String get receiptPaymentMethodLabel => 'Payment method:';
+
+  @override
+  String get viewOrderStatus => 'View status';
+
+  @override
+  String get viewersLabel => 'Viewers';
+
+  @override
+  String get streamInactiveTitle => 'Stream is currently inactive';
+
+  @override
+  String get streamInactiveSubtitle => 'Wait for the broadcast to start';
+
+  @override
+  String get searchHint => 'Search products…';
+
+  @override
+  String get searchPrompt => 'Start typing to find a product';
+
+  @override
+  String get searchEmpty => 'Nothing found';
+
+  @override
+  String get searchError => 'Search failed. Please try again';
+
+  @override
+  String get onAirNow => 'On air now';
+
+  @override
+  String get giftButton => 'Gift';
+
+  @override
+  String get commentInputHint => 'Type a comment...';
+
+  @override
+  String get inCart => 'In Cart';
 }

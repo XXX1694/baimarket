@@ -4,6 +4,7 @@ import 'package:bai_market/features/cart/data/models/cart_item_model.dart';
 import 'package:bai_market/features/cart/data/models/cart_model.dart';
 import 'package:bai_market/features/cart/data/services/cart_services.dart';
 import 'package:bai_market/features/cart/domain/repositories/cart_repository.dart';
+import 'package:bai_market/core/services/app_logger.dart';
 import 'package:bai_market/features/product/data/models/product_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -85,26 +86,31 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<bool> addCart({required int id, ProductModel? product}) async {
+    cartLog.step('addCart', 'productId=$id');
     _applyDelta(id, 1, product: product);
     _emitCart();
     try {
       final result = await _cartRepository.addCart(id: id);
+      cartLog.api('addCart result', result.name);
       switch (result) {
         case AddCartResult.success:
           unawaited(_syncFromServer());
           return true;
         case AddCartResult.unauthenticated:
+          cartLog.warn('addCart unauthenticated → rollback + redirect');
           _applyDelta(id, -1);
           _emitCart();
           _events.add(CartAddUnauthenticatedEvent(id));
           return false;
         case AddCartResult.failed:
+          cartLog.warn('addCart failed → rollback');
           _applyDelta(id, -1);
           _emitCart();
           _events.add(const CartAddFailedEvent());
           return false;
       }
-    } catch (_) {
+    } catch (e, st) {
+      cartLog.error('addCart exception', e.toString(), e, st);
       _applyDelta(id, -1);
       _emitCart();
       _events.add(const CartAddFailedEvent());
@@ -112,20 +118,38 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
+  Future<void> clearCart() async {
+    final items = List<CartItemModel>.from(_cart?.cartItems ?? []);
+    _cart = _emptyCart();
+    _emitCart();
+    for (final item in items) {
+      for (int i = 0; i < item.quantity; i++) {
+        try {
+          await _cartRepository.removeCart(id: item.model!.id);
+        } catch (_) {}
+      }
+    }
+    unawaited(_syncFromServer());
+  }
+
   Future<void> removeCart({required int id}) async {
     if (quantityOf(id) <= 0) return;
+    cartLog.step('removeCart', 'productId=$id, qtyBefore=${quantityOf(id)}');
     _applyDelta(id, -1);
     _emitCart();
     try {
       final ok = await _cartRepository.removeCart(id: id);
+      cartLog.api('removeCart ok=$ok');
       if (!ok) {
+        cartLog.warn('removeCart failed → rollback');
         _applyDelta(id, 1);
         _emitCart();
         _events.add(const CartRemoveFailedEvent());
       } else {
         unawaited(_syncFromServer());
       }
-    } catch (_) {
+    } catch (e, st) {
+      cartLog.error('removeCart exception', e.toString(), e, st);
       _applyDelta(id, 1);
       _emitCart();
       _events.add(const CartRemoveFailedEvent());

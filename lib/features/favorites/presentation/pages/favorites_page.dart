@@ -124,7 +124,7 @@ CategoryProductModel _asCategoryProduct(ProductModel p) {
 
 class _GridView extends StatelessWidget {
   const _GridView({required this.favorites});
-  final List favorites;
+  final List<dynamic> favorites;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class _GridView extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        childAspectRatio: 0.55,
+        childAspectRatio: 0.54,
       ),
       itemCount: favorites.length,
       itemBuilder: (context, index) {
@@ -183,7 +183,7 @@ class _EmptyView extends StatelessWidget {
                 if (products.isEmpty) return const SizedBox.shrink();
                 final count = products.length > 10 ? 10 : products.length;
                 return SizedBox(
-                  height: 320,
+                  height: 339,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -11,5 +11,6 @@ abstract class CreateOrderRepository {
     required String? pickupUrl,
     required String? selfPickDate,
     required int? filialId,
+    required String paymentTypeSlug,
   });
 }
